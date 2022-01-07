@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { ColorName, getColor } from "../../../styles/color";
+import { getColor } from "../../../styles/color";
 
 export interface ButtonProps {
   className?: string;
@@ -29,8 +29,7 @@ export function FilledButton(props: ButtonProps) {
       backgroundColor={backgroundColor}
       backgroundColorHover={backgroundColorHover}
       foregroundColor={foregroundColor}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {children}
     </StyledButton>
   );

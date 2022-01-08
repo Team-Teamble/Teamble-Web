@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
-export interface ButtonProps {
+export interface LoginButtonProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
@@ -10,7 +10,7 @@ export interface ButtonProps {
   onClick(): void;
 }
 
-export function FilledButton(props: ButtonProps) {
+export function LoginButton(props: LoginButtonProps) {
   const { className, children, variant = "filled", onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;

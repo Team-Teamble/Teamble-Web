@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { getColor, teambleColors } from "../../../styles/color";
+import { teambleColors } from "../../../styles/color";
 
 export interface ButtonProps {
   className?: string;

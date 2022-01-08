@@ -1,4 +1,4 @@
-export const teambleColors = {
+export const teambleColors = Object.freeze({
   purple: "#916DFD",
   deepPurple: "#905DE3",
   darkPurple: "#5F25BE",
@@ -8,9 +8,6 @@ export const teambleColors = {
   darkGray: "#8E8E8E",
   white: "#ffffff",
   black: "#000000",
-};
+});
 
-export type ColorName = keyof typeof teambleColors;
-export function getColor(name: ColorName): string {
-  return teambleColors[name];
-}
+export type TeambleColorName = keyof typeof teambleColors;

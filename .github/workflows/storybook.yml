@@ -1,9 +1,7 @@
-name: Node.js CI
+name: Build Storybook
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:

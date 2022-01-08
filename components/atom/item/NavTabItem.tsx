@@ -25,27 +25,36 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  width: 10.94em;
-  height: 3.5em;
+  width: 12em;
+  height: 3.63em;
+  /* border: 1px solid black; */
 `;
 
 const StyledItemContent = styled.div<{
   selected: boolean;
 }>`
+  margin: 0;
   ${(props) => {
     if (props.selected) {
       return css`
         border-bottom: 3px solid ${teambleColors.black};
+
+        & > span {
+          font-size: 1.5em;
+          font-weight: 700;
+          color: ${teambleColors.black};
+        }
       `;
     } else {
       return css`
         border: 0;
+
+        & > span {
+          font-size: 1.5em;
+          font-weight: 500;
+          color: ${teambleColors.darkGray};
+        }
       `;
     }
   }}
-
-  & > span {
-    font-size: 1.5em;
-    font-weight: 700;
-  }
 `;

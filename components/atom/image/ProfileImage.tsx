@@ -3,15 +3,15 @@ import styled, { css } from "styled-components";
 
 export interface ProfileProps {
   className?: string;
-  path: string;
+  src: string;
   profileSize?: "extra-small" | "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
   onClick(): void;
 }
 
 export function ProfileImage(props: ProfileProps) {
-  const { className, path, profileSize = "medium", onClick } = props;
+  const { className, src, profileSize = "medium", onClick } = props;
 
-  return <StyledProfileImg src={path} profileSize={profileSize} onClick={onClick} />;
+  return <StyledProfileImg src={src} profileSize={profileSize} onClick={onClick} />;
 }
 
 const StyledProfileImg = styled.img<{

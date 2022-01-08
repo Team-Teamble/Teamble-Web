@@ -27,7 +27,6 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
   cursor: pointer;
   width: 12em;
   height: 3.63em;
-  /* border: 1px solid black; */
 `;
 
 const StyledItemContent = styled.div<{

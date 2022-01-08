@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { getColor } from "../../../styles/color";
+import { getColor, teambleColors } from "../../../styles/color";
 
 export interface ButtonProps {
   className?: string;
@@ -13,14 +13,14 @@ export interface ButtonProps {
 export function FilledButton(props: ButtonProps) {
   const { className, children, variant = "filled", onClick } = props;
 
-  let backgroundColor = getColor("primaryDark");
-  let backgroundColorHover = getColor("primaryLight");
-  let foregroundColor = getColor("white");
+  let backgroundColor = teambleColors.darkPurple;
+  let backgroundColorHover = teambleColors.purple;
+  let foregroundColor = teambleColors.white;
 
   if (variant === "outlined") {
-    backgroundColor = getColor("white");
-    backgroundColorHover = getColor("white");
-    foregroundColor = getColor("primaryDark");
+    backgroundColor = teambleColors.white;
+    backgroundColorHover = teambleColors.purple;
+    foregroundColor = teambleColors.darkPurple;
   }
 
   return (
@@ -49,13 +49,14 @@ const StyledButton = styled.button<{
   height: 3em;
 
   background-color: ${(props) => props.backgroundColor};
-  border-color: ${getColor("primary")};
+  border-color: ${teambleColors.darkPurple};
   color: ${(props) => props.foregroundColor};
 
   transition: all 0.3s;
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
-    border-color: ${getColor("primaryLight")};
+    border-color: ${teambleColors.purple};
+    color: ${teambleColors.white};
   }
 `;

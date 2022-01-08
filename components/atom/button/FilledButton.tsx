@@ -52,8 +52,6 @@ const StyledButton = styled.button<{
   border-color: ${teambleColors.darkPurple};
   color: ${(props) => props.foregroundColor};
 
-  transition: all 0.3s;
-
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
     border-color: ${teambleColors.purple};

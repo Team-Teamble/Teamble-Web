@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { teambleColors } from "../../../styles/color";
 
 export interface NavProfileNameProps {
   className?: string;
@@ -22,4 +23,5 @@ const StyledProfileName = styled.a`
 
   font-size: 1em;
   font-weight: 500;
+  color: #606060;
 `;

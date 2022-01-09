@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export interface AlertImageProps {
   className?: string;
-  src: string;
+  src?: string;
 
   onClick(): void;
 }
@@ -22,6 +22,6 @@ const StyledAlertWrapper = styled.a`
 `;
 
 const StyledAlertImg = styled.img`
-  width: 1.33em;
-  height: 1.18em;
+  width: 1.46em;
+  height: 1.67em;
 `;

@@ -11,8 +11,17 @@ export interface ProfileProps {
 export function ProfileImage(props: ProfileProps) {
   const { className, src, profileSize = "medium", onClick } = props;
 
-  return <StyledProfileImg src={src} profileSize={profileSize} onClick={onClick} />;
+  return (
+    <StyledImgWrapper>
+      <StyledProfileImg src={src} profileSize={profileSize} onClick={onClick} />
+    </StyledImgWrapper>
+  );
 }
+
+const StyledImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const StyledProfileImg = styled.img<{
   profileSize: string;

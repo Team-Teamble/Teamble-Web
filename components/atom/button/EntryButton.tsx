@@ -19,7 +19,7 @@ export function EntryButton(props: EntryButtonProps) {
   );
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.a`
   cursor: pointer;
 
   border: 0;

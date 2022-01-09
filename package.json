@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "cookies": "^0.8.0",
     "date-fns": "^2.28.0",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "recoil": "^0.5.2",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
@@ -26,6 +28,7 @@
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
     "@storybook/react": "^6.4.9",
+    "@types/cookies": "^0.7.7",
     "@types/react": "^17.0.38",
     "@types/styled-components": "^5.1.19",
     "@typescript-eslint/eslint-plugin": "^5.9.0",

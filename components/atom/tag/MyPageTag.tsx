@@ -5,26 +5,33 @@ import { teambleColors } from "../../../styles/color";
 export interface MyPageTagProps {
   className?: string;
   children?: string;
-  onClick(): void;
+  setIsActive(): void;
+  isActive: boolean;
 }
 
 export function MyPageTag(props: MyPageTagProps) {
-  const { children, className, onClick } = props;
+  const { children, className, setIsActive, isActive = false } = props;
+
+  function handleClick() {
+    setIsActive();
+  }
 
   return (
-    <StyledMyPageTag className={className} onClick={onClick}>
+    <StyledMyPageTag className={className} onClick={handleClick} isActive={isActive}>
       {children}
     </StyledMyPageTag>
   );
 }
 
-const StyledMyPageTag = styled.div`
+const StyledMyPageTag = styled.div<{
+  isActive: boolean;
+}>`
   display: inline-flex;
   box-sizing: border-box;
   align-items: center;
   letter-spacing: 0.03em;
-  background-color: ${teambleColors.white};
-  border: 1px solid ${teambleColors.deepGray};
+  background-color: ${(props) => (props.isActive ? teambleColors.lightPurple : teambleColors.white)};
+  border: 1px solid ${(props) => (props.isActive ? teambleColors.purple : teambleColors.deepGray)};
   border-radius: 2.2em;
   padding: 11px 20px 11px 20px;
   height: 43px;

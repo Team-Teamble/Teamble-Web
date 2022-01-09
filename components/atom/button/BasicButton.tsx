@@ -12,7 +12,7 @@ export interface BasicButtonProps {
 }
 
 export function BasicButton(props: BasicButtonProps) {
-  const { className, children, variant = "filled", disabled = true, onClick } = props;
+  const { className, children, variant = "filled", disabled = false, onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;
   let foregroundColor = teambleColors.white;

@@ -10,7 +10,7 @@ export interface BannerBtnProps {
   src: string;
 }
 
-export default function BannerBtn(props: BannerBtnProps) {
+export function BannerBtn(props: BannerBtnProps) {
   const { title, desc, href = "/", src, className } = props;
   return (
     <StyledBannerBtn className={className} href={href}>

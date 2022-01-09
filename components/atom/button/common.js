@@ -5,7 +5,7 @@ export const common = css`
   border: 1px solid;
   border-radius: 5px;
   outline: none;
-
+  box-sizing: border-box;
   width: 410px;
   height: 63px;
   line-height: 63px;

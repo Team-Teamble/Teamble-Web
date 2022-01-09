@@ -3,33 +3,25 @@ import styled from "styled-components";
 import { common } from "./common";
 import { teambleColors } from "../../../styles/color";
 
-export interface BasicButtonProps {
+export interface BasicLinkProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
-  disabled?: boolean;
-  onClick(): void;
+  href: string;
 }
 
-export function BasicButton(props: BasicButtonProps) {
-  const { className, children, variant = "filled", disabled = true, onClick } = props;
+export function BasicLink(props: BasicLinkProps) {
+  const { className, children, href, variant = "filled" } = props;
 
   let backgroundColor = teambleColors.darkPurple;
   let foregroundColor = teambleColors.white;
-  let borderColor = teambleColors.darkPurple;
-  let backgroundColorHover = teambleColors.purple;
+  const borderColor = teambleColors.darkPurple;
+  const backgroundColorHover = teambleColors.purple;
 
   if (variant === "outlined") {
     backgroundColor = teambleColors.white;
     foregroundColor = teambleColors.darkPurple;
   }
-  if (disabled) {
-    backgroundColor = teambleColors.lightPurple;
-    foregroundColor = teambleColors.deepGray;
-    borderColor = teambleColors.lightPurple;
-    backgroundColorHover = teambleColors.lightPurple;
-  }
-
   return (
     <StyledButton
       className={className}
@@ -37,21 +29,22 @@ export function BasicButton(props: BasicButtonProps) {
       backgroundColorHover={backgroundColorHover}
       foregroundColor={foregroundColor}
       borderColor={borderColor}
-      onClick={onClick}
-      isDisabled={disabled}>
+      href={href}>
       {children}
     </StyledButton>
   );
 }
 
-const StyledButton = styled.div<{
+const StyledButton = styled.a<{
   backgroundColor: string;
   foregroundColor: string;
   backgroundColorHover: string;
   borderColor: string;
-  isDisabled: boolean;
 }>`
   ${common}
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
 
   background-color: ${(props) => props.backgroundColor};
   border-color: ${(props) => props.borderColor};
@@ -59,7 +52,7 @@ const StyledButton = styled.div<{
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
-    border-color: ${(props) => (props.isDisabled ? props.borderColor : teambleColors.purple)};
-    color: ${(props) => (props.isDisabled ? props.foregroundColor : teambleColors.white)};
+    border-color: ${(props) => props.backgroundColorHover};
+    color: ${teambleColors.white};
   }
 `;

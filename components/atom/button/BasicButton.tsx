@@ -3,25 +3,33 @@ import styled from "styled-components";
 import { common } from "./common";
 import { teambleColors } from "../../../styles/color";
 
-export interface BasicLinkProps {
+export interface BasicButtonProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
-  href: string;
+  disabled?: boolean;
+  onClick(): void;
 }
 
-export function BasicLink(props: BasicLinkProps) {
-  const { className, children, href, variant = "filled" } = props;
+export function BasicButton(props: BasicButtonProps) {
+  const { className, children, variant = "filled", disabled = true, onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;
   let foregroundColor = teambleColors.white;
-  const borderColor = teambleColors.darkPurple;
-  const backgroundColorHover = teambleColors.purple;
+  let borderColor = teambleColors.darkPurple;
+  let backgroundColorHover = teambleColors.purple;
 
   if (variant === "outlined") {
     backgroundColor = teambleColors.white;
     foregroundColor = teambleColors.darkPurple;
   }
+  if (disabled) {
+    backgroundColor = teambleColors.lightPurple;
+    foregroundColor = teambleColors.deepGray;
+    borderColor = teambleColors.lightPurple;
+    backgroundColorHover = teambleColors.lightPurple;
+  }
+
   return (
     <StyledButton
       className={className}
@@ -29,29 +37,29 @@ export function BasicLink(props: BasicLinkProps) {
       backgroundColorHover={backgroundColorHover}
       foregroundColor={foregroundColor}
       borderColor={borderColor}
-      href={href}>
+      onClick={onClick}
+      isDisabled={disabled}
+      disabled={disabled}>
       {children}
     </StyledButton>
   );
 }
 
-const StyledButton = styled.a<{
+const StyledButton = styled.button<{
   backgroundColor: string;
   foregroundColor: string;
   backgroundColorHover: string;
   borderColor: string;
+  isDisabled: boolean;
 }>`
   ${common}
-  display: block;
-  text-decoration: none;
-
   background-color: ${(props) => props.backgroundColor};
   border-color: ${(props) => props.borderColor};
   color: ${(props) => props.foregroundColor};
-
+  cursor: ${(props) => (props.isDisabled ? "unset" : "pointer")};
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
-    border-color: ${(props) => props.backgroundColorHover};
-    color: ${teambleColors.white};
+    border-color: ${(props) => (props.isDisabled ? props.borderColor : teambleColors.purple)};
+    color: ${(props) => (props.isDisabled ? props.foregroundColor : teambleColors.white)};
   }
 `;

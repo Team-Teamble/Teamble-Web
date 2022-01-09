@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { BasicLink, BasicLinkProps } from "./BasicLink";
 
 export default {
-  title: "atom/login-button/BasicLink",
+  title: "atom/button/BasicLink",
   component: BasicLink,
 } as Meta;
 

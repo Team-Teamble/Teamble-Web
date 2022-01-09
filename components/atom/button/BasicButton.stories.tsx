@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { BasicButton, BasicButtonProps } from "./BasicButton";
 
 export default {
-  title: "atom/login-button/BasicButton",
+  title: "atom/button/BasicButton",
   component: BasicButton,
 } as Meta;
 

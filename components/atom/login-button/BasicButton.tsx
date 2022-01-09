@@ -1,26 +1,33 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { common } from "./common";
 import { teambleColors } from "../../../styles/color";
 
-export interface LoginButtonProps {
+export interface BasicButtonProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
-
+  disabled?: boolean;
   onClick(): void;
 }
 
-export function LoginButton(props: LoginButtonProps) {
-  const { className, children, variant = "filled", onClick } = props;
+export function BasicButton(props: BasicButtonProps) {
+  const { className, children, variant = "filled", disabled = true, onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;
-  let backgroundColorHover = teambleColors.purple;
   let foregroundColor = teambleColors.white;
+  let borderColor = teambleColors.darkPurple;
+  let backgroundColorHover = teambleColors.purple;
 
   if (variant === "outlined") {
     backgroundColor = teambleColors.white;
-    backgroundColorHover = teambleColors.purple;
     foregroundColor = teambleColors.darkPurple;
+  }
+  if (disabled) {
+    backgroundColor = teambleColors.lightPurple;
+    foregroundColor = teambleColors.deepGray;
+    borderColor = teambleColors.lightPurple;
+    backgroundColorHover = teambleColors.lightPurple;
   }
 
   return (
@@ -29,32 +36,30 @@ export function LoginButton(props: LoginButtonProps) {
       backgroundColor={backgroundColor}
       backgroundColorHover={backgroundColorHover}
       foregroundColor={foregroundColor}
-      onClick={onClick}>
+      borderColor={borderColor}
+      onClick={onClick}
+      isDisabled={disabled}>
       {children}
     </StyledButton>
   );
 }
 
-const StyledButton = styled.button<{
+const StyledButton = styled.div<{
   backgroundColor: string;
   foregroundColor: string;
   backgroundColorHover: string;
+  borderColor: string;
+  isDisabled: boolean;
 }>`
-  text-align: center;
-  border: 1px solid;
-  border-radius: 5px;
-  outline: none;
-
-  width: 10em;
-  height: 3em;
+  ${common}
 
   background-color: ${(props) => props.backgroundColor};
-  border-color: ${teambleColors.darkPurple};
+  border-color: ${(props) => props.borderColor};
   color: ${(props) => props.foregroundColor};
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
-    border-color: ${teambleColors.purple};
-    color: ${teambleColors.white};
+    border-color: ${(props) => (props.isDisabled ? props.borderColor : teambleColors.purple)};
+    color: ${(props) => (props.isDisabled ? props.foregroundColor : teambleColors.white)};
   }
 `;

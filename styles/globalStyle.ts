@@ -7,10 +7,21 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 62.5%;
     }
 
+    * {
+        transition: ${createTransitionQuery()};
+    }
+
     input, button, select, textarea, optgroup, option {
         font-family: inherit;
         font-size: inherit;
         font-style: inherit;
         font-weight: inherit;
     }
+
 `;
+
+function createTransitionQuery() {
+  const properties = ["color", "background-color", "border-color"];
+
+  return properties.map((prop) => `${prop} 0.3s`).join(", ");
+}

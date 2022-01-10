@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { getColor, teambleColors } from "../../../styles/color";
+import { teambleColors } from "../../../styles/color";
 
-export interface ButtonProps {
+export interface LoginButtonProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
@@ -10,7 +10,7 @@ export interface ButtonProps {
   onClick(): void;
 }
 
-export function FilledButton(props: ButtonProps) {
+export function LoginButton(props: LoginButtonProps) {
   const { className, children, variant = "filled", onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;
@@ -51,8 +51,6 @@ const StyledButton = styled.button<{
   background-color: ${(props) => props.backgroundColor};
   border-color: ${teambleColors.darkPurple};
   color: ${(props) => props.foregroundColor};
-
-  transition: all 0.3s;
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};

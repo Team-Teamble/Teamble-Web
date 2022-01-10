@@ -1,0 +1,36 @@
+name: Build Storybook
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+        
+    - run: mkdir dist
+    - run: touch dist/.nojekyll
+    
+    - run: yarn install
+    - run: yarn build-storybook
+    - run: mv storybook-static ./dist/storybook
+    
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@master
+      env:
+          REPO: self
+          BRANCH: gh-pages
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

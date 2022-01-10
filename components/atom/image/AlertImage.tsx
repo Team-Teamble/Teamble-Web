@@ -22,6 +22,6 @@ const StyledAlertWrapper = styled.a`
 `;
 
 const StyledAlertImg = styled.img`
-  width: 1.46em;
-  height: 1.67em;
+  width: 2.36em;
+  height: 2.36em;
 `;

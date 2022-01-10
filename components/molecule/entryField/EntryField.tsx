@@ -14,11 +14,9 @@ export function EntryField(props: EntryFieldProps) {
   return (
     <StyledWrapper>
       <EntryButton className="login" onClick={onClick}>
-        {" "}
-        로그인{" "}
+        로그인
       </EntryButton>
       <EntryButton className="register" onClick={onClick}>
-        {" "}
         회원가입
       </EntryButton>
     </StyledWrapper>

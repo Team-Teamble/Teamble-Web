@@ -25,8 +25,8 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  width: 12em;
-  height: 3.63em;
+  width: 19.2em;
+  height: 5.8em;
 `;
 
 const StyledItemContent = styled.div<{
@@ -39,7 +39,7 @@ const StyledItemContent = styled.div<{
         border-bottom: 3px solid ${teambleColors.black};
 
         & > span {
-          font-size: 1.5em;
+          font-size: 24px;
           font-weight: 700;
           color: ${teambleColors.black};
         }
@@ -49,7 +49,7 @@ const StyledItemContent = styled.div<{
         border: 0;
 
         & > span {
-          font-size: 1.5em;
+          font-size: 24px;
           font-weight: 500;
           color: ${teambleColors.darkGray};
         }

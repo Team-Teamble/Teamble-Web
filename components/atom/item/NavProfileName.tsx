@@ -21,7 +21,7 @@ export function NavProfileName(props: NavProfileNameProps) {
 const StyledProfileName = styled.a`
   cursor: pointer;
 
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
   color: #606060;
 `;

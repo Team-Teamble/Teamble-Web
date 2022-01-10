@@ -33,11 +33,11 @@ const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 7.85em;
-  height: 2.32em;
+  width: 12.56em;
+  height: 3.71em;
 
   & > a {
-    padding-top: 0.18em;
+    padding-top: 0.28em;
   }
 `;
 
@@ -47,6 +47,6 @@ const StyledProfileWrapper = styled.div`
   height: 100%;
 
   & > div {
-    padding-right: 0.46em;
+    padding-right: 0.73em;
   }
 `;

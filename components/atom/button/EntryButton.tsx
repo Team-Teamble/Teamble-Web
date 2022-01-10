@@ -5,12 +5,18 @@ import { teambleColors } from "../../../styles/color";
 export interface EntryButtonProps {
   className?: string;
   children: ReactNode;
+
+  onClick(): void;
 }
 
 export function EntryButton(props: EntryButtonProps) {
-  const { className, children } = props;
+  const { className, children, onClick } = props;
 
-  return <StyledButton className={className}>{children}</StyledButton>;
+  return (
+    <StyledButton className={className} onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 }
 
 const StyledButton = styled.a`
@@ -18,13 +24,11 @@ const StyledButton = styled.a`
 
   border: 0;
   outline: 0;
+  padding-right: 1.6em;
   background-color: transparent;
 
-  width: 5.63em;
-  height: 1.25em;
-
   color: ${teambleColors.darkGray};
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
 
   &:hover {

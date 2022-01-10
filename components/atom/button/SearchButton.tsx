@@ -25,17 +25,17 @@ const StyledSearchBtn = styled.button`
 
   background-color: ${teambleColors.white};
   border: 1px solid ${teambleColors.deepPurple};
-  border-radius: 1.78em;
+  border-radius: 2.48em;
 
-  font-size: 1.13em;
+  font-size: 18px;
   color: ${teambleColors.deepPurple};
 
-  padding: 0.85em 2.38em;
+  padding: 1.36em 3.8em;
 
   & > img {
-    width: 1.23em;
-    height: 1.23em;
-    padding-right: 0.63em;
+    width: 1.96em;
+    height: 1.96em;
+    padding-right: 1em;
   }
 
   &:hover {

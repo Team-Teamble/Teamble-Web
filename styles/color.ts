@@ -1,4 +1,5 @@
 export const teambleColors = Object.freeze({
+  lightPurple: "#F9F8FF",
   purple: "#916DFD",
   deepPurple: "#905DE3",
   darkPurple: "#5F25BE",

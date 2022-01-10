@@ -1,60 +1,58 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { common } from "./common";
 import { teambleColors } from "../../../styles/color";
 
-export interface LoginButtonProps {
+export interface BasicLinkProps {
   className?: string;
   children: ReactNode;
   variant?: "filled" | "outlined";
-
-  onClick(): void;
+  href: string;
 }
 
-export function LoginButton(props: LoginButtonProps) {
-  const { className, children, variant = "filled", onClick } = props;
+export function BasicLink(props: BasicLinkProps) {
+  const { className, children, href, variant = "filled" } = props;
 
   let backgroundColor = teambleColors.darkPurple;
-  let backgroundColorHover = teambleColors.purple;
   let foregroundColor = teambleColors.white;
+  const borderColor = teambleColors.darkPurple;
+  const backgroundColorHover = teambleColors.purple;
 
   if (variant === "outlined") {
     backgroundColor = teambleColors.white;
-    backgroundColorHover = teambleColors.purple;
     foregroundColor = teambleColors.darkPurple;
   }
-
   return (
     <StyledButton
       className={className}
       backgroundColor={backgroundColor}
       backgroundColorHover={backgroundColorHover}
       foregroundColor={foregroundColor}
-      onClick={onClick}>
+      borderColor={borderColor}
+      href={href}>
       {children}
     </StyledButton>
   );
 }
 
-const StyledButton = styled.button<{
+const StyledButton = styled.a<{
   backgroundColor: string;
   foregroundColor: string;
   backgroundColorHover: string;
+  borderColor: string;
 }>`
-  text-align: center;
-  border: 1px solid;
-  border-radius: 5px;
-  outline: none;
-
-  width: 10em;
-  height: 3em;
+  ${common}
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
 
   background-color: ${(props) => props.backgroundColor};
-  border-color: ${teambleColors.darkPurple};
+  border-color: ${(props) => props.borderColor};
   color: ${(props) => props.foregroundColor};
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
-    border-color: ${teambleColors.purple};
+    border-color: ${(props) => props.backgroundColorHover};
     color: ${teambleColors.white};
   }
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
@@ -6,14 +6,22 @@ export interface BasicTagProps {
   className?: string;
   tagSize?: "small" | "big";
   children?: string;
+  src?: string;
+  id: string;
+  deleteTag?(id: string): void;
 }
 
 export function BasicTag(props: BasicTagProps) {
-  const { tagSize = "small", children, className } = props;
+  const { tagSize = "small", children, className, src, deleteTag, id } = props;
+
+  function handleDelete(): void {
+    deleteTag && deleteTag(id);
+  }
 
   return (
-    <StyledBasicTag className={className} tagSize={tagSize}>
+    <StyledBasicTag className={className} tagSize={tagSize} onClick={handleDelete}>
       {children}
+      {src && <StyledDelete src={src} />}
     </StyledBasicTag>
   );
 }
@@ -43,4 +51,10 @@ const StyledBasicTag = styled.div<{
           font-size: 16px;
           padding: 11px 20px 11px 20px;
         `}
+`;
+
+const StyledDelete = styled.img`
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 1.45em;
 `;

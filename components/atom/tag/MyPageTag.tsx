@@ -36,7 +36,7 @@ const StyledMyPageTag = styled.div<{
   padding: 11px 20px 11px 20px;
   height: 43px;
   font-size: 16px;
-
+  cursor: pointer;
   color: #5c5c5c;
   //추후 수정
 

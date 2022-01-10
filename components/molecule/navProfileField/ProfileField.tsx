@@ -6,23 +6,22 @@ import { NavProfileName } from "../../atom/item/NavProfileName";
 
 export interface ProfileFieldProps {
   className?: string;
-  alertSrc: string;
-  src: string;
+  alerImgSrc: string;
+  profileImgSrc: string;
   children: ReactNode;
 
   onClick(): void;
 }
 
 export function ProfileField(props: ProfileFieldProps) {
-  const { className, alertSrc, src, children, onClick } = props;
+  const { className, alerImgSrc, profileImgSrc, children, onClick } = props;
   return (
     <StyledWrapper className={className}>
-      <AlertImage className={className} src={alertSrc} onClick={onClick} />
+      <AlertImage className={className} src={alerImgSrc} onClick={onClick} />
       <StyledProfileWrapper>
-        <ProfileImage className={className} src={src} profileSize="small" onClick={onClick} />
+        <ProfileImage className={className} src={profileImgSrc} profileSize="small" onClick={onClick} />
         <NavProfileName className={className} onClick={onClick}>
-          {" "}
-          {children}{" "}
+          {children}
         </NavProfileName>
       </StyledProfileWrapper>
     </StyledWrapper>

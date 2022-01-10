@@ -4,7 +4,7 @@ import { teambleColors } from "../../../styles/color";
 
 export interface SearchButtonProps {
   className?: string;
-  src: string;
+  src: string; // 나중에 돋보기는 src 말고, 아이콘으로 직접 넣을 것.
   onClick(): void;
 }
 

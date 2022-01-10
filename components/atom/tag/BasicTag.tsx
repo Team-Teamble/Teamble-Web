@@ -7,8 +7,8 @@ export interface BasicTagProps {
   tagSize?: "small" | "big";
   children?: string;
   src?: string;
-  id: string;
-  deleteTag?(id: string): void;
+  id: number;
+  deleteTag?(id: number): void;
 }
 
 export function BasicTag(props: BasicTagProps) {

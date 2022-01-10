@@ -1,26 +1,26 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface MakeProjectFoldButtonProps {
-  title: string;
+  name: string;
   currentOption: number;
   isChecked?: boolean;
-  handleCheck(): void;
-  id: string;
+  id: number;
+  setIsOpened: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {
-  const { isChecked = false, handleCheck, title, currentOption } = props;
+  const { isChecked = false, name, currentOption, setIsOpened } = props;
 
-  function handleClick() {
-    handleCheck();
+  function handleOpen() {
+    setIsOpened((state) => !state);
   }
 
   return (
     <StyledFoldButton>
-      <StyledTitle isChecked={isChecked}>{title}</StyledTitle>
-      <StyledButton isChecked={isChecked} onClick={handleClick}>
+      <StyledTitle isChecked={isChecked}>{name}</StyledTitle>
+      <StyledButton isChecked={isChecked} onClick={handleOpen}>
         {currentOption} 명
       </StyledButton>
     </StyledFoldButton>
@@ -28,8 +28,8 @@ export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {
 }
 
 const StyledFoldButton = styled.div`
-  width: 380px;
-  height: 66px;
+  width: 100%;
+  height: 100%;
   font-size: 20px;
   letter-spacing: 0.03em;
   display: flex;
@@ -53,6 +53,7 @@ const StyledButton = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   width: 50%;
   border: 1px solid ${(props) => (props.isChecked ? teambleColors.deepPurple : teambleColors.deepGray)};
   color: ${(props) => (props.isChecked ? teambleColors.deepPurple : teambleColors.deepGray)};

@@ -5,7 +5,7 @@ import { teambleColors } from "../../../styles/color";
 export interface MakeProjectButtonProps {
   children: string;
   isChecked: boolean;
-  id: string;
+  id: number;
   handleCheck(): void;
 }
 

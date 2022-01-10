@@ -4,6 +4,13 @@ import { MakeProjectFoldButtonProps, MakeProjectFoldButton } from "./MakeProject
 export default {
   title: "atom/button/MakeProjectFoldButton",
   component: MakeProjectFoldButton,
+  decorators: [
+    (Story) => (
+      <div style={{ width: "380px", height: "66px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 } as Meta;
 
 const Template: Story<MakeProjectFoldButtonProps> = (args) => {
@@ -12,6 +19,7 @@ const Template: Story<MakeProjectFoldButtonProps> = (args) => {
 
 export const Basic = Template.bind({});
 Basic.args = {
-  title: "기획자",
+  id: 1,
+  name: "기획자",
   currentOption: 0,
 } as MakeProjectFoldButtonProps;

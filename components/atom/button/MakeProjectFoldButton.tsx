@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
@@ -7,7 +7,7 @@ export interface MakeProjectFoldButtonProps {
   currentOption: number;
   isChecked?: boolean;
   id: number;
-  setIsOpened: React.Dispatch<SetStateAction<boolean>>;
+  setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {

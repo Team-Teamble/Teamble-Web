@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { AlertImage } from "../../atom/image/AlertImage";
 import { ProfileImage } from "../../atom/image/ProfileImage";
@@ -8,19 +8,22 @@ export interface ProfileFieldProps {
   className?: string;
   alertSrc: string;
   src: string;
-  value: string;
+  children: ReactNode;
 
   onClick(): void;
 }
 
 export function ProfileField(props: ProfileFieldProps) {
-  const { className, alertSrc, src, value, onClick } = props;
+  const { className, alertSrc, src, children, onClick } = props;
   return (
     <StyledWrapper className={className}>
       <AlertImage className={className} src={alertSrc} onClick={onClick} />
       <StyledProfileWrapper>
         <ProfileImage className={className} src={src} profileSize="small" onClick={onClick} />
-        <NavProfileName className={className} value={value} onClick={onClick} />
+        <NavProfileName className={className} onClick={onClick}>
+          {" "}
+          {children}{" "}
+        </NavProfileName>
       </StyledProfileWrapper>
     </StyledWrapper>
   );

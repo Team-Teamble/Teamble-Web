@@ -20,3 +20,6 @@ const Template: Story<ProfileFieldProps> = (args) => {
 };
 
 export const Basic = Template.bind({});
+Basic.args = {
+  children: "마가렛",
+};

@@ -12,5 +12,5 @@ const Template: Story<EntryButtonProps> = (args) => {
 
 export const Entry = Template.bind({});
 Entry.args = {
-  value: "로그인",
+  children: "로그인",
 } as EntryButtonProps;

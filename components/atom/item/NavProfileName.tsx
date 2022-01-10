@@ -1,19 +1,19 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface NavProfileNameProps {
   className?: string;
-  value: string;
+  children: ReactNode;
 
   onClick(): void;
 }
 
 export function NavProfileName(props: NavProfileNameProps) {
-  const { className, value = "마가렛", onClick } = props;
+  const { className, children = "마가렛", onClick } = props;
   return (
     <StyledProfileName className={className} onClick={onClick}>
-      {value}
+      {children}
     </StyledProfileName>
   );
 }

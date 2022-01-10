@@ -11,3 +11,6 @@ const Template: Story<NavTabItemProps> = (args) => {
 };
 
 export const Basic = Template.bind({});
+Basic.args = {
+  children: "팀블 소개",
+};

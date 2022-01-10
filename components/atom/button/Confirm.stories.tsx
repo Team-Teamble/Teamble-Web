@@ -12,5 +12,5 @@ const Template: Story<ConfirmButtonProps> = (args) => {
 
 export const Confirm = Template.bind({});
 Confirm.args = {
-  value: "프로젝트 완료",
+  children: "프로젝트 완료",
 } as ConfirmButtonProps;

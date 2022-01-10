@@ -5,7 +5,6 @@ import { teambleColors } from "../../../styles/color";
 export interface SearchButtonProps {
   className?: string;
   src: string;
-
   onClick(): void;
 }
 

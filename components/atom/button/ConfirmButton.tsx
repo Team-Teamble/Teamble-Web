@@ -1,20 +1,20 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface ConfirmButtonProps {
   className?: string;
   src: string;
-  value: string;
+  children: ReactNode;
 
   onClick(): void;
 }
 
 export function ConfirmButton(props: ConfirmButtonProps) {
-  const { className, src, value, onClick } = props;
+  const { className, src, children, onClick } = props;
   return (
     <StyledSearchBtn onClick={onClick}>
-      <span>{value}</span>
+      <span>{children}</span>
     </StyledSearchBtn>
   );
 }

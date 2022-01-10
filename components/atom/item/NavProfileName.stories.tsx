@@ -11,3 +11,6 @@ const Template: Story<NavProfileNameProps> = (args) => {
 };
 
 export const Profilename = Template.bind({});
+Profilename.args = {
+  children: "마가렛",
+};

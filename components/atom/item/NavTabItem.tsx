@@ -1,21 +1,21 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface NavTabItemProps {
   className?: string;
-  value?: string;
+  children: ReactNode;
   selected: boolean;
   onClick(): void;
 }
 
 export function NavTabItem(props: NavTabItemProps) {
-  const { className = "first", value = "팀블 소개", selected, onClick } = props;
+  const { className = "first", children, selected, onClick } = props;
 
   return (
     <StyledNavTabItem className={className} selected={selected} onClick={onClick}>
       <StyledItemContent selected={selected}>
-        <span>{value}</span>
+        <span>{children}</span>
       </StyledItemContent>
     </StyledNavTabItem>
   );

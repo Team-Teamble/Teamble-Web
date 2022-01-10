@@ -1,22 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface EntryButtonProps {
   className?: string;
-  value: string;
-
-  onClick(): void;
+  children: ReactNode;
 }
 
 export function EntryButton(props: EntryButtonProps) {
-  const { className, value = "로그인", onClick } = props;
+  const { className, children } = props;
 
-  return (
-    <StyledButton className={className} onClick={onClick}>
-      {value}
-    </StyledButton>
-  );
+  return <StyledButton className={className}>{children}</StyledButton>;
 }
 
 const StyledButton = styled.a`

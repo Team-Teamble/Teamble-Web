@@ -49,6 +49,7 @@ const StyledOption = styled.li`
   border-bottom: 1px solid #dfdfdf;
   padding: 8px 0;
   cursor: pointer;
+
   &:hover {
     color: ${teambleColors.deepPurple};
   }

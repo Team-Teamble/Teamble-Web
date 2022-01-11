@@ -10,7 +10,7 @@ export const teambleColors = Object.freeze({
   deepGray: "#9D9D9D",
   darkGray: "#8E8E8E",
   white: "#ffffff",
-  black: "#000000",
+  black: "#121212",
 });
 
 export type TeambleColorName = keyof typeof teambleColors;

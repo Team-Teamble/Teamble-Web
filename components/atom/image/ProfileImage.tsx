@@ -36,8 +36,8 @@ const StyledProfileImg = styled.img<{
       `;
     } else if (props.profileSize === "small") {
       return css`
-        width: 3.261em;
-        height: 3.261em;
+        width: 3.3em;
+        height: 3.3em;
       `;
     } else if (props.profileSize === "medium") {
       return css`

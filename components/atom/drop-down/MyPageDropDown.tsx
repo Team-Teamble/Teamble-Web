@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
-export interface PositionDropDownProps {
+export interface MyPageDropDownProps {
   options: { id: number; name: string }[];
   onClick(): void;
 }
 
-export function PositionDropDown(props: PositionDropDownProps) {
+export function MyPageDropDown(props: MyPageDropDownProps) {
   const { options, onClick } = props;
 
   return (
-    <StyledPositionDropDown>
+    <StyledMyPageDropDown>
       {/* 최대 개수 추후 프롭으로 전달 */}
       <StyledMaximum>최대 2개 선택</StyledMaximum>
       {options.map(({ id, name }) => (
@@ -19,11 +19,11 @@ export function PositionDropDown(props: PositionDropDownProps) {
           {name}
         </StyledOption>
       ))}
-    </StyledPositionDropDown>
+    </StyledMyPageDropDown>
   );
 }
 
-const StyledPositionDropDown = styled.ul`
+const StyledMyPageDropDown = styled.ul`
   box-sizing: border-box;
   width: 147px;
   box-shadow: 0.2em 0.6em 1.2em rgba(0, 0, 0, 0.12);

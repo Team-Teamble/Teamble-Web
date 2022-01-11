@@ -1,6 +1,7 @@
 import Cookies from "cookies";
 import { GetServerSideProps } from "next";
 import { setAccessToken } from "../../api";
+import { UnauthorizedError } from "../../api/util/error";
 
 export function withAuth<T>(fn: GetServerSideProps<T>): GetServerSideProps<T> {
   return async (context) => {
@@ -8,22 +9,31 @@ export function withAuth<T>(fn: GetServerSideProps<T>): GetServerSideProps<T> {
     const token = cookies.get("accessToken") ?? null;
 
     if (token === null) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
+      return loginRedirection;
     }
 
     setAccessToken(token);
 
-    const result = await fn(context);
+    try {
+      const result = await fn(context);
 
-    if ("props" in result) {
-      return { props: { ...result.props, accessToken: token } };
+      if ("props" in result) {
+        return { props: { ...result.props, accessToken: token } };
+      }
+
+      return result;
+    } catch (e) {
+      if (e instanceof UnauthorizedError) {
+        return loginRedirection;
+      }
+      throw e;
     }
-
-    return result;
   };
 }
+
+const loginRedirection = {
+  redirect: {
+    destination: "/login",
+    permanent: false,
+  },
+};

@@ -5,7 +5,7 @@ export interface ProfileProps {
   className?: string;
   src: string;
   profileSize?: "extra-small" | "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
-  onClick(): void;
+  onClick?(): void;
 }
 
 export function ProfileImage(props: ProfileProps) {

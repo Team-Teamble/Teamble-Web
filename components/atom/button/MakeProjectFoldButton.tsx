@@ -4,7 +4,7 @@ import { teambleColors } from "../../../styles/color";
 
 export interface MakeProjectFoldButtonProps {
   name: string;
-  currentOption: number;
+  currentOption: string;
   isChecked?: boolean;
   id: number;
   setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +21,7 @@ export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {
     <StyledFoldButton>
       <StyledTitle isChecked={isChecked}>{name}</StyledTitle>
       <StyledButton isChecked={isChecked} onClick={handleOpen}>
-        {currentOption} 명
+        {currentOption}
       </StyledButton>
     </StyledFoldButton>
   );

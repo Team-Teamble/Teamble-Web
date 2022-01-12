@@ -3,52 +3,58 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface SingleDropDownProps {
-  positionNum: { id: number; name: number }[];
+  options: { id: number; option: string }[];
   handleSelect(selectedId: number): void;
+  isFilter: boolean;
 }
 
 export function SingleDropDown(props: SingleDropDownProps) {
-  const { positionNum, handleSelect } = props;
+  const { options, handleSelect, isFilter } = props;
 
   return (
-    <StyledSingleDropDown>
-      {positionNum.map((option) => (
-        <StyledOption key={option.id} onClick={() => handleSelect(option.id)}>
-          {option.name} 명
+    <StyledSingleDropDown isFilter={isFilter}>
+      {options.map((option) => (
+        <StyledOption key={option.id} onClick={() => handleSelect(option.id)} isFilter={isFilter}>
+          {option.option}
         </StyledOption>
       ))}
     </StyledSingleDropDown>
   );
 }
 
-const StyledSingleDropDown = styled.ul`
+const StyledSingleDropDown = styled.ul<{
+  isFilter: boolean;
+}>`
   position: absolute;
   box-sizing: border-box;
-  width: 147px;
+  width: ${(props) => (props.isFilter ? "100%" : "147px")};
   background-color: ${teambleColors.white};
   box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   padding: 0 1.2em;
   top: calc(100% + 4px);
-  left: 75%;
+  left: ${(props) => (props.isFilter ? "50%" : "75%")};
   transform: translateX(-50%);
 
   li:last-child {
     border: none;
   }
 `;
-const StyledOption = styled.li`
+const StyledOption = styled.li<{
+  isFilter: boolean;
+}>`
   width: 100%;
   height: 40px;
-  line-height: 40px;
   font-size: 16px;
   color: ${teambleColors.darkGray};
   letter-spacing: -0.6px;
-  text-align: center;
+  text-align: ${(props) => (props.isFilter ? "left" : "center")};
   list-style-type: none;
   border-bottom: 1px solid #dfdfdf;
   padding: 8px 0;
+  box-sizing: border-box;
   cursor: pointer;
+
   &:hover {
     color: ${teambleColors.deepPurple};
   }

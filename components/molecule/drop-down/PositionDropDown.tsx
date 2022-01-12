@@ -33,13 +33,17 @@ export function PositionDropDown(props: PositionDropDownProps) {
     return option;
   }
 
+  function handleOpen() {
+    setIsOpened((state) => !state);
+  }
+
   return (
     <StyledPositionDropDown>
       <MakeProjectFoldButton
         name={name}
         id={id}
         currentOption={setCurrentOption()}
-        setIsOpened={setIsOpened}
+        handleOpen={handleOpen}
         isChecked={isChecked}
       />
       {isOpened && <SingleDropDown options={positionNum} handleSelect={handleSelect} isFilter={false}></SingleDropDown>}

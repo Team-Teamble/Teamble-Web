@@ -12,3 +12,5 @@ export const common = css`
   font-size: 18px;
   font-weight: 500;
 `;
+
+export type Common = typeof common;

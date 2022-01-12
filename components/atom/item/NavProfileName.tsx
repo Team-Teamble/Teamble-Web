@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { teambleColors } from "../../../styles/color";
 
 export interface NavProfileNameProps {
   className?: string;

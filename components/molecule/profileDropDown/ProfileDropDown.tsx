@@ -18,11 +18,11 @@ export interface ProfileDropDownProps {
 export function ProfileDropDown(props: ProfileDropDownProps) {
   const { className, profileImgSrc, arrowImgSrc, userName, profileLink, mypageLink, logoutLink, onClick } = props;
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <StyledProfileWrapper>
-        <ProfileImage className="profile-img" src={profileImgSrc} profileSize="small" onClick={onClick} />
+        <ProfileImage src={profileImgSrc} profileSize="small" onClick={onClick} />
         <StyledInfoWrapper>
-          <span className="username">{userName.userName}</span>
+          <span>{userName.userName}</span>
           <a href={profileLink} onClick={onClick}>
             프로필 설정
             <img src={arrowImgSrc} alt="arrow-icon" />
@@ -30,12 +30,8 @@ export function ProfileDropDown(props: ProfileDropDownProps) {
         </StyledInfoWrapper>
       </StyledProfileWrapper>
       <StyledMenuWrapper>
-        <a href={mypageLink} className="mypage-item">
-          마이페이지
-        </a>
-        <a href={logoutLink} className="logout-item">
-          로그아웃
-        </a>
+        <a href={mypageLink}>마이페이지</a>
+        <a href={logoutLink}>로그아웃</a>
       </StyledMenuWrapper>
     </StyledWrapper>
   );

@@ -7,15 +7,11 @@ export interface MakeProjectFoldButtonProps {
   currentOption: string;
   isChecked?: boolean;
   id: number;
-  setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOpen(): void;
 }
 
 export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {
-  const { isChecked = false, name, currentOption, setIsOpened } = props;
-
-  function handleOpen() {
-    setIsOpened((state) => !state);
-  }
+  const { isChecked = false, name, currentOption, handleOpen } = props;
 
   return (
     <StyledFoldButton>

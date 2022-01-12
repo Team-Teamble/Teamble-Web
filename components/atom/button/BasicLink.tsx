@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { common } from "./common";
+import { common } from "../../../styles/common";
 import { teambleColors } from "../../../styles/color";
 
 export interface BasicLinkProps {

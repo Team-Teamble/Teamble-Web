@@ -33,8 +33,10 @@ const StyledWrapper = styled.div<{
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: ${(props) => (props.isTagBox ? "0.6em 1.25em" : "0 1.25em")};
+  /* padding: ${(props) => (props.isTagBox ? "0.61em 1.11em" : "0 1.25em")}; */
+  padding: 0.61em 1.11em;
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
+
   box-sizing: border-box;
   border-radius: 0.38em;
 
@@ -47,7 +49,10 @@ const StyledWrapper = styled.div<{
     }
   }}
 
-  font-size: 1.38em;
+  width: 12.93em;
+  height: 2.67em;
+
+  font-size: 18px;
   color: ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
 
   & > img {

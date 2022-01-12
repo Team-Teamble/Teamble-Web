@@ -19,4 +19,14 @@ export function EmailAddButton(props: EmailAddButtonProps) {
   );
 }
 
-const CustomStyledWrapper = styled(StyledWrapper)``;
+const CustomStyledWrapper = styled(StyledWrapper)`
+  padding-top: 2.5em;
+
+  & > img {
+    margin-bottom: 1.69em;
+  }
+
+  & > span {
+    margin-top: 0;
+  }
+`;

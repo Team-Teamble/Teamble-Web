@@ -7,7 +7,7 @@ export interface CrewTagProps {
   className?: string;
   profileImgSrc: string;
   closeImgSrc: string; // 추후 아이콘으로 직접 추가 예정
-  userName: { id: number; userName: string };
+  userName: { id: number; name: string };
 
   onClick(): void;
 }
@@ -20,7 +20,7 @@ export function CrewTag(props: CrewTagProps) {
       <StyledImgWrapper>
         <img src={profileImgSrc} alt="" />
       </StyledImgWrapper>
-      <span>{userName.userName}</span>
+      <span>{userName.name}</span>
     </StyledWrapper>
   );
 }
@@ -37,10 +37,12 @@ export const StyledWrapper = styled.div`
   color: ${teambleColors.darkGray};
 
   width: 7.69em;
-  height: 8.81em;
   border: 1px solid ${teambleColors.purple};
   border-radius: 0.63em;
   background-color: ${teambleColors.lightPurple};
+
+  padding-top: 1.44em;
+  padding-bottom: 1.31em;
 
   & > span {
     margin-top: 0.8rem;

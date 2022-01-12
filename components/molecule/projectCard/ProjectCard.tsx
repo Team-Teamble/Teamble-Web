@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-import { ImgWrapper, ImgWrapperProps } from "../../atom/image/ImgWrapper";
+import { ImgWrapper } from "../../atom/image/ImgWrapper";
 import { ProfileImage } from "../../atom/image/ProfileImage";
-import { NavProfileName } from "../../atom/item/NavProfileName";
-
 export interface ProjectCardProps {
   className?: string;
   thumbnail?: string;
@@ -23,11 +21,11 @@ export interface ProjectCardProps {
 export function ProjectCard(props: ProjectCardProps) {
   const { className, thumbnail, profileImgSrc, dday, title, summary, userName, isClosed, recruitInfo, onClick } = props;
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <a href="">
         {thumbnail && (
           <ImgWrapper ratio="56%">
-            <img className="profile-img" src={profileImgSrc} />
+            <img src={profileImgSrc} alt="profile" />
             <StyledDay>{dday}</StyledDay>
           </ImgWrapper>
         )}
@@ -37,13 +35,13 @@ export function ProjectCard(props: ProjectCardProps) {
           <h3>{title}</h3>
           <h4>{summary}</h4>
           <StyledProfile>
-            <ProfileImage className={className} src={profileImgSrc} profileSize="extra-small" onClick={onClick} />
+            <ProfileImage src={profileImgSrc} profileSize="extra-small" onClick={onClick} />
             <span>{userName.name}</span>
           </StyledProfile>
         </StyledDesc>
         <StyledRecruit>
           <span>{isClosed ? "모집완료" : "모집중"}</span>
-          <div className="recruit-part">
+          <div>
             <span>
               기획자 <span>{recruitInfo[0].value.count}</span>
             </span>

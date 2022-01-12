@@ -11,7 +11,7 @@ export interface ProfileTestBtnProps {
 export function ProfileTestButton(props: ProfileTestBtnProps) {
   const { className, arrowImgSrc, onClick } = props;
   return (
-    <StyledEditBtn onClick={onClick}>
+    <StyledEditBtn onClick={onClick} className={className}>
       <img src={arrowImgSrc} alt="edit-icon" />
       <span>협업 성향 테스트 하러가기</span>
     </StyledEditBtn>

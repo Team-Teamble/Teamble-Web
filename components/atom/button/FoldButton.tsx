@@ -16,7 +16,7 @@ export interface FoldButtonProps {
 export function FoldButton(props: FoldButtonProps) {
   const { className, isTagBox, children, src, isOpen, isSelected, onClick } = props;
   return (
-    <StyledWrapper isTagBox={isTagBox} isOpen={isOpen} isSelected={isSelected} onClick={onClick}>
+    <StyledWrapper isTagBox={isTagBox} isOpen={isOpen} isSelected={isSelected} onClick={onClick} className={className}>
       {children}
       <img src={src} alt="fold-icon" />
     </StyledWrapper>

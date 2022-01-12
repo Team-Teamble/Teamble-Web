@@ -12,7 +12,7 @@ export function ProfileImage(props: ProfileProps) {
   const { className, src, profileSize = "medium", onClick } = props;
 
   return (
-    <StyledImgWrapper>
+    <StyledImgWrapper className={className}>
       <StyledProfileImg src={src} profileSize={profileSize} onClick={onClick} />
     </StyledImgWrapper>
   );

@@ -10,7 +10,7 @@ export interface MyPageDropDownProps {
 
 export function MyPageDropDown(props: MyPageDropDownProps) {
   const {
-    options: { id, options },
+    options: { options },
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);

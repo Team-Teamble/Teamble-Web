@@ -1,6 +1,5 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { MakeProjectButtonProps, MakeProjectButton } from "./MakeProjectButton";
-import { useState } from "react";
 export default {
   title: "atom/button/MakeProjectButton",
   component: MakeProjectButton,

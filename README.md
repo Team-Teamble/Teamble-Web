@@ -18,7 +18,7 @@
 ## <img src="https://user-images.githubusercontent.com/78714820/148998323-df8997b1-ec90-433a-bc2f-340adcd31984.png" width="25"> Developers
 | 박건영 | 정세연 | 김연이 |
 | :-----: | :-----: | :-----: |
-| [dingding-21](https://github.com/dingding-21) | [MoonGyu1](https://github.com/MoonGyu1) | [YounYi](https://github.com/YounYi) |
+| [Tekiter](https://github.com/Tekiter) | [n0eyes](https://github.com/n0eyes) | [YounYi](https://github.com/YounYi) |
 
 <br>
 

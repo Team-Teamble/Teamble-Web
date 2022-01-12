@@ -19,19 +19,19 @@ Basic.args = {
       positionNum: [
         {
           id: 11,
-          name: 0,
+          option: "0 명",
         },
         {
           id: 12,
-          name: 1,
+          option: "1 명",
         },
         {
           id: 13,
-          name: 2,
+          option: "2 명",
         },
         {
           id: 14,
-          name: 3,
+          option: "3 명",
         },
       ],
     },
@@ -41,19 +41,19 @@ Basic.args = {
       positionNum: [
         {
           id: 21,
-          name: 0,
+          option: "0 명",
         },
         {
           id: 22,
-          name: 1,
+          option: "1 명",
         },
         {
           id: 23,
-          name: 2,
+          option: "2 명",
         },
         {
           id: 24,
-          name: 3,
+          option: "3 명",
         },
       ],
     },
@@ -63,19 +63,19 @@ Basic.args = {
       positionNum: [
         {
           id: 31,
-          name: 0,
+          option: "0 명",
         },
         {
           id: 32,
-          name: 1,
+          option: "1 명",
         },
         {
           id: 33,
-          name: 2,
+          option: "2 명",
         },
         {
           id: 34,
-          name: 3,
+          option: "3 명",
         },
       ],
     },

@@ -4,18 +4,18 @@ import { teambleColors } from "../../../styles/color";
 
 export interface MyPageDropDownProps {
   options: { id: number; name: string }[];
-  onClick(): void;
+  handleSelect(id: number): void;
 }
 
 export function MyPageDropDown(props: MyPageDropDownProps) {
-  const { options, onClick } = props;
+  const { options, handleSelect } = props;
 
   return (
     <StyledMyPageDropDown>
       {/* 최대 개수 추후 프롭으로 전달 */}
       <StyledMaximum>최대 2개 선택</StyledMaximum>
       {options.map(({ id, name }) => (
-        <StyledOption key={id} onClick={onClick}>
+        <StyledOption key={id} onClick={() => handleSelect(id)}>
           {name}
         </StyledOption>
       ))}

@@ -35,14 +35,14 @@ const StyledWrapper = styled.div<{
   cursor: pointer;
   padding: ${(props) => (props.isTagBox ? "0.6em 1.25em" : "0 1.25em")};
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
-
+  box-sizing: border-box;
   border-radius: 0.38em;
 
   ${(props) => {
     if (!props.isTagBox) {
       return css`
-        width: 14.56em;
-        height: 3.38em;
+        width: 100%;
+        height: 100%;
       `;
     }
   }}

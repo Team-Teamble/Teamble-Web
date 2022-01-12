@@ -3,7 +3,7 @@ export const teambleColors = Object.freeze({
   lightPurple: "#F9F8FF",
   brightPurple: "#CDC1DF",
   purple: "#916DFD",
-  deepPurple: "#905DE3",
+  deepPurple: "#7A5DE8",
   darkPurple: "#5F25BE",
   lightGray: "#F6F6F6",
   gray: "#E1E1E1",

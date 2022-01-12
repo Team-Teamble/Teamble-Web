@@ -32,7 +32,7 @@ export function ProjectCard(props: ProjectCardProps) {
           </ImgWrapper>
         )}
       </a>
-      <StyledLink>
+      <StyledLink onClick={onClick}>
         <StyledDesc>
           <h3>{title}</h3>
           <h4>{summary}</h4>
@@ -42,7 +42,7 @@ export function ProjectCard(props: ProjectCardProps) {
           </StyledProfile>
         </StyledDesc>
         <StyledRecruit>
-          <span>{isClosed ? "모집중" : "모집완료"}</span>
+          <span>{isClosed ? "모집완료" : "모집중"}</span>
           <div className="recruit-part">
             <span>
               기획자 <span>{recruitInfo[0].value.count}</span>
@@ -91,12 +91,13 @@ const StyledLink = styled.div`
   flex-direction: column;
 
   margin: 3.1em 1.7em 0 1.7em;
+
+  cursor: pointer;
 `;
 
 const StyledDesc = styled.div`
   display: flex;
   flex-direction: column;
-
   border-bottom: 1px solid ${teambleColors.darkGray};
 
   & > h3 {

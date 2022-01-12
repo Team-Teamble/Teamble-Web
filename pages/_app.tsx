@@ -1,14 +1,17 @@
 import { AppProps } from "next/app";
 import { ReactElement } from "react";
 import { MutableSnapshot, RecoilRoot } from "recoil";
+import { setAccessToken } from "../api";
+import { authUserAtom } from "../states/auth";
 import { GlobalStyle } from "../styles/globalStyle";
-import { authTokenAtom } from "../states/auth";
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  const { accessToken, ...otherPageProps } = pageProps;
+  const { accessToken, userInfo, ...otherPageProps } = pageProps;
+
+  setAccessToken(accessToken);
 
   function initState({ set }: MutableSnapshot) {
-    set(authTokenAtom, accessToken);
+    set(authUserAtom, userInfo);
   }
 
   return (

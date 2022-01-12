@@ -1,15 +1,14 @@
-import { useRecoilValue } from "recoil";
-import { authTokenAtom } from "../states/auth";
 import { withAuth } from "../utils/ssr";
+import { useUser } from "../utils/hook/auth";
 
-export default function Profile({ hello }: { hello: string }) {
-  const token = useRecoilValue(authTokenAtom);
+export default function Profile() {
+  const user = useUser();
 
-  return <div>{token}</div>;
+  return <div>name: {user.name}</div>;
 }
 
 export const getServerSideProps = withAuth(async () => {
   return {
-    props: { hello: "world" },
+    props: {},
   };
 });

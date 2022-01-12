@@ -2,6 +2,7 @@ import Cookies from "cookies";
 import { GetServerSideProps } from "next";
 import { setAccessToken } from "../../api";
 import { UnauthorizedError } from "../../api/util/error";
+import { UserInfo } from "../../states/auth";
 
 export function withAuth<T>(fn: GetServerSideProps<T>): GetServerSideProps<T> {
   return async (context) => {
@@ -14,11 +15,15 @@ export function withAuth<T>(fn: GetServerSideProps<T>): GetServerSideProps<T> {
 
     setAccessToken(token);
 
+    const userInfo: UserInfo = {
+      name: token,
+    };
+
     try {
       const result = await fn(context);
 
       if ("props" in result) {
-        return { props: { ...result.props, accessToken: token } };
+        return { props: { ...result.props, accessToken: token, userInfo } };
       }
 
       return result;

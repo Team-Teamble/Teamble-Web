@@ -34,19 +34,19 @@ Basic.args = {
     positionNum: [
       {
         id: 11,
-        name: 0,
+        option: "0 명",
       },
       {
         id: 12,
-        name: 1,
+        option: "1 명",
       },
       {
         id: 13,
-        name: 2,
+        option: "2 명",
       },
       {
         id: 14,
-        name: 3,
+        option: "3 명",
       },
     ],
   },

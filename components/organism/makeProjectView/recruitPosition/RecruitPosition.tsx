@@ -4,7 +4,7 @@ import { PositionDropDown } from "../../../molecule/drop-down/PositionDropDown";
 import { teambleColors } from "../../../../styles/color";
 
 export interface RecruitPositionProps {
-  position: { id: number; name: string; positionNum: { id: number; name: number }[] }[];
+  position: { id: number; name: string; positionNum: { id: number; option: string }[] }[];
   // selectedPositions: { id: number; numId: number }[];
   // setSelectedPositions: React.Dispatch<SetStateAction<{ id: number; numId: number }[]>>;
 }

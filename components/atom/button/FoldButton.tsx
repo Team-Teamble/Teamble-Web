@@ -37,16 +37,17 @@ const StyledWrapper = styled.div<{
   padding: 0.61em 1.11em;
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
 
-  border-radius: 0.33em;
+  box-sizing: border-box;
+  border-radius: 0.38em;
 
-  /* ${(props) => {
+  ${(props) => {
     if (!props.isTagBox) {
       return css`
-        width: 12.93em;
-        height: 2.67em;
+        width: 100%;
+        height: 100%;
       `;
     }
-  }} */
+  }}
 
   width: 12.93em;
   height: 2.67em;

@@ -8,6 +8,10 @@
 
 <img width="2104" alt="KakaoTalk_20220107_191904466" src="https://user-images.githubusercontent.com/78714820/148947258-37724c60-9cf7-48a5-8e33-829df9073638.png">
 
+#### Teamble : 서로 다른 색의 우리가 만나는 공간, 팀블
+
+#### 협업성향테스트 기반 IT 사이드 프로젝트 팀 매칭 서비스
+
 >22.01.02 ~ 22.01.22 - SOPT 29th APPJAM
 
 
@@ -28,6 +32,17 @@
 |  박건영 | 초기 환경 세팅, API 추상화, 수정상황 대응 |
 |  정세연 | 컴포넌트 구현, 레이아웃 및 API 연결, 수정사항 대응 |
 |  김연이 | 컴포넌트 구현, 레이아웃 및 API 연결, 수정사항 대응 |
+
+<br>
+
+## <img src="https://user-images.githubusercontent.com/78714820/148998323-df8997b1-ec90-433a-bc2f-340adcd31984.png" width="25"> 스택
+
+- next.js
+- typescript
+- recoil
+- styled-components
+- husky
+- storybook
 
 <br>
 

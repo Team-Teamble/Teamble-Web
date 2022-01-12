@@ -17,7 +17,7 @@ const Template: Story<ProfileFieldProps> = (args) => {
 
 export const Basic = Template.bind({});
 Basic.args = {
-  children: "마가렛",
+  userName: { id: 0, name: "마가렛" },
   profileImgSrc: profileImgSrc,
   alerImgSrc: alerImgSrc,
 };

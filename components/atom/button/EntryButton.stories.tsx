@@ -2,7 +2,7 @@ import { Meta, Story } from "@storybook/react/types-6-0";
 import { EntryButton, EntryButtonProps } from "./EntryButton";
 
 export default {
-  title: "atom/button",
+  title: "atom/button/EntryButton",
   subcomponent: EntryButton,
 } as Meta;
 

@@ -67,6 +67,7 @@ const StyledWrapper = styled.div`
   height: 47em;
 
   border: 1px solid ${teambleColors.gray};
+  box-shadow: 4px 4px 7px 0px #0000000a;
 `;
 
 const StyledDay = styled.div`

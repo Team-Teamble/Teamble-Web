@@ -47,8 +47,10 @@ export function useLogin({ redirect }: { redirect?: string }) {
 export function useLogout({ redirect }: { redirect?: string }) {
   const router = useRouter();
   const destroy = useAuthDestroy();
+  const setUser = useSetRecoilState(authUserAtom);
 
   async function request() {
+    setUser(null);
     await destroy();
     if (redirect) {
       destroy();
@@ -58,7 +60,7 @@ export function useLogout({ redirect }: { redirect?: string }) {
   return request;
 }
 
-export function useUser(): UserInfo {
+export function useUser(): UserInfo | null {
   const userInfo = useRecoilValue(authUserAtom);
 
   return userInfo;

@@ -28,7 +28,7 @@ export default function Login() {
         <button onClick={handleLogout}>logout</button>
         <Link href="/profile">Profile</Link>
       </div>
-      <div>token: {user.name}</div>
+      <div>token: {user?.name}</div>
     </div>
   );
 }

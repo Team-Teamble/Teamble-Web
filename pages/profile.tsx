@@ -4,7 +4,7 @@ import { useUser } from "../utils/hook/auth";
 export default function Profile() {
   const user = useUser();
 
-  return <div>name: {user.name}</div>;
+  return <div>name: {user?.name}</div>;
 }
 
 export const getServerSideProps = withAuth(async () => {

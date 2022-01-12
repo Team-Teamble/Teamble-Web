@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
   setAccessToken(accessToken);
 
   function initState({ set }: MutableSnapshot) {
-    set(authUserAtom, userInfo);
+    set(authUserAtom, userInfo ?? null);
   }
 
   return (

@@ -4,9 +4,7 @@ export interface UserInfo {
   name: string;
 }
 
-export const authUserAtom = atom<UserInfo>({
+export const authUserAtom = atom<UserInfo | null>({
   key: "authUser",
-  default: {
-    name: "UNDEFINED",
-  },
+  default: null,
 });

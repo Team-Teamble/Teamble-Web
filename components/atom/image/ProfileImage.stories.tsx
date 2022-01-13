@@ -8,7 +8,7 @@ export default {
   title: "atom/image",
   component: ProfileImage,
   args: {
-    src: path,
+    profileImgSrc: path,
   },
 } as Meta;
 

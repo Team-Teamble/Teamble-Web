@@ -1,29 +1,35 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import DefaultPrfile from "../../../assets/svg/ic_profile.svg";
+import DefaultProfile from "../../../assets/svg/ic_profile.svg";
 
 export interface ProfileProps {
   className?: string;
-  src: string;
+  profileImgSrc: string;
   profileSize?: "extra-small" | "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
   onClick?(): void;
 }
 
 export function ProfileImage(props: ProfileProps) {
-  const { className, src, profileSize = "medium", onClick } = props;
+  const { className, profileImgSrc, profileSize = "medium", onClick } = props;
 
-  function checkDefaultProfile(src: string) {
-    if (src === "") {
-      return <DefaultPrfile />;
+  function checkDefaultProfile(profileImgSrc: string) {
+    if (profileImgSrc === "" || profileImgSrc === undefined) {
+      return <DefaultProfile />;
     } else {
-      return <StyledProfileImg src={src} profileSize={profileSize} onClick={onClick} />;
+      return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} />;
     }
   }
-  return <StyledImgWrapper className={className}>{checkDefaultProfile(src)}</StyledImgWrapper>;
+  return (
+    <StyledImgWrapper profileSize={profileSize} className={className}>
+      {checkDefaultProfile(profileImgSrc)}
+    </StyledImgWrapper>
+  );
 }
 
-const StyledImgWrapper = styled.div`
+const StyledImgWrapper = styled.div<{
+  profileSize: string;
+}>`
   display: flex;
   align-items: center;
 `;

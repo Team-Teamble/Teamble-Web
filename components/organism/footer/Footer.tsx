@@ -7,7 +7,7 @@ import { teambleColors } from "../../../styles/color";
 export interface FooterProps {
   className?: string;
 
-  onClick(): void;
+  onClick?(): void;
 }
 
 export function Footer(props: FooterProps) {

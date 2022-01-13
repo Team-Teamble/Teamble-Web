@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { NavTabItem } from "../../atom/item/NavTabItem";
+import Link from "next/link";
+import NavTabItem from "../../atom/item/NavTabItem";
 import { EntryField } from "../../molecule/entryField/EntryField";
 import { ProfileField } from "../../molecule/navProfileField/ProfileField";
 import Logo from "../../../assets/svg/logo_img.svg";
@@ -28,18 +29,26 @@ export function Header(props: HeaderProps) {
       </StyledHeaderDesc>
 
       <StyledNav>
-        <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-          팀블 소개
-        </NavTabItem>
-        <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-          프로젝트 찾기
-        </NavTabItem>
-        <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-          팀원 찾기
-        </NavTabItem>
-        <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-          {user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
-        </NavTabItem>
+        <Link href="/about" passHref>
+          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+            팀블 소개
+          </NavTabItem>
+        </Link>
+        <Link href="/search" passHref>
+          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+            프로젝트 찾기
+          </NavTabItem>
+        </Link>
+        <Link href="/member" passHref>
+          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+            팀원 찾기
+          </NavTabItem>
+        </Link>
+        <Link href="/project" passHref>
+          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+            {user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
+          </NavTabItem>
+        </Link>
       </StyledNav>
     </StyledHeader>
   );

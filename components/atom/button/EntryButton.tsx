@@ -24,7 +24,6 @@ const StyledButton = styled.a`
 
   border: 0;
   outline: 0;
-  padding-right: 1.6em;
   background-color: transparent;
 
   color: ${teambleColors.darkGray};

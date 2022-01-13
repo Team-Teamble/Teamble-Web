@@ -20,8 +20,3 @@ export function AlertImage(props: AlertImageProps) {
 const StyledAlertWrapper = styled.a`
   cursor: pointer;
 `;
-
-const StyledAlertImg = styled.svg`
-  width: 2.39em;
-  height: 2.69em;
-`;

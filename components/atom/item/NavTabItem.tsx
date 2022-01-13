@@ -5,16 +5,16 @@ import { teambleColors } from "../../../styles/color";
 export interface NavTabItemProps {
   className?: string;
   children: ReactNode;
-  selected: boolean;
+  isSelected?: boolean;
   onClick(): void;
 }
 
 export function NavTabItem(props: NavTabItemProps) {
-  const { className = "first", children, selected, onClick } = props;
+  const { className = "first", children, isSelected, onClick } = props;
 
   return (
-    <StyledNavTabItem className={className} selected={selected} onClick={onClick}>
-      <StyledItemContent selected={selected}>
+    <StyledNavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+      <StyledItemContent isSelected={isSelected}>
         <span>{children}</span>
       </StyledItemContent>
     </StyledNavTabItem>
@@ -25,16 +25,14 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  width: 19.2em;
   height: 5.8em;
 `;
 
 const StyledItemContent = styled.div<{
-  selected: boolean;
+  isSelected?: boolean;
 }>`
-  margin: 0;
   ${(props) => {
-    if (props.selected) {
+    if (props.isSelected) {
       return css`
         border-bottom: 3px solid ${teambleColors.black};
 
@@ -51,7 +49,7 @@ const StyledItemContent = styled.div<{
         & > span {
           font-size: 24px;
           font-weight: 500;
-          color: ${teambleColors.darkGray};
+          color: ${teambleColors.deepGray};
         }
       `;
     }

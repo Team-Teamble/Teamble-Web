@@ -25,4 +25,8 @@ export function EntryField(props: EntryFieldProps) {
 
 const StyledWrapper = styled.div`
   display: flex;
+
+  & > a + a {
+    margin-left: 1.6em;
+  }
 `;

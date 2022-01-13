@@ -115,7 +115,7 @@ const StyledEmailNPhone = styled.div`
   margin-bottom: 24px;
   & > div + div {
     margin-top: 12px;
-    min-height: 24px;
+    min-height: 30px;
   }
 `;
 
@@ -125,9 +125,10 @@ const StyledPhoneInput = styled.input<{
   margin-top: 12px;
   border-radius: 5px;
   width: 200px;
-  height: 24px;
+  min-height: 28px;
   background-color: ${teambleColors.white};
   outline: none;
+  padding: 0;
   border: 1px solid ${(props) => (props.isEmpty === "" ? teambleColors.deepGray : teambleColors.deepPurple)};
   text-align: center;
   color: ${teambleColors.black};

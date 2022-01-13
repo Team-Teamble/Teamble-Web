@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { NavTabItem } from "../../atom/item/NavTabItem";
 import { EntryField } from "../../molecule/entryField/EntryField";
@@ -50,7 +50,6 @@ const StyledHeader = styled.header`
   flex-direction: column;
   width: 100vw;
   padding: 3.3em 34.5em 0 34.5em;
-  /* border: 1px solid black; */
   box-shadow: 0px 4px 8px 2px #00000012;
 `;
 

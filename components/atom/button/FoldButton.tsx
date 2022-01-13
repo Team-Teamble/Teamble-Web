@@ -49,9 +49,6 @@ const StyledWrapper = styled.div<{
     }
   }}
 
-  width: 12.93em;
-  height: 2.67em;
-
   font-size: 18px;
   color: ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
 

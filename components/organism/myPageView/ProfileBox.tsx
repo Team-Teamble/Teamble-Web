@@ -22,7 +22,7 @@ export function ProfileBox(props: ProfileBoxProps) {
 
   return (
     <StyledProfileBox className={className}>
-      {user.photo ? <img src={user.photo} /> : <Profile />}
+      {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
       <StyledName>정세연</StyledName>
       <ProfileBoxDropDown userPosition={user.position} position={dummy.position} isEditing={isEditing} />
       <StyledEmailNPhone>

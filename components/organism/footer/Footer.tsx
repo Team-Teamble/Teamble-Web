@@ -11,7 +11,7 @@ export interface FooterProps {
 }
 
 export function Footer(props: FooterProps) {
-  const { className, onClick } = props;
+  const { className } = props;
   return (
     <StyledFooter className={className}>
       <StyledFooterTop>

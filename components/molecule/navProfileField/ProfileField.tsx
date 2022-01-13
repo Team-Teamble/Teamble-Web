@@ -6,22 +6,21 @@ import { NavProfileName } from "../../atom/item/NavProfileName";
 
 export interface ProfileFieldProps {
   className?: string;
-  alerImgSrc: string;
   profileImgSrc: string;
-  userName: { id: number; name: string };
+  userName: string;
 
   onClick(): void;
 }
 
 export function ProfileField(props: ProfileFieldProps) {
-  const { className, alerImgSrc, profileImgSrc, userName, onClick } = props;
+  const { className, profileImgSrc, userName, onClick } = props;
   return (
     <StyledWrapper className={className}>
-      <AlertImage className={className} src={alerImgSrc} onClick={onClick} />
+      <AlertImage className={className} onClick={onClick} />
       <StyledProfileWrapper>
-        <ProfileImage className={className} src={profileImgSrc} profileSize="small" onClick={onClick} />
+        <ProfileImage className={className} profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
         <NavProfileName className={className} onClick={onClick}>
-          {userName.name}
+          {userName}
         </NavProfileName>
       </StyledProfileWrapper>
     </StyledWrapper>
@@ -31,7 +30,6 @@ export function ProfileField(props: ProfileFieldProps) {
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 13.1rem;
   height: 4.4rem;
 
   & > a {

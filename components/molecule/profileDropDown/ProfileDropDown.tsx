@@ -20,7 +20,7 @@ export function ProfileDropDown(props: ProfileDropDownProps) {
   return (
     <StyledWrapper className={className}>
       <StyledProfileWrapper>
-        <ProfileImage src={profileImgSrc} profileSize="small" onClick={onClick} />
+        <ProfileImage profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
         <StyledInfoWrapper>
           <span>{userName.userName}</span>
           <a href={profileLink} onClick={onClick}>

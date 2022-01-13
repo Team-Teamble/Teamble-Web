@@ -35,7 +35,7 @@ export function ProjectCard(props: ProjectCardProps) {
           <h3>{title}</h3>
           <h4>{summary}</h4>
           <StyledProfile>
-            <ProfileImage src={profileImgSrc} profileSize="extra-small" onClick={onClick} />
+            <ProfileImage profileImgSrc={profileImgSrc} profileSize="extra-small" onClick={onClick} />
             <span>{userName.name}</span>
           </StyledProfile>
         </StyledDesc>
@@ -67,6 +67,7 @@ const StyledWrapper = styled.div`
   height: 47em;
 
   border: 1px solid ${teambleColors.gray};
+  box-shadow: 4px 4px 7px 0px #0000000a;
 `;
 
 const StyledDay = styled.div`

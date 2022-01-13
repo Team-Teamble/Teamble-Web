@@ -24,8 +24,8 @@ const Template: Story<ProjectCardProps> = (args) => {
   return <ProjectCard {...args} />;
 };
 
-export const ProfileCard = Template.bind({});
-ProfileCard.args = {
+export const Projectcard = Template.bind({});
+Projectcard.args = {
   thumbnail: thumbnail,
   profileImgSrc: profileImgSrc,
   dday: "3일 남음",

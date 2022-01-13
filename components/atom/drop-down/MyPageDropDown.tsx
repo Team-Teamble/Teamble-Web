@@ -24,6 +24,7 @@ export function MyPageDropDown(props: MyPageDropDownProps) {
 }
 
 const StyledMyPageDropDown = styled.ul`
+  position: absolute;
   box-sizing: border-box;
   width: 147px;
   box-shadow: 0.2em 0.6em 1.2em rgba(0, 0, 0, 0.12);
@@ -54,7 +55,7 @@ const StyledOption = styled.li`
   line-height: 23px;
   padding: 9px 0;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   color: ${teambleColors.deepGray};
   letter-spacing: -0.02em;
   cursor: pointer;

@@ -26,7 +26,7 @@ export function TagBox(props: TagBoxProps) {
       isSelected={isSelected}
       onClick={onClick}>
       {tags.map((tag) => (
-        <BasicTag className={className} id={tag.id} tagSize="big" deleteTag={deleteTag}>
+        <BasicTag key={tag.id} className={className} id={tag.id} tagSize="big" deleteTag={deleteTag}>
           {tag.value}
         </BasicTag>
       ))}

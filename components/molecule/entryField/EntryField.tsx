@@ -12,7 +12,7 @@ export interface EntryFieldProps {
 export function EntryField(props: EntryFieldProps) {
   const { className, onClick } = props;
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <EntryButton className="login" onClick={onClick}>
         로그인
       </EntryButton>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { MakeProjectFoldButtonProps, MakeProjectFoldButton } from "./MakeProjectFoldButton";
 
@@ -15,13 +14,12 @@ export default {
 } as Meta;
 
 const Template: Story<MakeProjectFoldButtonProps> = (args) => {
-  const [isOpened, setIsOpened] = useState(false);
-  return <MakeProjectFoldButton {...args} setIsOpened={setIsOpened} />;
+  return <MakeProjectFoldButton {...args} />;
 };
 
 export const Basic = Template.bind({});
 Basic.args = {
   id: 1,
   name: "기획자",
-  currentOption: 0,
+  currentOption: "0 명",
 } as MakeProjectFoldButtonProps;

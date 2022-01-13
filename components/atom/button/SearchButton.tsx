@@ -11,7 +11,7 @@ export interface SearchButtonProps {
 export function SearchButton(props: SearchButtonProps) {
   const { className, src, onClick } = props;
   return (
-    <StyledSearchBtn onClick={onClick}>
+    <StyledSearchBtn onClick={onClick} className={className}>
       <img src={src} alt="search-icon" />
       <span>검색</span>
     </StyledSearchBtn>

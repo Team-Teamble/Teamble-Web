@@ -11,7 +11,7 @@ export interface ProfileEditButtonProps {
 export function ProfileEditButton(props: ProfileEditButtonProps) {
   const { className, editImgSrc, onClick } = props;
   return (
-    <StyledEditBtn onClick={onClick}>
+    <StyledEditBtn onClick={onClick} className={className}>
       <img src={editImgSrc} alt="edit-icon" />
       <span>프로필 수정</span>
     </StyledEditBtn>

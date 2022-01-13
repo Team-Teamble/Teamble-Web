@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-import { ProfileImage } from "./../../atom/image/ProfileImage";
-
 export interface CrewTagProps {
   className?: string;
   profileImgSrc: string;
@@ -15,7 +13,7 @@ export interface CrewTagProps {
 export function CrewTag(props: CrewTagProps) {
   const { className, userName, profileImgSrc, closeImgSrc, onClick } = props;
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <img src={closeImgSrc} className="close-btn" alt="close-btn" onClick={onClick} />
       <StyledImgWrapper>
         <img src={profileImgSrc} alt="" />

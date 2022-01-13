@@ -12,7 +12,7 @@ export interface ConfirmButtonProps {
 export function ConfirmButton(props: ConfirmButtonProps) {
   const { className, children, onClick } = props;
   return (
-    <StyledSearchBtn onClick={onClick}>
+    <StyledSearchBtn onClick={onClick} className={className}>
       <span>{children}</span>
     </StyledSearchBtn>
   );

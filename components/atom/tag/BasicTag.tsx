@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 

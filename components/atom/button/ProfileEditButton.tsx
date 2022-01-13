@@ -1,30 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import Edit from "../../../assets/svg/ic_profile_edit.svg";
 
 export interface ProfileEditButtonProps {
   className?: string;
-  editImgSrc?: string; // 추후 아이콘으로 직접 넣을 예정
-  onClick(): void;
+  handleEdit(): void;
+  isEditing: boolean;
 }
 
 export function ProfileEditButton(props: ProfileEditButtonProps) {
-  const { className, editImgSrc, onClick } = props;
+  const { className, handleEdit, isEditing } = props;
   return (
-    <StyledEditBtn onClick={onClick} className={className}>
-      <img src={editImgSrc} alt="edit-icon" />
+    <StyledEditBtn onClick={handleEdit} className={className} isEditing={isEditing}>
+      <Edit />
       <span>프로필 수정</span>
     </StyledEditBtn>
   );
 }
 
-const StyledEditBtn = styled.button`
+const StyledEditBtn = styled.button<{
+  isEditing: boolean;
+}>`
+  visibility: ${(props) => (props.isEditing ? "hidden" : "visibile")};
   display: flex;
   align-items: center;
-
+  width: 295px;
+  height: 41px;
   border: 1px solid #905de3; // 컬러 수정 필요
   border-radius: 2.2em;
-  padding: 0.9em 9.7em 0.8em 9.6em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${teambleColors.white};
   font-size: 16px;
   color: #905de3;

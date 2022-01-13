@@ -18,7 +18,7 @@ export function ProfileField(props: ProfileFieldProps) {
     <StyledWrapper className={className}>
       <AlertImage className={className} onClick={onClick} />
       <StyledProfileWrapper>
-        <ProfileImage className={className} src={profileImgSrc} profileSize="small" onClick={onClick} />
+        <ProfileImage className={className} profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
         <NavProfileName className={className} onClick={onClick}>
           {userName}
         </NavProfileName>

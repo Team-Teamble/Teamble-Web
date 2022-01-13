@@ -20,16 +20,10 @@ export function ProfileImage(props: ProfileProps) {
       return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} />;
     }
   }
-  return (
-    <StyledImgWrapper profileSize={profileSize} className={className}>
-      {checkDefaultProfile(profileImgSrc)}
-    </StyledImgWrapper>
-  );
+  return <StyledImgWrapper className={className}>{checkDefaultProfile(profileImgSrc)}</StyledImgWrapper>;
 }
 
-const StyledImgWrapper = styled.div<{
-  profileSize: string;
-}>`
+const StyledImgWrapper = styled.div`
   display: flex;
   align-items: center;
 `;

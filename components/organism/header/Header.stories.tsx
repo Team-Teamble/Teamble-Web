@@ -13,7 +13,7 @@ const Template: Story<HeaderProps> = (args) => {
 export const HeaderOrganism = Template.bind({});
 HeaderOrganism.args = {
   isLogin: false,
-  isSelected: false,
+
   user: {
     id: 0,
     name: "마가렛",

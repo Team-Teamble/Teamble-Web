@@ -1,5 +1,5 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
-import { NavTabItem, NavTabItemProps } from "./NavTabItem";
+import NavTabItem, { NavTabItemProps } from "./NavTabItem";
 
 export default {
   title: "atom/item",

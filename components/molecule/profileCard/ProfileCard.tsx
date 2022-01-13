@@ -25,7 +25,7 @@ export function ProfileCard(props: ProfileCardProps) {
     <StyledWrapper className={className}>
       {isMyPage ? <CloseIcon className="close-icon" /> : null}
       <StyledInfo>
-        <ProfileImage className={className} src={profileImgSrc} profileSize="extra-large" onClick={onClick} />
+        <ProfileImage className={className} profileImgSrc={profileImgSrc} profileSize="extra-large" onClick={onClick} />
         <span className="user-name">{userName.name}</span>
         <span className="user-position">{userPosition.name}</span>
       </StyledInfo>

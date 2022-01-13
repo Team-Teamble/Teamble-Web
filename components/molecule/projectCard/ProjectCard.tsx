@@ -35,7 +35,7 @@ export function ProjectCard(props: ProjectCardProps) {
           <h3>{title}</h3>
           <h4>{summary}</h4>
           <StyledProfile>
-            <ProfileImage src={profileImgSrc} profileSize="extra-small" onClick={onClick} />
+            <ProfileImage profileImgSrc={profileImgSrc} profileSize="extra-small" onClick={onClick} />
             <span>{userName.name}</span>
           </StyledProfile>
         </StyledDesc>

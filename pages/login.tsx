@@ -20,20 +20,7 @@ export default function Login() {
     await logout();
   }
 
-  return (
-    // <div>
-    //   <div>
-    //     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-    //     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-    //     <button onClick={handleLogin}>Login</button>
-    //     <button onClick={handleLogout}>logout</button>
-    //     <Link href="/profile">Profile</Link>
-    //   </div>
-    //   <div>token: {user?.name}</div>
-    // </div>
-    // <LogInTemplate header={<div></div>} contents={<LogInForm onLogin={handleLogin} />} />
-    <LogInTemplate header={<Header isLogin={false} />} contents={<LogInForm onLogin={handleLogin} />} />
-  );
+  return <LogInTemplate header={<div></div>} contents={<LogInForm onLogin={handleLogin} />} />;
 }
 
 export const getServerSideProps = async () => {

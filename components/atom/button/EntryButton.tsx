@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { forwardRef, ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
@@ -9,15 +9,18 @@ export interface EntryButtonProps {
   onClick(): void;
 }
 
-export function EntryButton(props: EntryButtonProps) {
+export const EntryButton = forwardRef<HTMLAnchorElement, EntryButtonProps>(function EntryButton(
+  props: EntryButtonProps,
+  ref,
+) {
   const { className, children, onClick } = props;
 
   return (
-    <StyledButton className={className} onClick={onClick}>
+    <StyledButton ref={ref} className={className} onClick={onClick}>
       {children}
     </StyledButton>
   );
-}
+});
 
 const StyledButton = styled.a`
   cursor: pointer;

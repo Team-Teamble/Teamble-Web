@@ -11,7 +11,7 @@ export class UserProfileMock implements UserProfileAPI {
   async getProfileById(userId: number): Promise<GetUserProfileByIdOutput> {
     return {
       user: {
-        id: 1,
+        id: userId,
         idFirebase: "ehxIllyXpcSXANkvEUYUqI2kCaZ2",
         name: "김팀블",
         email: "teamble@gmail.com",

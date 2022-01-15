@@ -4,31 +4,29 @@ import { teambleColors } from "../../../styles/color";
 import { MyPageTag } from "../../atom/tag/MyPageTag";
 import { ProfileTestButton } from "../../atom/button/ProfileTestButton";
 export interface TendenciesProps {
-  type: { id: number; name: string }[];
-  selectedId: number | null;
+  className?: string;
+  metaType: { id: number; name: string }[];
+  selectedTypeId: number | null;
   tag: { id: number; name: string }[];
   user: { name: string; type: { id: number; name: string } | null };
-  //MyPageInfo
   isEditing: boolean;
-  className?: string;
-  onChange(selectedId: number): void;
+  onChange(selectedTypeId: number): void;
 }
 
 export function Tendencies(props: TendenciesProps) {
-  const { isEditing, tag, type, selectedId, onChange, user } = props;
+  const { isEditing, tag, metaType, selectedTypeId, onChange, user, className } = props;
 
   return (
-    <StyledTendencies>
+    <StyledTendencies className={className}>
       <StyledTypeWrapper>
         <StyledTitle>
-          {user.name} 님의
-          <br />
-          협업 성향은
+          <div>{user.name} 님의</div>
+          <div>협업 성향은</div>
         </StyledTitle>
         {isEditing ? (
           <StyledEditingTypes>
-            {type.map(({ id, name }) => (
-              <MyPageTag key={id} isActive={selectedId === id} onClick={() => onChange(id)}>
+            {metaType.map(({ id, name }) => (
+              <MyPageTag key={id} isActive={selectedTypeId === id} onClick={() => onChange(id)}>
                 {name}
               </MyPageTag>
             ))}
@@ -60,11 +58,11 @@ export function Tendencies(props: TendenciesProps) {
 }
 
 const StyledTendencies = styled.div`
-  width: 867px;
-  //100%;
+  width: 100%;
 `;
 const StyledTypeWrapper = styled.div`
   display: flex;
+  align-items: flex-end;
   width: 100%;
   height: 70px;
 `;
@@ -74,11 +72,14 @@ const StyledTitle = styled.div`
   font-size: 24px;
   letter-spacing: -0.02em;
   margin-right: 14px;
+
+  div {
+    height: 35px;
+    display: flex;
+    align-items: flex-end;
+  }
 `;
 const StyledType = styled.div`
-  height: 100%;
-  position: relative;
-  top: 50%;
   font-weight: bold;
   font-size: 24px;
   letter-spacing: -0.02em;

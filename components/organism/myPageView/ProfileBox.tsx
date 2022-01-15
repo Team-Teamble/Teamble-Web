@@ -1,24 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-// import { Profile } from "../../../assets/svg/ic_profile.svg";
 import Profile from "../../../assets/svg/Profile";
 import { ProfileBoxDropDown } from "../../molecule/drop-down/ProfileBoxDropDown";
 import { ProfileEditButton } from "../../atom/button/ProfileEditButton";
 import { teambleColors } from "../../../styles/color";
-import { MyPageInfo, MyPageUpdateHandler } from "../../../utils/myPage";
-import { Meta } from "../../../utils/myPage";
-
+import { UserProfileMeta, UserProfileInfo } from "../../../pages/profile/[userId]";
+import { HandleUpdate } from "../../../pages/profile/[userId]";
 export interface ProfileBoxProps {
-  meta: Meta;
-  user: MyPageInfo;
+  meta: UserProfileMeta;
+  user: UserProfileInfo;
   isEditing: boolean;
   className?: string;
-  handleEdit(): void;
-  handleUpdate: MyPageUpdateHandler;
+  onClick(): void;
+  onUpdate: HandleUpdate;
 }
 
 export function ProfileBox(props: ProfileBoxProps) {
-  const { user, isEditing, handleEdit, handleUpdate, className, meta } = props;
+  const { user, isEditing, onClick: handleEdit, onUpdate, className, meta } = props;
 
   return (
     <StyledProfileBox className={className}>
@@ -31,7 +29,7 @@ export function ProfileBox(props: ProfileBoxProps) {
           <StyledPhoneInput
             placeholder="전화번호를 입력해주세요"
             value={user.phone ? user.phone : ""}
-            onChange={(e) => handleUpdate("phone", e.target.value)}
+            onChange={(e) => onUpdate("phone", e.target.value)}
             isEmpty={user.phone ? user.phone : ""}
           />
         ) : (
@@ -47,7 +45,7 @@ export function ProfileBox(props: ProfileBoxProps) {
             <StyledEditInput
               value={user.university ? user.university : ""}
               isEmpty={user.university ? user.university : ""}
-              onChange={(e) => handleUpdate("university", e.target.value)}
+              onChange={(e) => onUpdate("university", e.target.value)}
             />
           ) : (
             <span>{user.university}</span>
@@ -59,7 +57,7 @@ export function ProfileBox(props: ProfileBoxProps) {
             <StyledEditInput
               value={user.major ? user.major : ""}
               isEmpty={user.major ? user.major : ""}
-              onChange={(e) => handleUpdate("major", e.target.value)}
+              onChange={(e) => onUpdate("major", e.target.value)}
             />
           ) : (
             <span>{user.major}</span>
@@ -71,7 +69,7 @@ export function ProfileBox(props: ProfileBoxProps) {
             <StyledEditInput
               value={user.area ? user.area : ""}
               isEmpty={user.area ? user.area : ""}
-              onChange={(e) => handleUpdate("area", e.target.value)}
+              onChange={(e) => onUpdate("area", e.target.value)}
             />
           ) : (
             <span>{user.area}</span>
@@ -90,10 +88,12 @@ const StyledProfileBox = styled.div`
   height: 841px;
   background: ${teambleColors.white};
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.1);
-
-  & > svg {
+  padding-top: 10.2em;
+  & > svg,
+  img {
     width: 125px;
     height: 125px;
+    border-radius: 50%;
   }
 `;
 const StyledName = styled.div`

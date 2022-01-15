@@ -22,7 +22,7 @@ export function ProfileEditButton(props: ProfileEditButtonProps) {
 const StyledEditBtn = styled.button<{
   isEditing: boolean;
 }>`
-  visibility: ${(props) => (props.isEditing ? "hidden" : "visibile")};
+  visibility: ${(props) => (props.isEditing ? "hidden" : "visible")};
   display: flex;
   align-items: center;
   width: 295px;
@@ -34,6 +34,7 @@ const StyledEditBtn = styled.button<{
   align-items: center;
   background-color: ${teambleColors.white};
   font-size: 16px;
+  cursor: pointer;
   color: #905de3;
   & > img {
     margin-right: 0.55em;

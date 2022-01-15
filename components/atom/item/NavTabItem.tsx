@@ -11,7 +11,7 @@ export interface NavTabItemProps {
 }
 
 function NavTabItem(props: NavTabItemProps) {
-  const { className = "first", children, isSelected, href, onClick } = props;
+  const { className, children, isSelected, href, onClick } = props;
 
   return (
     <StyledNavTabItem className={className} isSelected={isSelected} onClick={onClick}>
@@ -28,7 +28,7 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 5.8em;
+  height: 3.6em;
 `;
 
 const StyledItemContent = styled.div<{
@@ -41,8 +41,8 @@ const StyledItemContent = styled.div<{
 
         & > a {
           text-decoration: none;
-          font-size: 24px;
-          font-weight: 700;
+          font-size: 18px;
+          font-weight: 500;
           color: ${teambleColors.black};
         }
       `;
@@ -52,7 +52,7 @@ const StyledItemContent = styled.div<{
 
         & > a {
           text-decoration: none;
-          font-size: 24px;
+          font-size: 18px;
           font-weight: 500;
           color: ${teambleColors.deepGray};
         }

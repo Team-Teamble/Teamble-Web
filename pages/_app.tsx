@@ -4,7 +4,7 @@ import { MutableSnapshot, RecoilRoot } from "recoil";
 import { setAccessToken } from "../api";
 import { authUserAtom } from "../states/auth";
 import { GlobalStyle } from "../styles/globalStyle";
-
+import { AppLayout } from "../components/organism/appLayout/AppLayout";
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
   const { accessToken, userInfo, ...otherPageProps } = pageProps;
 
@@ -17,7 +17,9 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
   return (
     <RecoilRoot initializeState={initState}>
       <GlobalStyle />
-      <Component {...otherPageProps} />
+      <AppLayout>
+        <Component {...otherPageProps} />
+      </AppLayout>
     </RecoilRoot>
   );
 }

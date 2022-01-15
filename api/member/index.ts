@@ -4,8 +4,8 @@ export interface MemberAPI {
 }
 
 export interface GetFilterMetadataOutput {
-  dummy: {
-    // 더미 데이터
+  member: {
+    // 메타 데이터
     position: // 협업 포지션
     {
       id: number; // 협업 포지션 id

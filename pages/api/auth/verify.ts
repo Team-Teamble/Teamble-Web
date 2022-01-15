@@ -5,6 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const cookies = new Cookies(req, res);
 
   res.status(200).json({
-    token: cookies.get("token"),
+    token: cookies.get("access"),
   });
 }

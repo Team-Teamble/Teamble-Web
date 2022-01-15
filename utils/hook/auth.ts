@@ -29,7 +29,7 @@ export function useLogin({ redirect }: { redirect?: string }) {
   const setUser = useSetRecoilState(authUserAtom);
 
   async function request(username: string, password: string) {
-    const res = await apiService.auth.login({ username, password });
+    const res = await apiService.auth.login({ email: username, password });
     authStore(res.accessToken);
 
     setAccessToken(res.accessToken);

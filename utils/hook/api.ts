@@ -6,6 +6,7 @@ import { UnauthorizedError } from "../../api/util/error";
 interface APIHookResult<Req extends unknown[], Res> {
   request(...args: Req): Promise<Res | null>;
   data: Res | null;
+  loading: boolean;
 }
 
 export function useAPI<Req extends unknown[], Res>(
@@ -13,10 +14,12 @@ export function useAPI<Req extends unknown[], Res>(
 ): APIHookResult<Req, Res> {
   const router = useRouter();
   const [data, setData] = useState<Res | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const apiRequest = fn(apiService);
 
   async function request(...args: Req): Promise<Res | null> {
+    setLoading(true);
     try {
       const res = await apiRequest(...args);
       setData(res);
@@ -28,11 +31,14 @@ export function useAPI<Req extends unknown[], Res>(
       } else {
         throw e;
       }
+    } finally {
+      setLoading(false);
     }
   }
 
   return {
     request,
     data,
+    loading,
   };
 }

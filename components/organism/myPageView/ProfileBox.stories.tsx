@@ -68,7 +68,7 @@ const Template: Story<ProfileBoxProps> = (args) => {
 
 export const Profile = Template.bind({});
 Profile.args = {
-  dummy: {
+  meta: {
     position: [
       {
         id: 1,

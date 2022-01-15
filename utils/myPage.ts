@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export interface Dummy {
+export interface Meta {
   position: { id: number; name: string }[];
   type: { id: number; name: string }[];
   field: { id: number; name: string }[];

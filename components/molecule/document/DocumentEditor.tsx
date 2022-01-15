@@ -1,7 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import styled from "styled-components";
 import { TuiEditorWithForwardedProps } from "./TuiWrapper";
 
@@ -19,30 +19,36 @@ const EditorWithRef = forwardRef<EditorType | undefined, EditorPropsWithHandlers
 
 export interface DocumentEditorProps {
   className?: string;
-  value?: string;
   onChange(str: string): void;
 }
 
-export function DocumentEditor(props: DocumentEditorProps) {
-  const { className, value = "", onChange } = props;
+export const DocumentEditor = forwardRef(function DocumentEditor(props: DocumentEditorProps, ref) {
+  const { className, onChange } = props;
 
-  const ref = useRef<EditorType>(null);
+  useImperativeHandle(ref, () => {
+    return {
+      setMarkdown(markdown: string) {
+        return editorRef.current?.getInstance().setMarkdown(markdown);
+      },
+      getMarkdown() {
+        return editorRef.current?.getInstance().getMarkdown();
+      },
+    };
+  });
 
-  useEffect(() => {
-    ref.current?.getInstance().setMarkdown(value);
-  }, [value]);
+  const editorRef = useRef<EditorType>(null);
 
   function handleChange() {
-    const markdown = ref.current?.getInstance().getMarkdown() ?? "";
+    const markdown = editorRef.current?.getInstance().getMarkdown() ?? "";
     onChange(markdown);
   }
 
   return (
     <StyledEditorWrapper className={className}>
-      <EditorWithRef ref={ref} initialEditType="wysiwyg" useCommandShortcut={true} onChange={handleChange} />
+      <EditorWithRef ref={editorRef} initialEditType="wysiwyg" useCommandShortcut={true} onChange={handleChange} />
     </StyledEditorWrapper>
   );
-}
+});
 
 const StyledEditorWrapper = styled.div`
   height: 100em;

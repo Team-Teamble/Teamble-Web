@@ -6,10 +6,10 @@ import { ProfileBoxDropDown } from "../../molecule/drop-down/ProfileBoxDropDown"
 import { ProfileEditButton } from "../../atom/button/ProfileEditButton";
 import { teambleColors } from "../../../styles/color";
 import { MyPageInfo, MyPageUpdateHandler } from "../../../utils/myPage";
-import { Dummy } from "../../../utils/myPage";
+import { Meta } from "../../../utils/myPage";
 
 export interface ProfileBoxProps {
-  dummy: Dummy;
+  meta: Meta;
   user: MyPageInfo;
   isEditing: boolean;
   className?: string;
@@ -18,13 +18,13 @@ export interface ProfileBoxProps {
 }
 
 export function ProfileBox(props: ProfileBoxProps) {
-  const { user, isEditing, handleEdit, handleUpdate, className, dummy } = props;
+  const { user, isEditing, handleEdit, handleUpdate, className, meta } = props;
 
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
       <StyledName>정세연</StyledName>
-      <ProfileBoxDropDown userPosition={user.position} position={dummy.position} isEditing={isEditing} />
+      <ProfileBoxDropDown userPosition={user.position} position={meta.position} isEditing={isEditing} />
       <StyledEmailNPhone>
         <div>{user.email}</div>
         {isEditing ? (

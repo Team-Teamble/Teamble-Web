@@ -4,12 +4,16 @@ import { setAccessToken } from "../../api";
 import { UnauthorizedError } from "../../api/util/error";
 import { UserInfo } from "../../states/auth";
 
-export function withAuth<T>(fn: GetServerSideProps<T>): GetServerSideProps<T> {
+interface WithAuthOptions {
+  strict: boolean;
+}
+
+export function withAuth<T>(fn: GetServerSideProps<T>, options?: WithAuthOptions): GetServerSideProps<T> {
   return async (context) => {
     const cookies = new Cookies(context.req, context.res);
     const token = cookies.get("accessToken") ?? null;
 
-    if (token === null) {
+    if (options?.strict || token === null) {
       return loginRedirection;
     }
 

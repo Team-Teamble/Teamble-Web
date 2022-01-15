@@ -8,10 +8,13 @@ export interface AlertImageProps {
   onClick(): void;
 }
 
-export const AlertImage = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(props: AlertImageProps) {
+export const AlertImage = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(
+  props: AlertImageProps,
+  ref,
+) {
   const { className, onClick } = props;
   return (
-    <StyledAlertWrapper className={className} onClick={onClick}>
+    <StyledAlertWrapper ref={ref} className={className} onClick={onClick}>
       <AlertIcon />
     </StyledAlertWrapper>
   );

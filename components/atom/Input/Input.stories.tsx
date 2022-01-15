@@ -13,9 +13,11 @@ const Template: Story<InputProps> = (args) => {
 export const Email = Template.bind({});
 Email.args = {
   placeholder: "이메일 주소(ID)를 입력해주세요",
+  type: "text",
 } as InputProps;
 
 export const Password = Template.bind({});
 Password.args = {
   placeholder: "비밀번호를 입력해주세요",
+  type: "password",
 } as InputProps;

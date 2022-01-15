@@ -1,4 +1,4 @@
-import { GetFilterMetadataOutput, MemberAPI, SearchMembersInput, SearchMembersOutput } from ".";
+import { GetFilterMetadataOutput, MemberAPI, SearchMembersOutput } from ".";
 
 export class MemberAPIMock implements MemberAPI {
   async getFilterMetadata(): Promise<GetFilterMetadataOutput> {

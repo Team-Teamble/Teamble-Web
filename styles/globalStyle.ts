@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
+    ${reset}
+    
     body {
         font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
             Fira Sans, Droid Sans, Helvetica Neue, sans-serif;

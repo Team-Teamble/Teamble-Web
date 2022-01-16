@@ -4,7 +4,7 @@ export default function Home() {
   return <div>Hello world!</div>;
 }
 
-export const getServerSideProps = withAuth(async () => {
+export const getServerSideProps = withAuth(async (context) => {
   return {
     props: {},
   };

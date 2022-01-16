@@ -8,6 +8,7 @@ import { AppLayout } from "../components/organism/appLayout/AppLayout";
 import { MetaProps } from "../utils/ssr";
 import { useSetUser } from "../utils/hook/auth";
 import { UnauthorizedError } from "../api/util/error";
+import { getLayout } from "../utils/layout";
 
 interface MyAppProps {
   _META_PROPS?: MetaProps;
@@ -30,13 +31,15 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
     set(authUserAtom, _META_PROPS?.access?.user ?? null);
   }
 
+  const SelectedLayout = getLayout(Component) ?? AppLayout;
+
   return (
     <RecoilRoot initializeState={initState}>
       <DetectAuth user={_META_PROPS?.access?.user ?? null} accessToken={_META_PROPS?.access?.accessToken ?? null}>
-        <AppLayout>
+        <SelectedLayout>
           <GlobalStyle />
           <Component {...otherPageProps} />
-        </AppLayout>
+        </SelectedLayout>
       </DetectAuth>
     </RecoilRoot>
   );

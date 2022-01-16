@@ -24,7 +24,8 @@
     "react-popper": "^2.2.5",
     "recoil": "^0.5.2",
     "styled-components": "^5.3.3",
-    "styled-reset": "^4.3.4"
+    "styled-reset": "^4.3.4",
+    "zod": "^3.11.6"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

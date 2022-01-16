@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -13,12 +14,16 @@ export function EntryField(props: EntryFieldProps) {
   const { className, onClick } = props;
   return (
     <StyledWrapper className={className}>
-      <EntryButton className="login" onClick={onClick}>
-        로그인
-      </EntryButton>
-      <EntryButton className="register" onClick={onClick}>
-        회원가입
-      </EntryButton>
+      <Link href="/login" passHref>
+        <EntryButton className="login" onClick={onClick}>
+          로그인
+        </EntryButton>
+      </Link>
+      <Link href="/register" passHref>
+        <EntryButton className="register" onClick={onClick}>
+          회원가입
+        </EntryButton>
+      </Link>
     </StyledWrapper>
   );
 }

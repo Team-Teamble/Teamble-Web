@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 
 export interface UserInfo {
+  id: number;
   name: string;
 }
 

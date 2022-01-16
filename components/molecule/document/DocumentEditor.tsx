@@ -1,7 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import styled from "styled-components";
 import { TuiEditorWithForwardedProps } from "./TuiWrapper";
 

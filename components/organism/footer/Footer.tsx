@@ -54,7 +54,9 @@ const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  padding: 4.9em 36em;
+  height: 40em;
+  box-sizing: border-box;
+  padding: 4.9rem 3.6rem;
   background-color: ${teambleColors.lightPurple};
   box-shadow: 0px -4px 20px 2px #00000012;
 `;

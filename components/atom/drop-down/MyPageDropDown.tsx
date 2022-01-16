@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface MyPageDropDownProps {
+  className?: string;
   options: { id: number; name: string }[];
   handleSelect(id: number): void;
 }
 
 export function MyPageDropDown(props: MyPageDropDownProps) {
-  const { options, handleSelect } = props;
+  const { options, handleSelect, className } = props;
 
   return (
-    <StyledMyPageDropDown>
+    <StyledMyPageDropDown className={className}>
       {/* 최대 개수 추후 프롭으로 전달 */}
       <StyledMaximum>최대 2개 선택</StyledMaximum>
       {options.map(({ id, name }) => (

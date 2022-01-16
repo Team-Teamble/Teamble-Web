@@ -9,8 +9,8 @@ const localAPISession = axios.create({
 });
 
 function useAuthStore() {
-  async function store(accessToken: string) {
-    await localAPISession.post("auth/store", { accessToken });
+  async function store(accessToken: string, user: UserInfo) {
+    await localAPISession.post("auth/store", { accessToken, user });
   }
 
   return store;
@@ -30,11 +30,15 @@ export function useLogin({ redirect }: { redirect?: string }) {
 
   async function request(username: string, password: string) {
     const res = await apiService.auth.login({ email: username, password });
-    authStore(res.accessToken);
+    authStore(res.accessToken, {
+      id: res.user.id,
+      name: res.user.name,
+    });
 
     setAccessToken(res.accessToken);
     setUser({
-      name: res.accessToken,
+      id: res.user.id,
+      name: res.user.name,
     });
     if (redirect) {
       router.push(redirect);
@@ -62,6 +66,9 @@ export function useLogout({ redirect }: { redirect?: string }) {
 
 export function useUser(): UserInfo | null {
   const userInfo = useRecoilValue(authUserAtom);
-
   return userInfo;
+}
+
+export function useSetUser() {
+  return useSetRecoilState(authUserAtom);
 }

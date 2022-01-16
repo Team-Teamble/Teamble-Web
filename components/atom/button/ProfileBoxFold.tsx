@@ -22,6 +22,7 @@ const StyledProfileBoxFold = styled.div`
   align-items: center;
   justify-content: center;
   width: 170px;
+  height: 26px;
   font-weight: 500;
   font-size: 18px;
   text-align: center;

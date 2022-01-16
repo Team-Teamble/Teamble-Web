@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { forwardRef, ReactNode } from "react";
 import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
@@ -10,11 +10,11 @@ export interface NavTabItemProps {
   onClick(): void;
 }
 
-function NavTabItem(props: NavTabItemProps) {
+export const NavTabItem = forwardRef<HTMLDivElement, NavTabItemProps>(function NavTabItem(props, ref) {
   const { className = "first", children, isSelected, href, onClick } = props;
 
   return (
-    <StyledNavTabItem className={className} isSelected={isSelected} onClick={onClick}>
+    <StyledNavTabItem ref={ref} className={className} isSelected={isSelected} onClick={onClick}>
       <StyledItemContent isSelected={isSelected}>
         <a href={href} onClick={onClick}>
           {children}
@@ -22,13 +22,13 @@ function NavTabItem(props: NavTabItemProps) {
       </StyledItemContent>
     </StyledNavTabItem>
   );
-}
+});
 
 const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 5.8em;
+  height: 3.6em;
 `;
 
 const StyledItemContent = styled.div<{
@@ -41,8 +41,8 @@ const StyledItemContent = styled.div<{
 
         & > a {
           text-decoration: none;
-          font-size: 24px;
-          font-weight: 700;
+          font-size: 18px;
+          font-weight: 500;
           color: ${teambleColors.black};
         }
       `;
@@ -52,14 +52,19 @@ const StyledItemContent = styled.div<{
 
         & > a {
           text-decoration: none;
-          font-size: 24px;
+          font-size: 18px;
           font-weight: 500;
           color: ${teambleColors.deepGray};
         }
       `;
     }
   }}
-`;
 
-const forwardedRefItem = React.forwardRef(NavTabItem);
-export default forwardedRefItem;
+  &:hover {
+    border-bottom: 3px solid ${teambleColors.black};
+
+    & > a {
+      color: ${teambleColors.black};
+    }
+  }
+`;

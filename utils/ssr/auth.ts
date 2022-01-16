@@ -1,33 +1,77 @@
 import Cookies from "cookies";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { setAccessToken } from "../../api";
 import { UnauthorizedError } from "../../api/util/error";
 import { UserInfo } from "../../states/auth";
+import { z } from "zod";
+
+export interface MetaProps {
+  _IS_META: true;
+  access: {
+    accessToken: string;
+    user: UserInfo;
+  } | null;
+}
 
 interface WithAuthOptions {
   strict: boolean;
 }
 
-export function withAuth<T>(fn: GetServerSideProps<T>, options?: WithAuthOptions): GetServerSideProps<T> {
+interface AuthContext {
+  user: UserInfo | null;
+}
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type GetServerSidePropsWithAuth<P extends { [key: string]: any } = { [key: string]: any }> = (
+  context: GetServerSidePropsContext,
+  user: AuthContext,
+) => Promise<GetServerSidePropsResult<P>>;
+
+export function withAuth<T>(fn: GetServerSidePropsWithAuth<T>, options?: WithAuthOptions): GetServerSideProps<T> {
   return async (context) => {
     const cookies = new Cookies(context.req, context.res);
-    const token = cookies.get("accessToken") ?? null;
+    const access = cookies.get("access") ?? "{}";
 
-    if (options?.strict || token === null) {
+    const parsed = z
+      .object({
+        accessToken: z.string(),
+        user: z.object({
+          id: z.number(),
+          name: z.string(),
+        }),
+      })
+      .safeParse(JSON.parse(decodeURIComponent(access)));
+
+    if (options?.strict && !parsed.success) {
       return loginRedirection;
     }
 
-    setAccessToken(token);
+    let metaProps = (): MetaProps => ({
+      _IS_META: true,
+      access: null,
+    });
 
-    const userInfo: UserInfo = {
-      name: token,
-    };
+    let user: UserInfo | null = null;
+
+    if (parsed.success) {
+      setAccessToken(parsed.data.accessToken);
+
+      user = parsed.data.user;
+
+      metaProps = (): MetaProps => ({
+        _IS_META: true,
+        access: {
+          accessToken: parsed.data.accessToken,
+          user: parsed.data.user,
+        },
+      });
+    }
 
     try {
-      const result = await fn(context);
+      const result = await fn(context, { user });
 
       if ("props" in result) {
-        return { props: { ...result.props, accessToken: token, userInfo } };
+        return { props: { ...result.props, _META_PROPS: metaProps() } };
       }
 
       return result;

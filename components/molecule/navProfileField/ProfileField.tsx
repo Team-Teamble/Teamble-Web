@@ -16,12 +16,10 @@ export function ProfileField(props: ProfileFieldProps) {
   const { className, profileImgSrc, userName, onClick } = props;
   return (
     <StyledWrapper className={className}>
-      <AlertImage className={className} onClick={onClick} />
+      <AlertImage onClick={onClick} />
       <StyledProfileWrapper>
-        <ProfileImage className={className} profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
-        <NavProfileName className={className} onClick={onClick}>
-          {userName}
-        </NavProfileName>
+        <ProfileImage profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
+        <NavProfileName onClick={onClick}>{userName}</NavProfileName>
       </StyledProfileWrapper>
     </StyledWrapper>
   );

@@ -12,7 +12,7 @@ export interface InputProps {
 }
 
 export default function Input(props: InputProps) {
-  const { className, placeholder, onChange, value = "" } = props;
+  const { className, placeholder, onChange, value } = props;
   const [borderColor, setBorderColor] = useState(teambleColors.gray);
 
   useEffect(() => {

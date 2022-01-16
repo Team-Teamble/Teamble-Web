@@ -1,78 +1,109 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import NavTabItem from "../../atom/item/NavTabItem";
+import { NavTabItem } from "../../atom/item/NavTabItem";
 import { EntryField } from "../../molecule/entryField/EntryField";
 import { ProfileField } from "../../molecule/navProfileField/ProfileField";
 import Logo from "../../../assets/svg/logo_img.svg";
+import { teambleColors } from "../../../styles/color";
 
 export interface HeaderProps {
   className?: string;
-  user: { id: number; name: string; photo: string; projectId: number | null };
+  user?: { id: number; name: string; photo: string; projectId: number | null };
   isLogin: boolean;
-  isSelected: boolean;
-  onClick(): void;
+  isSelected?: boolean;
 }
 
 export function Header(props: HeaderProps) {
-  const { className, user, isLogin, isSelected, onClick } = props;
+  const { className, user, isLogin, isSelected } = props;
+
+  function handleClick() {
+    //
+  }
 
   return (
-    <StyledHeader className={className}>
-      <StyledHeaderDesc>
-        <Logo />
-        {isLogin ? (
-          <ProfileField className={className} userName={user.name} profileImgSrc={user.photo} onClick={onClick} />
-        ) : (
-          <EntryField className={className} onClick={onClick} />
-        )}
-      </StyledHeaderDesc>
+    <StyledWrapper>
+      <StyledHeader className={className}>
+        <StyledHeaderDesc>
+          <Link href="/" passHref>
+            <Logo />
+          </Link>
+          {isLogin ? (
+            user && (
+              <ProfileField
+                className={className}
+                userName={user.name}
+                profileImgSrc={user.photo}
+                onClick={handleClick}
+              />
+            )
+          ) : (
+            <EntryField className={className} onClick={handleClick} />
+          )}
+        </StyledHeaderDesc>
 
-      <StyledNav>
-        <Link href="/about" passHref>
-          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-            팀블 소개
-          </NavTabItem>
-        </Link>
-        <Link href="/search" passHref>
-          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-            프로젝트 찾기
-          </NavTabItem>
-        </Link>
-        <Link href="/member" passHref>
-          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-            팀원 찾기
-          </NavTabItem>
-        </Link>
-        <Link href="/project" passHref>
-          <NavTabItem className={className} isSelected={isSelected} onClick={onClick}>
-            {user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
-          </NavTabItem>
-        </Link>
-      </StyledNav>
-    </StyledHeader>
+        <StyledNav>
+          <Link href="/about" passHref>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+              팀블 소개
+            </NavTabItem>
+          </Link>
+          <Link href="/search" passHref>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+              프로젝트 찾기
+            </NavTabItem>
+          </Link>
+          <Link href="/member" passHref>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+              팀원 찾기
+            </NavTabItem>
+          </Link>
+          <Link href="/project" passHref>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+              {isLogin && user && user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
+            </NavTabItem>
+          </Link>
+        </StyledNav>
+      </StyledHeader>
+    </StyledWrapper>
   );
 }
 
-const StyledHeader = styled.header`
+const StyledWrapper = styled.header`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  padding: 3.3em 34.5em 0 34.5em;
+  width: 100%;
+  margin: 0 auto;
   box-shadow: 0px 4px 8px 2px #00000012;
+  background-color: ${teambleColors.white};
+`;
+
+const StyledHeader = styled.div`
+  margin: 0 21.56rem;
 `;
 
 const StyledHeaderDesc = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const StyledNav = styled.nav`
+  width: 100%;
+  height: 3.6em;
   margin-left: 3em;
+  padding-top: 1.35em;
   display: flex;
 
   & > div + div {
     margin-left: 6.5em;
   }
 `;
+// const StyledWrapper = styled.div`
+//   width: 120em;
+//   max-width: 120em;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+// `;

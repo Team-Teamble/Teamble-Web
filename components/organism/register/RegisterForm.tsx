@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { BasicButton } from "../../atom/button/BasicButton";
@@ -25,7 +25,52 @@ export function RegisterForm(props: RegisterFormProps) {
   const [selectFirst, setSelectFirst] = useState(false);
   const [selectSecond, setSelectSecond] = useState(false);
 
-  function onClick() {}
+  useEffect(() => {
+    onCheckAllSelect();
+  }, [selectAll]);
+
+  useEffect(() => {
+    onCheckItemSelect();
+  }, [selectFirst, selectSecond]);
+
+  function onCheckItemSelect() {
+    if (selectFirst && selectSecond) {
+      setSelectAll(() => true);
+      onCheckAllSelect();
+    }
+
+    if (selectAll) {
+      if (!selectFirst) {
+        setIsValid(() => false);
+      } else if (!selectSecond) {
+        setIsValid(() => false);
+      }
+    }
+  }
+
+  function onCheckAllSelect() {
+    if (selectAll) {
+      setIsValid(() => true);
+      setSelectFirst(() => true);
+      setSelectSecond(() => true);
+    } else {
+      setIsValid(() => false);
+      setSelectFirst(() => false);
+      setSelectSecond(() => false);
+    }
+  }
+
+  function onSelectAll() {
+    setSelectAll((selectAll) => !selectAll);
+  }
+
+  function onSelectFirst() {
+    setSelectFirst((selectFirst) => !selectFirst);
+  }
+
+  function onSelectSecond() {
+    setSelectSecond((selectSecond) => !selectSecond);
+  }
 
   function handleChange(name: keyof Field) {
     return function (e: ChangeEvent<{ value: string }>) {
@@ -39,6 +84,7 @@ export function RegisterForm(props: RegisterFormProps) {
       onRegister(field.name, field.email, field.password);
     }
   }
+
   return (
     <StyledWrapper className={className}>
       <h2>회원가입</h2>
@@ -66,21 +112,29 @@ export function RegisterForm(props: RegisterFormProps) {
         />
         <StyledCheckWrapper>
           <StyledSelectWrapper>
-            {selectAll ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
+            {selectAll ? <CheckActiveIcon onClick={onSelectAll} /> : <CheckInActiveIcon onClick={onSelectAll} />}
             <span>모두 선택</span>
           </StyledSelectWrapper>
           <StyledInnerWrapper>
             <StyledSelectWrapper>
-              {selectFirst ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
+              {selectFirst ? (
+                <CheckActiveIcon onClick={onSelectFirst} />
+              ) : (
+                <CheckInActiveIcon onClick={onSelectFirst} />
+              )}
               <span>[필수] 개인정보 취급 방침에 동의합니다 </span>
             </StyledSelectWrapper>
             <StyledSelectWrapper>
-              {selectSecond ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
+              {selectSecond ? (
+                <CheckActiveIcon onClick={onSelectSecond} />
+              ) : (
+                <CheckInActiveIcon onClick={onSelectSecond} />
+              )}
               <span>[필수] 이용약관에 동의합니다 </span>
             </StyledSelectWrapper>
           </StyledInnerWrapper>
         </StyledCheckWrapper>
-        <BasicButton variant="filled" disabled={disabled} onClick={onClickRegister}>
+        <BasicButton variant="filled" disabled={!isValid} onClick={onClickRegister}>
           회원가입
         </BasicButton>
         <div>
@@ -92,12 +146,13 @@ export function RegisterForm(props: RegisterFormProps) {
   );
 }
 
-const StyledWrapper = styled.form`
+const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  flex-grow: 1;
+  padding-bottom: 16.8rem;
 
   & > h2 {
     font-size: 24px;

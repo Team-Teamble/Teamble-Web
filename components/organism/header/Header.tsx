@@ -25,8 +25,10 @@ export function Header(props: HeaderProps) {
     <StyledHeader className={className}>
       <StyledWrapper>
         <StyledHeaderDesc>
-          <Link href="/" passHref>
-            <Logo />
+          <Link href="/">
+            <a>
+              <Logo />
+            </a>
           </Link>
           {isLogin ? (
             user && (

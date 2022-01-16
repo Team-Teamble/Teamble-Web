@@ -9,13 +9,12 @@ import { teambleColors } from "../../../styles/color";
 
 export interface HeaderProps {
   className?: string;
-  user?: { id: number; name: string; photo: string; projectId: number | null };
-  isLogin: boolean;
+  user: { id: number; name: string; profilePic: string; currentProjectId: number | null } | null;
   isSelected?: boolean;
 }
 
 export function Header(props: HeaderProps) {
-  const { className, user, isLogin, isSelected } = props;
+  const { className, user, isSelected } = props;
 
   function handleClick() {
     //
@@ -28,45 +27,37 @@ export function Header(props: HeaderProps) {
           <Link href="/" passHref>
             <Logo />
           </Link>
-          {isLogin ? (
-            user && (
-              <ProfileField
-                className={className}
-                userName={user.name}
-                profileImgSrc={user.photo}
-                onClick={handleClick}
-              />
-            )
+          {user !== null ? (
+            <ProfileField userName={user.name} profileImgSrc={user.profilePic} onClick={handleClick} />
           ) : (
-            <EntryField className={className} onClick={handleClick} />
+            <EntryField onClick={handleClick} />
           )}
         </StyledHeaderDesc>
 
         <StyledNav>
-          <Link href="/about" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+          <Link href="/" passHref>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               팀블 소개
             </NavTabItem>
           </Link>
-          <Link href="/search" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+          <Link href="/project" passHref>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
-          <Link href="/member" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+          <Link href="/profile" passHref>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               팀원 찾기
             </NavTabItem>
           </Link>
-          <Link href="/project" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
-              {isLogin && user && user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
+          <Link href="/create-project" passHref>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
+              {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>
         </StyledNav>
       </StyledWrapper>
     </StyledHeader>
-    // </StyledWrapper>
   );
 }
 

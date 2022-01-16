@@ -30,16 +30,18 @@ export function useLogin({ redirect }: { redirect?: string }) {
 
   async function request(username: string, password: string) {
     const res = await apiService.auth.login({ email: username, password });
-    authStore(res.accessToken, {
+
+    const user = {
       id: res.user.id,
       name: res.user.name,
-    });
+      profilePic: res.user.photo,
+      currentProjectId: res.user.projectId,
+    };
+
+    authStore(res.accessToken, user);
 
     setAccessToken(res.accessToken);
-    setUser({
-      id: res.user.id,
-      name: res.user.name,
-    });
+    setUser(user);
     if (redirect) {
       router.push(redirect);
     }

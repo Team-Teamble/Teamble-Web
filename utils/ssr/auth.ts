@@ -2,7 +2,7 @@ import Cookies from "cookies";
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { setAccessToken } from "../../api";
 import { UnauthorizedError } from "../../api/util/error";
-import { UserInfo } from "../../states/auth";
+import { UserInfo, userInfoChecker } from "../../states/auth";
 import { z } from "zod";
 
 export interface MetaProps {
@@ -35,10 +35,7 @@ export function withAuth<T>(fn: GetServerSidePropsWithAuth<T>, options?: WithAut
     const parsed = z
       .object({
         accessToken: z.string(),
-        user: z.object({
-          id: z.number(),
-          name: z.string(),
-        }),
+        user: userInfoChecker,
       })
       .safeParse(JSON.parse(decodeURIComponent(access)));
 

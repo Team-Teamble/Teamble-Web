@@ -43,3 +43,5 @@ export function createListenable<T>(init: T): Listenable<T> {
     },
   );
 }
+
+export const apiContext: APIContext = createAPIContext();

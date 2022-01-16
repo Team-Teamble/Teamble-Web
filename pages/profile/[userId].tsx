@@ -134,12 +134,12 @@ export interface HandleUpdate {
 }
 
 const StyledProfileById = styled.div`
-  width: 100vw;
+  width: 100%;
   flex-grow: 1;
   height: 500vh;
 `;
 const StyledBg = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 36.4em;
   background-color: ${teambleColors.brightPurple};
 `;

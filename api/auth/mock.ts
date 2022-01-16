@@ -1,4 +1,6 @@
 import { AuthAPI, LoginInput, LoginOutput, RegisterInput, RegisterOutput, VerifyOutput } from ".";
+import { apiContext } from "../context";
+import { UnauthorizedError } from "../util/error";
 import { withLogger } from "../util/logger";
 
 export const AuthAPIMock = withLogger(
@@ -8,7 +10,7 @@ export const AuthAPIMock = withLogger(
         user: {
           id: 1,
           idFirebase: "ehxIllyXpcSXANkvEUYUqI2kCaZ2",
-          name: "김팀블",
+          name: "테스트",
           email: data.email,
           phone: "010-1234-5678",
           photo: "https.~~~",
@@ -58,11 +60,15 @@ export const AuthAPIMock = withLogger(
     }
 
     async verify(): Promise<VerifyOutput> {
+      if (apiContext.accessToken === null) {
+        throw new UnauthorizedError("Mock Unauthorized");
+      }
+
       return {
         user: {
           id: 1,
           idFirebase: "ehxIllyXpcSXANkvEUYUqI2kCaZ2",
-          name: "김팀블",
+          name: "테스트",
           email: "teamble@gmail.com",
           phone: "010-1234-5678",
           photo: "https.~~~",

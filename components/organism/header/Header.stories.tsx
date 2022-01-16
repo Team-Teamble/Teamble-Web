@@ -17,7 +17,7 @@ HeaderOrganism.args = {
   user: {
     id: 0,
     name: "마가렛",
-    photo: "",
-    projectId: null,
+    profilePic: "",
+    currentProjectId: null,
   },
 } as HeaderProps;

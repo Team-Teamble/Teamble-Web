@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Cookies from "cookies";
 import { addDays } from "date-fns";
-import { UserInfo } from "../../../states/auth";
+import { UserInfo, userInfoChecker } from "../../../states/auth";
 import { z } from "zod";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -12,12 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const accessToken = req.body.accessToken + "";
 
-      const user: UserInfo = z
-        .object({
-          name: z.string(),
-          id: z.number(),
-        })
-        .parse(req.body.user);
+      const user: UserInfo = userInfoChecker.parse(req.body.user);
 
       cookies.set("access", encodeURIComponent(JSON.stringify({ accessToken, user })), {
         expires,

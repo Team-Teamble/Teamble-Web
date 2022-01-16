@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Header } from "../header/Header";
 import { Footer } from "../footer/Footer";
+import { useUser } from "../../../utils/hook/auth";
 
 export interface AppLayoutProps {
   children?: ReactNode;
@@ -9,11 +10,11 @@ export interface AppLayoutProps {
 
 export function AppLayout(props: AppLayoutProps) {
   const { children } = props;
-  const mockUser = { id: 1, name: "김팀블", photo: "photourl", projectId: 2 };
+  const user = useUser();
 
   return (
     <StyledAppLayout>
-      <Header isLogin={false} user={mockUser} isSelected={false} />
+      <Header user={user} isSelected={false} />
       <ChildrenSlot>{children}</ChildrenSlot>
       <Footer />
     </StyledAppLayout>

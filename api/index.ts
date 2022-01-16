@@ -1,6 +1,6 @@
 import { AuthAPI } from "./auth";
 import { AuthAPIMock } from "./auth/mock";
-import { APIContext, createAPIContext } from "./context";
+import { apiContext } from "./context";
 import { LandingAPI } from "./landing";
 import { LandingAPIMock } from "./landing/mock";
 import { MemberAPI } from "./member";
@@ -18,8 +18,6 @@ export interface APIService {
   project: ProjectAPI;
   userProfile: UserProfileAPI;
 }
-
-const apiContext: APIContext = createAPIContext();
 
 export function setAccessToken(token: string | null) {
   apiContext.accessToken = token;

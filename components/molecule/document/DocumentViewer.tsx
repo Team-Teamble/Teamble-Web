@@ -3,6 +3,7 @@ import { Viewer as ViewerType, ViewerProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { forwardRef, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { teambleColors } from "../../../styles/color";
 import { TuiViewerWithForwardedProps } from "./TuiWrapper";
 
 interface ViewerPropsWithHandlers extends ViewerProps {
@@ -39,5 +40,15 @@ export function DocumentViewer(props: DocumentViewerProps) {
 }
 
 const StyledViewerWrapper = styled.div`
-  height: 100em;
+  height: 29.6rem;
+  margin-top: 2.3rem;
+  border: 2px solid ${teambleColors.gray};
+
+  p {
+    box-sizing: border-box;
+    font-size: 18px;
+    padding: 1.2em 2.1em;
+    color: ${teambleColors.black};
+    letter-spacing: -0.02em;
+  }
 `;

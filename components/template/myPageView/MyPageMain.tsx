@@ -7,10 +7,11 @@ export interface MyPageMainProps {
   profileBox: ReactNode;
   tendencies: ReactNode;
   fields: ReactNode;
+  viewer: ReactNode;
 }
 
 export function MyPageMain(props: MyPageMainProps) {
-  const { className, profileBox, tendencies, intro, fields } = props;
+  const { className, profileBox, tendencies, intro, fields, viewer } = props;
 
   return (
     <StyledMyPageMain className={className}>
@@ -24,6 +25,7 @@ export function MyPageMain(props: MyPageMainProps) {
         <StyledBodySection>
           {tendencies}
           {fields}
+          {viewer}
         </StyledBodySection>
       </StyledBody>
     </StyledMyPageMain>

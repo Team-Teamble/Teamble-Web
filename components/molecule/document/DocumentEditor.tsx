@@ -3,6 +3,7 @@ import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import styled from "styled-components";
+import { teambleColors } from "../../../styles/color";
 import { TuiEditorWithForwardedProps } from "./TuiWrapper";
 
 interface EditorPropsWithHandlers extends EditorProps {
@@ -56,5 +57,5 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 });
 
 const StyledEditorWrapper = styled.div`
-  height: 100em;
+  margin-top: 2.3rem;
 `;

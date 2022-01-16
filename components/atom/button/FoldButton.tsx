@@ -36,10 +36,8 @@ const StyledWrapper = styled.div<{
   height: 38px;
   display: ${(props) => (props.isTagBox ? "inline-flex" : "flex")};
   align-items: center;
-  justify-content: space-between;
-  align-items: center;
   cursor: pointer;
-  padding: 0.61em 1.11em;
+  padding: 0 1.11em;
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
   box-sizing: border-box;
   border-radius: 0.38em;

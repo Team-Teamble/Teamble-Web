@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import { apiService } from "../api";
 import { Header } from "../components/organism/header/Header";
@@ -11,17 +10,9 @@ import { withAuth } from "../utils/ssr";
 export default function Register() {
   const field = useField();
 
-  const [isValid, setIsValid] = useState(false);
-
-  //   async function onRegister(name: string, email: string, password: string) {
-  //     const register = useAPI((api) => api.auth.register);
-  //     register.request({ name: name, email: email, password: password });
-  //   }
-
-  async function onRegister() {
+  async function onRegister(name: string, email: string, password: string) {
     const register = useAPI((api) => api.auth.register);
-    register.request({ ...field.registerValue });
-    console.log({ ...field.registerValue });
+    register.request({ name: name, email: email, password: password });
   }
 
   return (
@@ -32,7 +23,7 @@ export default function Register() {
           disabled={true}
           field={field.registerValue}
           onChange={(name, value) => field.updateRegisterField(name, value)}
-          onClick={onRegister}
+          onRegister={onRegister}
         />
       }
     />

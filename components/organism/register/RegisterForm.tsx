@@ -14,16 +14,18 @@ export interface RegisterFormProps {
   disabled: boolean;
   field: Field;
   onChange: RegisterFieldChanger;
-  onClick(): void;
+  onRegister?(name: string, email: string, password: string): void;
 }
 
 export function RegisterForm(props: RegisterFormProps) {
-  const { className, disabled, onClick, onChange, field } = props;
+  const { className, disabled, onRegister, onChange, field } = props;
 
   const [isValid, setIsValid] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [selectFirst, setSelectFirst] = useState(false);
   const [selectSecond, setSelectSecond] = useState(false);
+
+  function onClick() {}
 
   function handleChange(name: keyof Field) {
     return function (e: ChangeEvent<{ value: string }>) {
@@ -32,6 +34,11 @@ export function RegisterForm(props: RegisterFormProps) {
     };
   }
 
+  function onClickRegister() {
+    if (onRegister) {
+      onRegister(field.name, field.email, field.password);
+    }
+  }
   return (
     <StyledWrapper className={className}>
       <h2>회원가입</h2>
@@ -59,21 +66,21 @@ export function RegisterForm(props: RegisterFormProps) {
         />
         <StyledCheckWrapper>
           <StyledSelectWrapper>
-            {selectAll ? <CheckActiveIcon onClick={handleClick} /> : <CheckInActiveIcon onClick={handleClick} />}
+            {selectAll ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
             <span>모두 선택</span>
           </StyledSelectWrapper>
           <StyledInnerWrapper>
             <StyledSelectWrapper>
-              {selectFirst ? <CheckActiveIcon onClick={handleClick} /> : <CheckInActiveIcon onClick={handleClick} />}
+              {selectFirst ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
               <span>[필수] 개인정보 취급 방침에 동의합니다 </span>
             </StyledSelectWrapper>
             <StyledSelectWrapper>
-              {selectSecond ? <CheckActiveIcon onClick={handleClick} /> : <CheckInActiveIcon onClick={handleClick} />}
+              {selectSecond ? <CheckActiveIcon onClick={onClick} /> : <CheckInActiveIcon onClick={onClick} />}
               <span>[필수] 이용약관에 동의합니다 </span>
             </StyledSelectWrapper>
           </StyledInnerWrapper>
         </StyledCheckWrapper>
-        <BasicButton variant="filled" disabled={disabled} onClick={onClick}>
+        <BasicButton variant="filled" disabled={disabled} onClick={onClickRegister}>
           회원가입
         </BasicButton>
         <div>

@@ -7,7 +7,7 @@ export interface Field {
   passwordCheck?: string;
 }
 
-export type FieldToLogin = Omit<Field, "passwordCheck">;
+export type FieldToLogin = Omit<Field, "name" | "passwordCheck">;
 
 export interface LoginFieldChanger {
   <K extends keyof FieldToLogin>(name: K, val: FieldToLogin[K]): void;
@@ -19,7 +19,6 @@ export interface RegisterFieldChanger {
 
 export function useField() {
   const [value, setValue] = useState<FieldToLogin>({
-    name: "",
     email: "",
     password: "",
   });
@@ -31,13 +30,12 @@ export function useField() {
     passwordCheck: "",
   });
 
-  function updateField<K extends keyof FieldToLogin>(name: K, val: FieldToLogin[K]) {
+  function updateField<K extends keyof Field>(name: K, val: Field[K]) {
     setValue({ ...value, [name]: val });
   }
 
   function updateRegisterField<K extends keyof Field>(name: K, val: Field[K]) {
     setRegisterValue({ ...registerValue, [name]: val });
-    console.log(registerValue);
   }
 
   return {

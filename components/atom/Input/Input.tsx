@@ -11,7 +11,7 @@ export interface InputProps {
 }
 
 export default function Input(props: InputProps) {
-  const { className, placeholder, onChange, value } = props;
+  const { className, placeholder, onChange, value, type } = props;
   const [borderColor, setBorderColor] = useState(teambleColors.gray);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export default function Input(props: InputProps) {
   return (
     <StyledEmailInput
       className={className}
+      type={type}
       borderColor={borderColor}
       placeholder={placeholder}
       onChange={onChange}

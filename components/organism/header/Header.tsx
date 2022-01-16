@@ -22,8 +22,8 @@ export function Header(props: HeaderProps) {
   }
 
   return (
-    <StyledWrapper>
-      <StyledHeader className={className}>
+    <StyledHeader className={className}>
+      <StyledWrapper>
         <StyledHeaderDesc>
           <Link href="/" passHref>
             <Logo />
@@ -64,22 +64,17 @@ export function Header(props: HeaderProps) {
             </NavTabItem>
           </Link>
         </StyledNav>
-      </StyledHeader>
-    </StyledWrapper>
+      </StyledWrapper>
+    </StyledHeader>
+    // </StyledWrapper>
   );
 }
 
-const StyledWrapper = styled.header`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 auto;
-  box-shadow: 0px 4px 8px 2px #00000012;
-  background-color: ${teambleColors.white};
-`;
-
 const StyledHeader = styled.div`
-  margin: 0 21.56rem;
+  display: flex;
+  justify-content: center;
+  background-color: ${teambleColors.white};
+  box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.07);
 `;
 
 const StyledHeaderDesc = styled.div`
@@ -100,10 +95,10 @@ const StyledNav = styled.nav`
     margin-left: 6.5em;
   }
 `;
-// const StyledWrapper = styled.div`
-//   width: 120em;
-//   max-width: 120em;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-// `;
+const StyledWrapper = styled.div`
+  width: 120em;
+  max-width: 120em;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;

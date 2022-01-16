@@ -10,13 +10,11 @@ export interface AppLayoutProps {
 export function AppLayout(props: AppLayoutProps) {
   const { children } = props;
   const mockUser = { id: 1, name: "김팀블", photo: "photourl", projectId: 2 };
-  function handleClick() {
-    console.log("test");
-  }
+
   return (
     <StyledAppLayout>
       <Header isLogin={false} user={mockUser} isSelected={false} />
-      {children}
+      <ChildrenSlot>{children}</ChildrenSlot>
       <Footer />
     </StyledAppLayout>
   );
@@ -25,6 +23,9 @@ export function AppLayout(props: AppLayoutProps) {
 const StyledAppLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
   min-height: 100vh;
+`;
+
+const ChildrenSlot = styled.div`
+  flex-grow: 1;
 `;

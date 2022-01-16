@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+const TIME_DELTA = 500;
+
 export function withLogger<T extends { new (...args: any[]): {} }>(constructor: T): T {
   const name = constructor.name;
   for (const prop of Object.getOwnPropertyNames(constructor.prototype)) {
@@ -12,6 +14,11 @@ export function withLogger<T extends { new (...args: any[]): {} }>(constructor: 
           const out = target(...args);
           if (out instanceof Promise) {
             return out
+              .then((result) => {
+                return new Promise((resolve) => {
+                  setTimeout(() => resolve(result), TIME_DELTA);
+                });
+              })
               .then((result) => {
                 console.log(`[LOG] ${name}.${prop} RESPONSE: `, result);
                 return result;

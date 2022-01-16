@@ -5,16 +5,18 @@ import { teambleColors } from "../../../styles/color";
 export interface InputProps {
   className?: string;
   placeholder: string;
-  value: string;
-  onChange(value: string): void;
+  value?: string;
+  type: string;
+  onChange(str: string): void;
 }
 
 export default function Input(props: InputProps) {
-  const { className, placeholder, onChange, value = "" } = props;
+  const { className, placeholder, onChange, value, type } = props;
   const [borderColor, setBorderColor] = useState(teambleColors.gray);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onChange(e.target.value);
+    const value = e.target.value;
+    onChange(value);
   }
 
   useEffect(() => {
@@ -22,16 +24,17 @@ export default function Input(props: InputProps) {
   }, [value]);
 
   return (
-    <StyledEmailInput
+    <StyledInput
       className={className}
+      type={type}
       borderColor={borderColor}
       placeholder={placeholder}
       onChange={handleChange}
-      value={value}></StyledEmailInput>
+      value={value}></StyledInput>
   );
 }
 
-const StyledEmailInput = styled.input<{
+const StyledInput = styled.input<{
   borderColor: string;
 }>`
   width: 410px;
@@ -42,4 +45,8 @@ const StyledEmailInput = styled.input<{
   outline: none;
   font-size: 18px;
   font-weight: 500;
+
+  &::placeholder {
+    color: ${teambleColors.gray};
+  }
 `;

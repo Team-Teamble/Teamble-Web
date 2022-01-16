@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
 
 import DefaultProfile from "../../../assets/svg/ic_profile.svg";
@@ -10,7 +10,7 @@ export interface ProfileProps {
   onClick?(): void;
 }
 
-export function ProfileImage(props: ProfileProps) {
+export const ProfileImage = forwardRef<HTMLImageElement, ProfileProps>(function ProfileImage(props: ProfileProps, ref) {
   const { className, profileImgSrc, profileSize = "medium", onClick } = props;
 
   function checkDefaultProfile(profileImgSrc: string) {
@@ -20,8 +20,12 @@ export function ProfileImage(props: ProfileProps) {
       return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} />;
     }
   }
-  return <StyledImgWrapper className={className}>{checkDefaultProfile(profileImgSrc)}</StyledImgWrapper>;
-}
+  return (
+    <StyledImgWrapper ref={ref} className={className}>
+      {checkDefaultProfile(profileImgSrc)}
+    </StyledImgWrapper>
+  );
+});
 
 const StyledImgWrapper = styled.div`
   display: flex;

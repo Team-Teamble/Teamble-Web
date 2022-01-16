@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import NavTabItem from "../../atom/item/NavTabItem";
+import { NavTabItem } from "../../atom/item/NavTabItem";
 import { EntryField } from "../../molecule/entryField/EntryField";
 import { ProfileField } from "../../molecule/navProfileField/ProfileField";
 import Logo from "../../../assets/svg/logo_img.svg";
@@ -9,62 +9,77 @@ import { teambleColors } from "../../../styles/color";
 
 export interface HeaderProps {
   className?: string;
-  user: { id: number; name: string; photo: string; projectId: number | null };
+  user?: { id: number; name: string; photo: string; projectId: number | null };
   isLogin: boolean;
-  isSelected: boolean;
-  onClick(): void;
+  isSelected?: boolean;
 }
 
 export function Header(props: HeaderProps) {
-  const { className, user, isLogin, isSelected, onClick } = props;
+  const { className, user, isLogin, isSelected } = props;
+
+  function handleClick() {
+    //
+  }
 
   return (
-    <StyledHeader className={className}>
-      <StyledWrapper>
+    <StyledWrapper>
+      <StyledHeader className={className}>
         <StyledHeaderDesc>
-          <Logo />
+          <Link href="/" passHref>
+            <Logo />
+          </Link>
           {isLogin ? (
-            <ProfileField userName={user.name} profileImgSrc={user.photo} onClick={onClick} />
+            user && (
+              <ProfileField
+                className={className}
+                userName={user.name}
+                profileImgSrc={user.photo}
+                onClick={handleClick}
+              />
+            )
           ) : (
-            <EntryField onClick={onClick} />
+            <EntryField className={className} onClick={handleClick} />
           )}
         </StyledHeaderDesc>
 
         <StyledNav>
           <Link href="/about" passHref>
-            <NavTabItem isSelected={isSelected} onClick={onClick}>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               팀블 소개
             </NavTabItem>
           </Link>
           <Link href="/search" passHref>
-            <NavTabItem isSelected={isSelected} onClick={onClick}>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
           <Link href="/member" passHref>
-            <NavTabItem isSelected={isSelected} onClick={onClick}>
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               팀원 찾기
             </NavTabItem>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem isSelected={isSelected} onClick={onClick}>
-              {user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
+            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+              {isLogin && user && user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>
         </StyledNav>
-      </StyledWrapper>
-    </StyledHeader>
+      </StyledHeader>
+    </StyledWrapper>
   );
 }
 
-const StyledHeader = styled.header`
+const StyledWrapper = styled.header`
   display: flex;
-  justify-content: center;
-  height: 12em;
-  width: 100vw;
-  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
   box-shadow: 0px 4px 8px 2px #00000012;
   background-color: ${teambleColors.white};
+`;
+
+const StyledHeader = styled.div`
+  margin: 0 21.56rem;
 `;
 
 const StyledHeaderDesc = styled.div`
@@ -85,10 +100,10 @@ const StyledNav = styled.nav`
     margin-left: 6.5em;
   }
 `;
-const StyledWrapper = styled.div`
-  width: 120em;
-  max-width: 120em;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
+// const StyledWrapper = styled.div`
+//   width: 120em;
+//   max-width: 120em;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+// `;

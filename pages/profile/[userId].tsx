@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { apiService } from "../../api";
 import { teambleColors } from "../../styles/color";
 import { withAuth } from "../../utils/ssr";
-import { MyPageMain } from "../../components/template/myPageView/myPageMain";
+import { MyPageMain } from "../../components/template/myPageView/MyPageMain";
 
 interface ProfileByIdProps {
   userId: number;

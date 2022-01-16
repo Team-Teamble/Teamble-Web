@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import AlertIcon from "../../../assets/svg/ic_bell_off.svg";
 
@@ -8,14 +8,17 @@ export interface AlertImageProps {
   onClick(): void;
 }
 
-export function AlertImage(props: AlertImageProps) {
+export const AlertImage = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(
+  props: AlertImageProps,
+  ref,
+) {
   const { className, onClick } = props;
   return (
-    <StyledAlertWrapper className={className} onClick={onClick}>
+    <StyledAlertWrapper ref={ref} className={className} onClick={onClick}>
       <AlertIcon />
     </StyledAlertWrapper>
   );
-}
+});
 
 const StyledAlertWrapper = styled.a`
   cursor: pointer;

@@ -43,22 +43,22 @@ export function Header(props: HeaderProps) {
         </StyledHeaderDesc>
 
         <StyledNav>
-          <Link href="/about" passHref>
+          <Link href="/" passHref>
             <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               팀블 소개
             </NavTabItem>
           </Link>
-          <Link href="/search" passHref>
+          <Link href="/project" passHref>
             <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
-          <Link href="/member" passHref>
+          <Link href="/profile" passHref>
             <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               팀원 찾기
             </NavTabItem>
           </Link>
-          <Link href="/project" passHref>
+          <Link href="/create-project" passHref>
             <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
               {isLogin && user && user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
@@ -66,7 +66,6 @@ export function Header(props: HeaderProps) {
         </StyledNav>
       </StyledWrapper>
     </StyledHeader>
-    // </StyledWrapper>
   );
 }
 

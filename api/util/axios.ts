@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { APIContext } from "../context";
-import { UnauthorizedError } from "./error";
+import { BadRequestError, NotFoundError, UnauthorizedError, UnknownAPIError } from "./error";
 
 export interface Session {
   request: AxiosSession;
@@ -34,8 +34,15 @@ export function createAxiosSession(context: APIContext): Session {
           if (isPromise(out)) {
             return out.catch((e) => {
               if (axios.isAxiosError(e)) {
+                const message = e.response?.data?.message ?? "";
                 if (e.response?.status === 401) {
-                  throw new UnauthorizedError();
+                  throw new UnauthorizedError(message);
+                } else if (e.response?.status === 400) {
+                  throw new BadRequestError(message);
+                } else if (e.response?.status === 404) {
+                  throw new NotFoundError(message);
+                } else {
+                  throw new UnknownAPIError(e.response?.status ?? -1);
                 }
               }
               throw e;

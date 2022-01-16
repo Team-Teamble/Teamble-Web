@@ -16,7 +16,7 @@ export interface LogInFormProps {
 
 export function LogInForm(props: LogInFormProps) {
   const { className, field, onLogin, onChange } = props;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDialogOpen = () => setIsModalOpen(true);
 

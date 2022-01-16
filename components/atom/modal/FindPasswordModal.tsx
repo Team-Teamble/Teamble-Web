@@ -4,8 +4,8 @@ import { teambleColors } from "../../../styles/color";
 import CloseIcon from "../../../assets/svg/ic_close_.svg";
 
 export interface FindPasswordModalProps {
-  open: boolean;
-  onClose(): void;
+  open?: boolean;
+  onClose?(): void;
 }
 
 export function FindPasswordModal(props: FindPasswordModalProps) {

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import CloseIcon from "../../../assets/svg/ic_close_.svg";
 
 export interface FindPasswordModalProps {
   handleClose?(): void;
@@ -10,7 +11,7 @@ export function FindPasswordModal(props: FindPasswordModalProps) {
   const { handleClose } = props;
   return (
     <StyledFindPasswordModal>
-      <img src="./test" onClick={handleClose} alt={"close"} />
+      <CloseIcon onClick={handleClose} />
       <StyledDesc>
         <div>아래 이메일로 관리자에게 문의 바랍니다.</div>
         <div>napkin-plz@gmail.com</div>
@@ -32,7 +33,7 @@ const StyledFindPasswordModal = styled.div`
   align-items: center;
   border-radius: 5px;
 
-  img {
+  svg {
     position: absolute;
     right: 12px;
     top: 12px;

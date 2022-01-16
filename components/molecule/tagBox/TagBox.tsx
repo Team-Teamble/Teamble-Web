@@ -4,32 +4,25 @@ import { BasicTag } from "../../atom/tag/BasicTag";
 
 export interface TagBoxProps {
   className?: string;
-  tags: { id: number; value: string }[];
-  isOpen: boolean;
+  tags: { id: number; name: string }[];
+  isOpened: boolean;
   isSelected: boolean;
   src?: string;
-
-  deleteTag?(id: number): void;
-  handleArrDataRemove(id: number, value: string): void;
-  onClick(): void;
+  onClick?(): void;
 }
 
 export function TagBox(props: TagBoxProps) {
-  const { className, tags, isOpen, isSelected, src, deleteTag, onClick } = props;
+  const { className, tags, isOpened, isSelected } = props;
 
   return (
-    <FoldButton
-      className={className}
-      src={src}
-      isTagBox={true}
-      isOpen={isOpen}
-      isSelected={isSelected}
-      onClick={onClick}>
-      {tags.map((tag) => (
-        <BasicTag key={tag.id} className={className} id={tag.id} tagSize="big" deleteTag={deleteTag}>
-          {tag.value}
-        </BasicTag>
-      ))}
+    <FoldButton className={className} isTagBox={true} isOpened={isOpened} isSelected={isSelected}>
+      {tags.length
+        ? tags.map((tag) => (
+            <BasicTag key={tag.id} className={className} id={tag.id} tagSize="small">
+              {tag.name}
+            </BasicTag>
+          ))
+        : "선택"}
     </FoldButton>
   );
 }

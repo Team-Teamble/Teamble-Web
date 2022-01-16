@@ -28,7 +28,11 @@ export function MyPageDropDown(props: MyPageDropDownProps) {
 
   return (
     <StyledMyPageDropDown>
-      <FoldButton isOpen={isOpen} isSelected={isSelected} onClick={() => setIsOpen((state) => !state)} isTagBox={false}>
+      <FoldButton
+        isOpened={isOpen}
+        isSelected={isSelected}
+        onClick={() => setIsOpen((state) => !state)}
+        isTagBox={false}>
         {currentOption}
       </FoldButton>
       {isOpen && <Options options={options} handleSelect={handleSelect} isFilter={true}></Options>}

@@ -4,7 +4,11 @@ import { apiService } from "../../api";
 import { teambleColors } from "../../styles/color";
 import { withAuth } from "../../utils/ssr";
 import { MyPageMain } from "../../components/template/myPageView/MyPageMain";
-
+import { MyPageMainEditing } from "../../components/template/myPageView/MyPageViewEditing";
+import { ProfileBox } from "../../components/organism/myPageView/ProfileBox";
+import { Tendencies } from "../../components/molecule/myPageView/Tendencies";
+import { ProfileBoxEditing } from "../../components/organism/myPageView/ProfileBoxEditing";
+import { IntroInput } from "../../components/atom/Input/IntroInput";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -15,8 +19,8 @@ export default function ProfileById(props: ProfileByIdProps) {
   const { userId, userProfileInfo, userProfileMetadata: meta } = props;
   const [userInfo, setUserInfo] = useState<UserProfileInfo>(userProfileInfo);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [type, setType] = useState<number | null>(null);
-
+  const [activeType, setActiveType] = useState<number | null>(null);
+  console.log(userInfo);
   function onEdit() {
     setIsEditing((state) => !state);
   }
@@ -24,22 +28,35 @@ export default function ProfileById(props: ProfileByIdProps) {
     setUserInfo({ ...userInfo, [category]: payload });
   };
 
-  function onSelectedType(selectedId: number): void {
-    setType(selectedId);
+  function onActiveType(selectedId: number): void {
+    setActiveType(selectedId);
   }
   return (
     <StyledProfileById>
       <StyledBg />
       <StyledMain>
-        <MyPageMain
-          user={userInfo}
-          meta={meta}
-          isEditing={isEditing}
-          onEdit={onEdit}
-          onUpdate={onUpdate}
-          onSelectedType={onSelectedType}
-          selectedTypeId={type}
-        />
+        {!isEditing ? (
+          <MyPageMain
+            intro={userInfo.intro}
+            profileBox={<ProfileBox user={userInfo} onEdit={onEdit} />}
+            tendencies={<Tendencies user={userInfo} metaType={meta.type} isEditing={false} />}
+          />
+        ) : (
+          <MyPageMainEditing
+            introInput={<IntroInput intro={userInfo.intro} onChange={onUpdate} />}
+            profileBoxEditing={<ProfileBoxEditing user={userInfo} onChange={onUpdate} metaPosition={meta.position} />}
+            tendencies={
+              <Tendencies
+                user={userInfo}
+                metaType={meta.type}
+                isEditing={true}
+                onClick={onActiveType}
+                onUpdate={onUpdate}
+                selectedTypeId={activeType}
+              />
+            }
+          />
+        )}
       </StyledMain>
     </StyledProfileById>
   );

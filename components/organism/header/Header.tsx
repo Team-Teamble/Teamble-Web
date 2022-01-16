@@ -25,48 +25,42 @@ export function Header(props: HeaderProps) {
     <StyledHeader className={className}>
       <StyledWrapper>
         <StyledHeaderDesc>
-          <Link href="/" passHref>
-            <Logo />
+          <Link href="/">
+            <a>
+              <Logo />
+            </a>
           </Link>
           {isLogin ? (
-            user && (
-              <ProfileField
-                className={className}
-                userName={user.name}
-                profileImgSrc={user.photo}
-                onClick={handleClick}
-              />
-            )
+            user && <ProfileField userName={user.name} profileImgSrc={user.photo} onClick={handleClick} />
           ) : (
-            <EntryField className={className} onClick={handleClick} />
+            <EntryField onClick={handleClick} />
           )}
         </StyledHeaderDesc>
 
         <StyledNav>
           <Link href="/about" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               팀블 소개
             </NavTabItem>
           </Link>
           <Link href="/search" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
           <Link href="/member" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               팀원 찾기
             </NavTabItem>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem className={className} isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={isSelected} onClick={handleClick}>
               {isLogin && user && user.projectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>
         </StyledNav>
       </StyledWrapper>
     </StyledHeader>
-    // </StyledWrapper>
   );
 }
 

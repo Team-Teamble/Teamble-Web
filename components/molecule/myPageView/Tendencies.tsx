@@ -5,16 +5,25 @@ import { MyPageTag } from "../../atom/tag/MyPageTag";
 import { ProfileTestButton } from "../../atom/button/ProfileTestButton";
 export interface TendenciesProps {
   className?: string;
+  selectedTypeId?: number | null;
+  onClick?(selectedTypeId: number): void;
+  onUpdate?(key: "type", payload: { id: number; name: string }): void;
   metaType: { id: number; name: string }[];
-  selectedTypeId: number | null;
-  tag: { id: number; name: string }[];
-  user: { name: string; type: { id: number; name: string } | null };
+  user: UserInfo;
   isEditing: boolean;
-  onChange(selectedTypeId: number): void;
 }
-
+interface UserInfo {
+  name: string;
+  type: { id: number; name: string } | null;
+  tag: { id: number; name: string }[];
+}
 export function Tendencies(props: TendenciesProps) {
-  const { isEditing, tag, metaType, selectedTypeId, onChange, user, className } = props;
+  const { isEditing, metaType, selectedTypeId, onClick: onActiveType, onUpdate, user, className } = props;
+
+  function handleClick(id: number, payload: { id: number; name: string }) {
+    onActiveType && onActiveType(id);
+    onUpdate && onUpdate("type", payload);
+  }
 
   return (
     <StyledTendencies className={className}>
@@ -26,7 +35,7 @@ export function Tendencies(props: TendenciesProps) {
         {isEditing ? (
           <StyledEditingTypes>
             {metaType.map(({ id, name }) => (
-              <MyPageTag key={id} isActive={selectedTypeId === id} onClick={() => onChange(id)}>
+              <MyPageTag key={id} isActive={selectedTypeId === id} onClick={() => handleClick(id, { id, name })}>
                 {name}
               </MyPageTag>
             ))}
@@ -39,7 +48,7 @@ export function Tendencies(props: TendenciesProps) {
       </StyledTypeWrapper>
       {!isEditing ? (
         <StyledTags>
-          {tag.map(({ id, name }) => (
+          {user.tag.map(({ id, name }) => (
             <MyPageTag key={id} isActive={true}>
               {name}
             </MyPageTag>

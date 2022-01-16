@@ -11,7 +11,4 @@ const Template: Story<ProfileBoxFoldProps> = (args) => {
 };
 
 export const Basic = Template.bind({});
-Basic.args = {
-  isOpened: false,
-  currentOption: ["선택"],
-} as ProfileBoxFoldProps;
+Basic.args = {} as ProfileBoxFoldProps;

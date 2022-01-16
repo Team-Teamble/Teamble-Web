@@ -69,6 +69,14 @@ export class UserProfileMock implements UserProfileAPI {
             id: 2,
             name: "기획자",
           },
+          {
+            id: 3,
+            name: "개발자",
+          },
+          {
+            id: 4,
+            name: "디자이너",
+          },
         ],
         type: [
           {

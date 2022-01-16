@@ -4,25 +4,37 @@ import Profile from "../../../assets/svg/Profile";
 import { ProfileBoxDropDown } from "../../molecule/drop-down/ProfileBoxDropDown";
 import { ProfileEditButton } from "../../atom/button/ProfileEditButton";
 import { teambleColors } from "../../../styles/color";
-import { UserProfileMeta, UserProfileInfo } from "../../../pages/profile/[userId]";
 import { HandleUpdate } from "../../../pages/profile/[userId]";
 export interface ProfileBoxProps {
-  meta: UserProfileMeta;
-  user: UserProfileInfo;
+  positionMeta: {
+    id: number;
+    name: string;
+  }[];
+  user: UserInfo;
   isEditing: boolean;
   className?: string;
-  onClick(): void;
+  onChange(): void;
   onUpdate: HandleUpdate;
 }
 
+interface UserInfo {
+  photo: string;
+  position: { id: number; name: string }[];
+  email: string;
+  phone: string;
+  university: string;
+  major: string;
+  area: string;
+}
+
 export function ProfileBox(props: ProfileBoxProps) {
-  const { user, isEditing, onClick: handleEdit, onUpdate, className, meta } = props;
+  const { user, isEditing, onChange: handleEdit, onUpdate, className, positionMeta } = props;
 
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
       <StyledName>정세연</StyledName>
-      <ProfileBoxDropDown userPosition={user.position} position={meta.position} isEditing={isEditing} />
+      <ProfileBoxDropDown userPosition={user.position} position={positionMeta} isEditing={isEditing} />
       <StyledEmailNPhone>
         <div>{user.email}</div>
         {isEditing ? (

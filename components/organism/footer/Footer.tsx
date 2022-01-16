@@ -53,7 +53,7 @@ export function Footer(props: FooterProps) {
 const StyledFooter = styled.footer`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   height: 40em;
   box-sizing: border-box;
   padding: 4.9rem 3.6rem;

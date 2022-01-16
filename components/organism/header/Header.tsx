@@ -10,11 +10,11 @@ import { teambleColors } from "../../../styles/color";
 export interface HeaderProps {
   className?: string;
   user: { id: number; name: string; profilePic: string; currentProjectId: number | null } | null;
-  isSelected?: boolean;
+  currentPath?: string;
 }
 
 export function Header(props: HeaderProps) {
-  const { className, user, isSelected } = props;
+  const { className, user, currentPath } = props;
 
   function handleClick() {
     //
@@ -36,22 +36,22 @@ export function Header(props: HeaderProps) {
 
         <StyledNav>
           <Link href="/" passHref>
-            <NavTabItem isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={currentPath === "/"} onClick={handleClick}>
               팀블 소개
             </NavTabItem>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={currentPath?.startsWith("/project")} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
           <Link href="/profile" passHref>
-            <NavTabItem isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={currentPath?.startsWith("/profile")} onClick={handleClick}>
               팀원 찾기
             </NavTabItem>
           </Link>
           <Link href="/create-project" passHref>
-            <NavTabItem isSelected={isSelected} onClick={handleClick}>
+            <NavTabItem isSelected={currentPath?.startsWith("/create-project")} onClick={handleClick}>
               {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>

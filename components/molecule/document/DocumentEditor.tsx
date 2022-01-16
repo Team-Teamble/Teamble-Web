@@ -19,7 +19,12 @@ const EditorWithRef = forwardRef<EditorType | undefined, EditorPropsWithHandlers
 
 export interface DocumentEditorProps {
   className?: string;
-  onChange(str: string): void;
+  onChange?(str: string): void;
+}
+
+export interface DocumentEditorRef {
+  getMarkdown(): string;
+  setMarkdown(markdown: string): void;
 }
 
 export const DocumentEditor = forwardRef(function DocumentEditor(props: DocumentEditorProps, ref) {
@@ -40,7 +45,7 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 
   function handleChange() {
     const markdown = editorRef.current?.getInstance().getMarkdown() ?? "";
-    onChange(markdown);
+    onChange && onChange(markdown);
   }
 
   return (

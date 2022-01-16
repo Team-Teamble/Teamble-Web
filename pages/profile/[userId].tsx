@@ -9,6 +9,8 @@ import { ProfileBox } from "../../components/organism/myPageView/ProfileBox";
 import { Tendencies } from "../../components/molecule/myPageView/Tendencies";
 import { ProfileBoxEditing } from "../../components/organism/myPageView/ProfileBoxEditing";
 import { IntroInput } from "../../components/atom/Input/IntroInput";
+import { Fields } from "../../components/molecule/myPageView/Fields";
+import { FieldsEditing } from "../../components/molecule/myPageView/FieldsEditing";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -40,6 +42,7 @@ export default function ProfileById(props: ProfileByIdProps) {
             intro={userInfo.intro}
             profileBox={<ProfileBox user={userInfo} onEdit={onEdit} />}
             tendencies={<Tendencies user={userInfo} metaType={meta.type} isEditing={false} />}
+            fields={<Fields field={userInfo.field} />}
           />
         ) : (
           <MyPageMainEditing
@@ -55,6 +58,7 @@ export default function ProfileById(props: ProfileByIdProps) {
                 selectedTypeId={activeType}
               />
             }
+            fields={<FieldsEditing field={userInfo.field} metaField={meta.field} onChange={onUpdate} />}
           />
         )}
       </StyledMain>
@@ -153,7 +157,6 @@ export interface HandleUpdate {
 const StyledProfileById = styled.div`
   width: 100%;
   flex-grow: 1;
-  height: 500vh;
 `;
 const StyledBg = styled.div`
   width: 100%;

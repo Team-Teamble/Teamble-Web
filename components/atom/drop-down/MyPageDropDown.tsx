@@ -26,7 +26,7 @@ export function MyPageDropDown(props: MyPageDropDownProps) {
 const StyledMyPageDropDown = styled.ul`
   position: absolute;
   box-sizing: border-box;
-  width: 147px;
+  width: 170px;
   box-shadow: 0.2em 0.6em 1.2em rgba(0, 0, 0, 0.12);
   border-radius: 0.4em;
   background-color: ${teambleColors.white};

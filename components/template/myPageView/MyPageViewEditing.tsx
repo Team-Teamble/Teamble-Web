@@ -6,17 +6,21 @@ export interface MyPageMainEditingProps {
   introInput: ReactNode;
   profileBoxEditing: ReactNode;
   tendencies: ReactNode;
+  fields: ReactNode;
 }
 
 export function MyPageMainEditing(props: MyPageMainEditingProps) {
-  const { className, introInput, profileBoxEditing, tendencies } = props;
+  const { className, introInput, profileBoxEditing, tendencies, fields } = props;
 
   return (
     <StyledMyPageMain className={className}>
       {profileBoxEditing}
       <StyledBody>
         <StyledIntro>{introInput}</StyledIntro>
-        <StyledBodySection>{tendencies}</StyledBodySection>
+        <StyledBodySection>
+          {tendencies}
+          {fields}
+        </StyledBodySection>
       </StyledBody>
     </StyledMyPageMain>
   );

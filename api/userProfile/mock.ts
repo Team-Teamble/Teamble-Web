@@ -84,12 +84,16 @@ export const UserProfileMock = withLogger(
           ],
           field: [
             {
-              id: 2,
+              id: 1,
               name: "O2O",
             },
             {
-              id: 3,
+              id: 2,
               name: "여행",
+            },
+            {
+              id: 3,
+              name: "반려동물",
             },
           ],
         },

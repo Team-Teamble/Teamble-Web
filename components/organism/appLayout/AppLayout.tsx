@@ -15,7 +15,7 @@ export function AppLayout(props: AppLayoutProps) {
   }
   return (
     <StyledAppLayout>
-      <Header isLogin={false} user={mockUser} isSelected={false} onClick={() => handleClick()} />
+      <Header isLogin={false} user={mockUser} isSelected={false} />
       {children}
       <Footer />
     </StyledAppLayout>

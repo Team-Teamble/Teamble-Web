@@ -8,8 +8,13 @@ import { AppLayout } from "../components/organism/appLayout/AppLayout";
 import { MetaProps } from "../utils/ssr";
 import { useSetUser } from "../utils/hook/auth";
 
+interface MyAppProps {
+  _META_PROPS?: MetaProps;
+  [key: string]: unknown;
+}
+
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  const { _META_PROPS, ...otherPageProps } = pageProps as { _META_PROPS: MetaProps } & Record<string | symbol, unknown>;
+  const { _META_PROPS, ...otherPageProps } = pageProps as MyAppProps;
 
   useEffect(() => {
     if (_META_PROPS?._IS_META) {
@@ -20,16 +25,8 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
     }
   }, [_META_PROPS]);
 
-  let userInfo: UserInfo | null;
-  if (_META_PROPS?._IS_META) {
-    const { access } = _META_PROPS;
-    if (access) {
-      setAccessToken(access.accessToken);
-    }
-  }
-
   function initState({ set }: MutableSnapshot) {
-    set(authUserAtom, userInfo);
+    set(authUserAtom, _META_PROPS?.access?.user ?? null);
   }
 
   return (

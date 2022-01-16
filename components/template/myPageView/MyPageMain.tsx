@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ProfileBox } from "../../organism/myPageView/ProfileBox";
@@ -20,7 +20,13 @@ export function MyPageMain(props: MyPageMainProps) {
 
   return (
     <StyledMyPageMain className={className}>
-      <ProfileBox user={user} meta={meta} isEditing={isEditing} onClick={onEdit} onUpdate={onUpdate} />
+      <ProfileBox
+        user={user}
+        positionMeta={meta.position}
+        isEditing={isEditing}
+        onChange={onEdit}
+        onUpdate={onUpdate}
+      />
       <StyledBody>
         <StyledIntro>
           {!isEditing && <span>&quot;</span>}

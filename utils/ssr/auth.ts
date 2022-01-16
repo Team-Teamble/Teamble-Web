@@ -21,6 +21,7 @@ interface AuthContext {
   user: UserInfo | null;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type GetServerSidePropsWithAuth<P extends { [key: string]: any } = { [key: string]: any }> = (
   context: GetServerSidePropsContext,
   user: AuthContext,

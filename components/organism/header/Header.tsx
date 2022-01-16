@@ -11,13 +11,14 @@ export interface HeaderProps {
   user?: { id: number; name: string; photo: string; projectId: number | null };
   isLogin: boolean;
   isSelected?: boolean;
-  onClick?(): void;
 }
 
-function handleClick() {}
-
 export function Header(props: HeaderProps) {
-  const { className, user, isLogin, isSelected, onClick } = props;
+  const { className, user, isLogin, isSelected } = props;
+
+  function handleClick() {
+    //
+  }
 
   return (
     <StyledWrapper>

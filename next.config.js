@@ -1,6 +1,6 @@
 module.exports = {
   eslint: {
-    dirs:['api', 'styles', 'states', 'utils']
+    dirs:['api', 'styles', 'states', 'utils', 'pages', 'components']
   },
   webpack(config) {
     config.module.rules.push({

@@ -52,7 +52,7 @@ function DetectAuth(props: DetectAuthProps) {
   const setUser = useSetUser();
   useEffect(() => {
     setUser(props.user);
-  }, [props.user]);
+  }, [props.user, setUser]);
 
   return <>{props.children}</>;
 }

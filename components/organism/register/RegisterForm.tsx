@@ -7,7 +7,7 @@ import Input from "../../atom/Input/Input";
 import CheckActiveIcon from "../../../assets/svg/ic_check box_active.svg";
 import CheckInActiveIcon from "../../../assets/svg/ic_check box_inactive.svg";
 import Link from "next/link";
-import { Field, RegisterFieldChanger, useField } from "../../../utils/hook/field";
+import { Field, RegisterFieldChanger } from "../../../utils/hook/field";
 
 export interface RegisterFormProps {
   className?: string;
@@ -25,7 +25,6 @@ export function RegisterForm(props: RegisterFormProps) {
   const [selectFirst, setSelectFirst] = useState(false);
   const [selectSecond, setSelectSecond] = useState(false);
 
-  function handleClick() {}
   function handleChange(name: keyof Field) {
     return function (e: ChangeEvent<{ value: string }>) {
       const value = e.target.value;

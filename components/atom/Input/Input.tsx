@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-import { Field } from "../../../utils/hook/field";
 
 export interface InputProps {
   className?: string;

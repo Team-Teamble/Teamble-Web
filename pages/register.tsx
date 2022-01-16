@@ -5,7 +5,6 @@ import { Header } from "../components/organism/header/Header";
 import { RegisterForm } from "../components/organism/register/RegisterForm";
 import { RegisterTemplate } from "../components/template/Register";
 import { useAPI } from "../utils/hook/api";
-import { useLogin, useLogout, useUser } from "../utils/hook/auth";
 import { useField } from "../utils/hook/field";
 import { withAuth } from "../utils/ssr";
 

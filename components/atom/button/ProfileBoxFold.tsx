@@ -4,15 +4,15 @@ import { teambleColors } from "../../../styles/color";
 import Arrow from "../../../assets/svg/ic_drop btn_active.svg";
 export interface ProfileBoxFoldProps {
   className?: string;
-  isOpened: boolean;
-  currentOption: string[];
+  isOpened?: boolean;
+  currentOption: { id: number; name: string }[];
 }
 
 export function ProfileBoxFold(props: ProfileBoxFoldProps) {
   const { className, isOpened, currentOption } = props;
   return (
     <StyledProfileBoxFold className={className}>
-      {currentOption.join(" · ") || "선택"}
+      {currentOption.map(({ name }) => name).join(" · ") || "선택"}
       {isOpened && <Arrow />}
     </StyledProfileBoxFold>
   );

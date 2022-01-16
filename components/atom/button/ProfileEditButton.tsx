@@ -5,24 +5,25 @@ import Edit from "../../../assets/svg/ic_profile_edit.svg";
 
 export interface ProfileEditButtonProps {
   className?: string;
-  handleEdit(): void;
-  isEditing: boolean;
+  onEdit(): void;
 }
 
 export function ProfileEditButton(props: ProfileEditButtonProps) {
-  const { className, handleEdit, isEditing } = props;
+  const { className, onEdit } = props;
+
+  function handleClick() {
+    onEdit();
+  }
+
   return (
-    <StyledEditBtn onClick={handleEdit} className={className} isEditing={isEditing}>
+    <StyledEditBtn onClick={handleClick} className={className}>
       <Edit />
       <span>프로필 수정</span>
     </StyledEditBtn>
   );
 }
 
-const StyledEditBtn = styled.button<{
-  isEditing: boolean;
-}>`
-  visibility: ${(props) => (props.isEditing ? "hidden" : "visible")};
+const StyledEditBtn = styled.button`
   display: flex;
   align-items: center;
   width: 295px;

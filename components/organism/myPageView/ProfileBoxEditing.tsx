@@ -1,14 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Profile from "../../../assets/svg/Profile";
-import { ProfileEditButton } from "../../atom/button/ProfileEditButton";
 import { teambleColors } from "../../../styles/color";
-import { ProfileBoxFold } from "../../atom/button/ProfileBoxFold";
-export interface ProfileBoxProps {
-  user: UserInfo;
-  className?: string;
-  onEdit(): void;
-}
+import { ProfileBoxDropDown } from "../../molecule/drop-down/ProfileBoxDropDown";
 
 interface UserInfo {
   photo: string;
@@ -20,29 +14,58 @@ interface UserInfo {
   area: string;
 }
 
-export function ProfileBox(props: ProfileBoxProps) {
-  const { user, className, onEdit } = props;
+export interface ProfileBoxEditingProps {
+  metaPosition: {
+    id: number;
+    name: string;
+  }[];
+  user: UserInfo;
+  className?: string;
+  onChange<K extends keyof UserInfo>(category: K, payload: UserInfo[K]): void;
+}
+
+export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
+  const { user, onChange: onUpdate, className, metaPosition } = props;
 
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
       <StyledName>정세연</StyledName>
-      <ProfileBoxFold currentOption={user.position} />
+      <ProfileBoxDropDown onChange={onUpdate} userPosition={user.position} metaPosition={metaPosition} />
       <StyledEmailNPhone>
         <div>{user.email}</div>
-        <div>{user.phone}</div>
+        <StyledPhoneInput
+          placeholder="전화번호를 입력해주세요"
+          value={user.phone ? user.phone : ""}
+          onChange={(e) => onUpdate("phone", e.target.value)}
+          isEmpty={user.phone ? user.phone : ""}
+        />
       </StyledEmailNPhone>
       <StyledSectionLine />
-      <ProfileEditButton onEdit={onEdit} />
       <StyledSubInfo>
         <div>
-          학교 <span>{user.university}</span>
+          학교{" "}
+          <StyledEditInput
+            value={user.university ? user.university : ""}
+            isEmpty={user.university ? user.university : ""}
+            onChange={(e: { target: { value: string } }) => onUpdate("university", e.target.value)}
+          />
         </div>
         <div>
-          전공 <span>{user.major}</span>
+          전공{" "}
+          <StyledEditInput
+            value={user.major ? user.major : ""}
+            isEmpty={user.major ? user.major : ""}
+            onChange={(e: { target: { value: string } }) => onUpdate("major", e.target.value)}
+          />
         </div>
         <div>
-          활동지역 <span>{user.area}</span>
+          활동지역{" "}
+          <StyledEditInput
+            value={user.area ? user.area : ""}
+            isEmpty={user.area ? user.area : ""}
+            onChange={(e: { target: { value: string } }) => onUpdate("area", e.target.value)}
+          />
         </div>
       </StyledSubInfo>
     </StyledProfileBox>

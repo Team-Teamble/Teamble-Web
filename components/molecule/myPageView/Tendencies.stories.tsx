@@ -9,15 +9,15 @@ export default {
 const Template: Story<TendenciesProps> = (args) => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   function onChange(selectedId: number) {
-    setSelectedId(selectedId);
+    setSelectedId(selectedId + 0);
   }
-  return <Tendencies {...args} selectedId={selectedId} onChange={onChange} />;
+  return <Tendencies {...args} selectedTypeId={selectedId} onChange={onChange} />;
 };
 
 export const CollaboTendencies = Template.bind({});
 CollaboTendencies.args = {
   isEditing: false,
-  type: [
+  metaType: [
     {
       id: 1,
       name: "정열적인 빨강이",
@@ -60,5 +60,5 @@ CollaboTendencies.args = {
       name: "정열적인 빨강이",
     },
   },
-  selectedId: 3,
+  selectedTypeId: 3,
 };

@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import { Field } from "../../../utils/hook/field";
 
 export interface InputProps {
   className?: string;
-  placeholder: string;
-  value: string;
-  onChange(value: string): void;
+  placeholder?: string;
+  value?: string;
+  type?: string;
+  onChange(e: ChangeEvent<{ value: string }>): void;
 }
 
 export default function Input(props: InputProps) {
   const { className, placeholder, onChange, value = "" } = props;
   const [borderColor, setBorderColor] = useState(teambleColors.gray);
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onChange(e.target.value);
-  }
 
   useEffect(() => {
     value === "" ? setBorderColor(teambleColors.gray) : setBorderColor(teambleColors.darkGray);
@@ -26,7 +24,7 @@ export default function Input(props: InputProps) {
       className={className}
       borderColor={borderColor}
       placeholder={placeholder}
-      onChange={handleChange}
+      onChange={onChange}
       value={value}></StyledEmailInput>
   );
 }

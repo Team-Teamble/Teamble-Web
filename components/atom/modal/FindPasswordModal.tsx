@@ -4,19 +4,24 @@ import { teambleColors } from "../../../styles/color";
 import CloseIcon from "../../../assets/svg/ic_close_.svg";
 
 export interface FindPasswordModalProps {
-  onModalClose?(): void;
+  open: boolean;
+  onClose(): void;
 }
 
 export function FindPasswordModal(props: FindPasswordModalProps) {
-  const { onModalClose } = props;
+  const { open, onClose } = props;
   return (
-    <StyledFindPasswordModal>
-      <CloseIcon onClick={onModalClose} />
-      <StyledDesc>
-        <div>아래 이메일로 관리자에게 문의 바랍니다.</div>
-        <div>napkin-plz@gmail.com</div>
-      </StyledDesc>
-    </StyledFindPasswordModal>
+    <div>
+      {open ? (
+        <StyledFindPasswordModal>
+          <CloseIcon onClick={onClose} />
+          <StyledDesc>
+            <div>아래 이메일로 관리자에게 문의 바랍니다.</div>
+            <div>napkin-plz@gmail.com</div>
+          </StyledDesc>
+        </StyledFindPasswordModal>
+      ) : null}
+    </div>
   );
 }
 

@@ -18,7 +18,7 @@ export interface RegisterFormProps {
 }
 
 export function RegisterForm(props: RegisterFormProps) {
-  const { className, disabled, onRegister, onChange, field } = props;
+  const { className, onRegister, onChange, field } = props;
 
   const [isValid, setIsValid] = useState(false);
   const [selectAll, setSelectAll] = useState(false);

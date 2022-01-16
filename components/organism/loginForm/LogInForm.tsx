@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-import { Field, FieldToLogin, LoginFieldChanger } from "../../../utils/hook/field";
+import { FieldToLogin, LoginFieldChanger } from "../../../utils/hook/field";
 import { BasicButton } from "../../atom/button/BasicButton";
 import { BasicLink } from "../../atom/button/BasicLink";
 import Input from "../../atom/Input/Input";
@@ -16,16 +16,11 @@ export interface LogInFormProps {
 
 export function LogInForm(props: LogInFormProps) {
   const { className, field, onLogin, onChange } = props;
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function onModalClose() {
-    setIsModalOpen(false);
-  }
+  const handleDialogOpen = () => setIsModalOpen(true);
 
-  function onModalOpen(e: React.MouseEvent) {
-    e.preventDefault();
-    setIsModalOpen(true);
-  }
+  const handleDialogClose = useCallback(() => setIsModalOpen(false), []);
 
   function onChangeField(name: keyof FieldToLogin) {
     return function (e: ChangeEvent<{ value: string }>) {
@@ -56,9 +51,9 @@ export function LogInForm(props: LogInFormProps) {
           value={field.password}
           onChange={onChangeField("password")}
         />
-        <button onClick={onModalOpen}>비밀번호 찾기</button>
+        <button onClick={handleDialogOpen}>비밀번호 찾기</button>
       </div>
-      {isModalOpen && <FindPasswordModal onModalClose={onModalClose} />}
+      <FindPasswordModal open={isModalOpen} onClose={handleDialogClose}></FindPasswordModal>
       <BasicButton variant="filled" disabled={false} onClick={onProcessLogin}>
         로그인
       </BasicButton>
@@ -69,7 +64,7 @@ export function LogInForm(props: LogInFormProps) {
   );
 }
 
-const StyledWrapper = styled.form`
+const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

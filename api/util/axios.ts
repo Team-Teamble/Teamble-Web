@@ -15,9 +15,9 @@ export function createAxiosSession(context: APIContext): Session {
 
   context.addListener((ctx) => {
     if (ctx.accessToken !== null) {
-      request.defaults.headers.common["Authorization"] = ctx.accessToken;
+      request.defaults.headers.common["X-Authorization-Token"] = ctx.accessToken;
     } else {
-      delete request.defaults.headers.common["Authorization"];
+      delete request.defaults.headers.common["X-Authorization-Token"];
     }
   });
 
@@ -32,16 +32,13 @@ export function createAxiosSession(context: APIContext): Session {
           const out = fn(...args);
 
           if (isPromise(out)) {
-            return hookPromise(out, {
-              error: (e, reject) => {
-                if (axios.isAxiosError(e)) {
-                  if (e.response?.status === 401) {
-                    reject(new UnauthorizedError());
-                    return;
-                  }
+            return out.catch((e) => {
+              if (axios.isAxiosError(e)) {
+                if (e.response?.status === 401) {
+                  throw new UnauthorizedError();
                 }
-                reject(e);
-              },
+              }
+              throw e;
             });
           } else {
             return out;
@@ -70,15 +67,4 @@ function isPromise(obj: unknown): obj is Promise<unknown> {
   }
 
   return false;
-}
-
-function hookPromise(
-  promise: Promise<unknown>,
-  { error }: { error: (err: unknown, reject: (err: unknown) => void) => void },
-) {
-  return new Promise((resolve, reject) => {
-    promise.then(resolve).catch((e) => {
-      error(e, reject);
-    });
-  });
 }

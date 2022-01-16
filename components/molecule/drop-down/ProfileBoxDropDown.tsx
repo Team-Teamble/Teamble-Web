@@ -5,43 +5,38 @@ import { MyPageDropDown } from "../../atom/drop-down/MyPageDropDown";
 
 export interface ProfileBoxDropDownProps {
   className?: string;
-  position: { id: number; name: string }[];
+  metaPosition: { id: number; name: string }[];
   userPosition: { id: number; name: string }[];
-  isEditing: boolean;
+  onChange(key: "position", payload: { id: number; name: string }[]): void;
 }
 
 export function ProfileBoxDropDown(props: ProfileBoxDropDownProps) {
-  const { className, position, isEditing, userPosition } = props;
+  const { className, metaPosition, userPosition, onChange: onUpdate } = props;
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [currentOption, setCurrentOption] = useState<string[]>(userPosition.map((each) => each.name));
+  const [currentOption, setCurrentOption] = useState<{ id: number; name: string }[]>(userPosition);
 
   function handleOpen(): void {
-    isEditing && setIsOpened((state) => !state);
+    setIsOpened((state) => !state);
   }
 
-  function handleSelect(id: number): void {
-    const [{ name }] = position.filter((each) => each.id === id);
-    const newOption = [...currentOption];
-    const idx = newOption.indexOf(name);
+  function handleSelect(payload: { id: number; name: string }): void {
+    let index = -1;
+    const newOption = currentOption.filter(({ name }, i) => {
+      if (name === payload.name) index = i;
+      return name !== payload.name;
+    });
 
-    if (idx > -1) {
-      newOption.splice(idx, 1);
-      setCurrentOption(newOption);
-      return;
-    }
-
-    if (newOption.length >= 2) {
-      newOption.splice(idx, 1, name);
-    } else {
-      newOption.push(name);
+    if (index == -1) {
+      newOption.length >= 2 ? newOption.splice(index, 1, payload) : newOption.push(payload);
     }
     setCurrentOption(newOption);
+    onUpdate("position", newOption);
   }
 
   return (
     <StyledProfileBoxDropDown className={className} onFocus={handleOpen} onBlur={handleOpen} tabIndex={-1}>
       <ProfileBoxFold isOpened={isOpened} currentOption={currentOption} />
-      {isOpened && isEditing && <MyPageDropDown options={position} handleSelect={handleSelect} />}
+      {isOpened && <MyPageDropDown options={metaPosition} onClick={handleSelect} />}
     </StyledProfileBoxDropDown>
   );
 }

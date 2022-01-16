@@ -1,25 +1,21 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-export interface MyPageMainProps {
+export interface MyPageMainEditingProps {
   className?: string;
-  intro: string;
-  profileBox: ReactNode;
+  introInput: ReactNode;
+  profileBoxEditing: ReactNode;
   tendencies: ReactNode;
 }
 
-export function MyPageMain(props: MyPageMainProps) {
-  const { className, profileBox, tendencies, intro } = props;
+export function MyPageMainEditing(props: MyPageMainEditingProps) {
+  const { className, introInput, profileBoxEditing, tendencies } = props;
 
   return (
     <StyledMyPageMain className={className}>
-      {profileBox}
+      {profileBoxEditing}
       <StyledBody>
-        <StyledIntro>
-          <span>&quot;</span>
-          <div>{intro}</div>
-          <span>&quot;</span>
-        </StyledIntro>
+        <StyledIntro>{introInput}</StyledIntro>
         <StyledBodySection>{tendencies}</StyledBodySection>
       </StyledBody>
     </StyledMyPageMain>
@@ -55,6 +51,7 @@ const StyledIntro = styled.div`
     white-space: nowrap;
   }
 `;
+
 const StyledBodySection = styled.div`
   display: flex;
   flex-direction: column;

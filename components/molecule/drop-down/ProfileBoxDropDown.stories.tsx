@@ -11,11 +11,4 @@ const Template: Story<ProfileBoxDropDownProps> = (args) => {
 };
 
 export const MyPage = Template.bind({});
-MyPage.args = {
-  position: [
-    { id: 1, name: "선택" },
-    { id: 2, name: "개발자" },
-    { id: 3, name: "디자이너" },
-    { id: 4, name: "기획자" },
-  ],
-} as ProfileBoxDropDownProps;
+MyPage.args = {} as ProfileBoxDropDownProps;

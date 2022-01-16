@@ -21,19 +21,4 @@ const Template: Story<ProfileBoxProps> = (args) => {
 };
 
 export const Profile = Template.bind({});
-Profile.args = {
-  positionMeta: [
-    {
-      id: 1,
-      name: "기획자",
-    },
-    {
-      id: 2,
-      name: "개발자",
-    },
-    {
-      id: 3,
-      name: "디자이너",
-    },
-  ],
-} as ProfileBoxProps;
+Profile.args = {} as ProfileBoxProps;

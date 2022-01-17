@@ -3,19 +3,20 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface GroupDropDownProps {
+  className?: string;
   options: { id: number; name: string }[];
-  onClick(): void;
+  onClick(payload: { id: number; name: string }): void;
+  isForMyPage: boolean;
 }
 
 export function GroupDropDown(props: GroupDropDownProps) {
-  const { options, onClick } = props;
+  const { options, onClick: handleSelect, isForMyPage, className } = props;
 
   return (
-    <StyledGroupDropDown>
-      {/* 최대 개수 추후 프롭으로 전달 */}
+    <StyledGroupDropDown className={className} isForMyPage={isForMyPage}>
       <StyledMaximum>최대 3개 선택</StyledMaximum>
       {options.map(({ id, name }) => (
-        <StyledOption key={id} onClick={onClick}>
+        <StyledOption key={id} onClick={() => handleSelect({ id, name })}>
           {name}
         </StyledOption>
       ))}
@@ -23,9 +24,14 @@ export function GroupDropDown(props: GroupDropDownProps) {
   );
 }
 
-const StyledGroupDropDown = styled.ul`
+const StyledGroupDropDown = styled.ul<{
+  isForMyPage: boolean;
+}>`
+  position: absolute;
+  top: calc(100% + 0.9em);
+  right: 0;
   box-sizing: border-box;
-  width: 233px;
+  width: ${(props) => (props.isForMyPage ? "212px" : "233px")};
   max-height: 234px;
   box-shadow: 0.2em 0.6em 1.2em rgba(0, 0, 0, 0.12);
   border-radius: 0.4em;

@@ -88,21 +88,6 @@ const StyledEmailNPhone = styled.div`
   }
 `;
 
-const StyledPhoneInput = styled.input<{
-  isEmpty: string;
-}>`
-  margin-top: 12px;
-  border-radius: 5px;
-  width: 200px;
-  min-height: 28px;
-  background-color: ${teambleColors.white};
-  outline: none;
-  padding: 0;
-  border: 1px solid ${(props) => (props.isEmpty === "" ? teambleColors.deepGray : teambleColors.deepPurple)};
-  text-align: center;
-  color: ${teambleColors.black};
-`;
-
 const StyledSectionLine = styled.div`
   width: 258px;
   height: 1px;
@@ -145,10 +130,4 @@ const StyledSubInfo = styled.div`
       outline: none;
     }
   }
-`;
-const StyledEditInput = styled.input<{
-  isEmpty: string;
-}>`
-  border: 1px solid ${(props) => (props.isEmpty === "" ? teambleColors.deepGray : teambleColors.deepPurple)};
-  text-align: center;
 `;

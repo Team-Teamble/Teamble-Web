@@ -1,42 +1,44 @@
 import React, { ReactNode } from "react";
 import styled, { css } from "styled-components";
+import Arrow from "../../../assets/svg/ic_dropdown.svg";
 import { teambleColors } from "../../../styles/color";
 
 export interface FoldButtonProps {
   className?: string;
   children: ReactNode;
-  src?: string;
-
-  onClick(): void;
-  isOpen: boolean;
+  onClick?(): void;
+  isOpened: boolean;
   isSelected: boolean;
   isTagBox: boolean;
 }
 
 export function FoldButton(props: FoldButtonProps) {
-  const { className, isTagBox, children, src, isOpen, isSelected, onClick } = props;
+  const { className, isTagBox, children, isOpened, isSelected, onClick } = props;
   return (
-    <StyledWrapper isTagBox={isTagBox} isOpen={isOpen} isSelected={isSelected} onClick={onClick} className={className}>
+    <StyledWrapper
+      isTagBox={isTagBox}
+      isOpened={isOpened}
+      isSelected={isSelected}
+      onClick={onClick}
+      className={className}>
       {children}
-      <img src={src} alt="fold-icon" />
+      <Arrow />
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div<{
   isTagBox: boolean;
-  isOpen: boolean;
+  isOpened: boolean;
   isSelected: boolean;
 }>`
+  min-width: 212px;
+  height: 38px;
   display: ${(props) => (props.isTagBox ? "inline-flex" : "flex")};
   align-items: center;
-  justify-content: space-between;
-  align-items: center;
   cursor: pointer;
-  /* padding: ${(props) => (props.isTagBox ? "0.61em 1.11em" : "0 1.25em")}; */
-  padding: 0.61em 1.11em;
+  padding: 0 1.11em;
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
-
   box-sizing: border-box;
   border-radius: 0.38em;
 
@@ -52,9 +54,9 @@ const StyledWrapper = styled.div<{
   font-size: 18px;
   color: ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
 
-  & > img {
+  & > svg {
     margin-left: 1.8em;
-    transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0)")};
+    transform: ${(props) => (props.isOpened ? "rotate(180deg)" : "rotate(0)")};
   }
 
   & > div + div {

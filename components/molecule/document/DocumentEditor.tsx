@@ -3,6 +3,7 @@ import { Editor as EditorType, EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import styled from "styled-components";
+import { teambleColors } from "../../../styles/color";
 import { TuiEditorWithForwardedProps } from "./TuiWrapper";
 
 interface EditorPropsWithHandlers extends EditorProps {
@@ -19,7 +20,12 @@ const EditorWithRef = forwardRef<EditorType | undefined, EditorPropsWithHandlers
 
 export interface DocumentEditorProps {
   className?: string;
-  onChange(str: string): void;
+  onChange?(str: string): void;
+}
+
+export interface DocumentEditorRef {
+  getMarkdown(): string;
+  setMarkdown(markdown: string): void;
 }
 
 export const DocumentEditor = forwardRef(function DocumentEditor(props: DocumentEditorProps, ref) {
@@ -40,7 +46,7 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 
   function handleChange() {
     const markdown = editorRef.current?.getInstance().getMarkdown() ?? "";
-    onChange(markdown);
+    onChange && onChange(markdown);
   }
 
   return (
@@ -51,5 +57,5 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 });
 
 const StyledEditorWrapper = styled.div`
-  height: 100em;
+  margin-top: 2.3rem;
 `;

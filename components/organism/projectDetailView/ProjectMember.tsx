@@ -1,22 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { ProjectDetail } from "../../../api/project";
 import { CrewTag } from "../../molecule/crewTag/CrewTag";
 
 export interface ProjectMemberProps {
   className?: string;
-  member: // 프로젝트 팀 구성원
-  {
-    id: number; // 프로젝트 팀 구성원 id
-    name: string; // 프로젝트 팀 구성원 이름
-    photo: string; // 프로젝트 팀 구성원 사진 url
-  }[];
+
+  projectDetail: ProjectDetail;
 }
 
 export function ProjectMember(props: ProjectMemberProps) {
-  const { className, member } = props;
+  const { className, projectDetail } = props;
   return (
     <StyledWrapper className={className}>
-      {member.map((key) => (
+      {projectDetail.project.member.map((key) => (
         <CrewTag key={key.id} photo={key.photo} user={key.name} isEditView={false} />
       ))}
     </StyledWrapper>
@@ -25,7 +22,7 @@ export function ProjectMember(props: ProjectMemberProps) {
 
 const StyledWrapper = styled.div`
   display: flex;
-
+  margin-bottom: 31rem;
   & > div + div {
     margin-left: 0.75em;
   }

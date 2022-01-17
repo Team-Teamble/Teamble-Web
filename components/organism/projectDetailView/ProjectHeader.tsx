@@ -1,44 +1,33 @@
 import React from "react";
 import styled from "styled-components";
+import { ProjectDetail } from "../../../api/project";
 import { teambleColors } from "../../../styles/color";
 import { ImgWrapper } from "../../atom/image/ImgWrapper";
 import { ProfileImage } from "../../atom/image/ProfileImage";
 
 export interface ProjectHeaderProps {
   className?: string;
-  title: string;
-  intro: string;
-  photo: string;
-  user: {
-    id: number;
-    name: string;
-    photo: string;
-  };
+  projectDetail: ProjectDetail;
 }
 
 export function ProjectHeader(props: ProjectHeaderProps) {
-  const { className, title, intro, photo, user } = props;
+  const { className, projectDetail } = props;
   return (
     <StyledWrapper className={className}>
       <StyledLeft>
         <StyledTitleWrapper>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledIntro>{intro}</StyledIntro>
+          <StyledTitle>{projectDetail.project.title}</StyledTitle>
+          <StyledIntro>{projectDetail.project.intro}</StyledIntro>
         </StyledTitleWrapper>
-
         <StyledUser>
-          <ProfileImage profileSize="extra-small" profileImgSrc={user.photo} />
-          <span>{user.name}</span>
+          <ProfileImage profileSize="extra-small" profileImgSrc={projectDetail.project.user.photo} />
+          <span>{projectDetail.project.user.name}</span>
         </StyledUser>
       </StyledLeft>
       <StyledRight>
         <StyledImg>
           <ImgWrapper ratio="100%">
-            <img src={photo} alt="project-photo" />
-            {/* <img
-              src="https://firebasestorage.googleapis.com/v0/b/wesopt29-21638.appspot.com/o/20211224_151914_345381153135.png?alt=media&token=b58ddd85-7cd8-4226-becf-3266a560e8a3"
-              alt=""
-            /> */}
+            <img src={projectDetail.project.photo} alt="project-photo" />
           </ImgWrapper>
         </StyledImg>
       </StyledRight>
@@ -51,6 +40,8 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 7.8rem;
+  margin-bottom: 11rem;
 `;
 
 const StyledLeft = styled.div`
@@ -58,6 +49,7 @@ const StyledLeft = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 54.5rem;
+  margin-top: 1.5rem;
 `;
 
 const StyledRight = styled.div`
@@ -68,7 +60,6 @@ const StyledRight = styled.div`
 const StyledTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 3.2rem;
 `;
 
 const StyledTitle = styled.span`
@@ -87,12 +78,16 @@ const StyledIntro = styled.span`
 const StyledUser = styled.div`
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 14px;
   color: ${teambleColors.deepGray};
+
+  & > span {
+    margin-left: 0.2rem;
+  }
 `;
 
 const StyledImg = styled.div`
-  width: 51.3rem;
-  height: 51.3rem;
+  width: 32rem;
+  height: 32rem;
   overflow: hidden;
 `;

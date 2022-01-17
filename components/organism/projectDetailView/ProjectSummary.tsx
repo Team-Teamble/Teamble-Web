@@ -1,57 +1,27 @@
 import React from "react";
 import styled from "styled-components";
+import { ProjectDetail } from "../../../api/project";
 import { teambleColors } from "../../../styles/color";
-import { BasicTag } from "../../atom/tag/BasicTag";
 
 export interface ProjectSummaryProps {
   className?: string;
-  endDate: string; // 프로젝트 모집 종료 기간
-  area: string; // 프로젝트 지역
-  period: {
-    // 프로젝트 예상 기간
-    id: number; // 프로젝트 예상 기간 id
-    name: string; // 프로젝트 예상 기간 이름
-  };
-  position: // 프로젝트 모집 포지션
-  {
-    id: number; // 프로젝트 모집 포지션 id
-    name: string; // 프로젝트 모집 포지션 이름
-    positionNum: {
-      //  프로젝트 모집 인원
-      id: number; // 프로젝트 모집 포지션 인원 id
-      name: string; // 프로젝트 모집 포지션 인원 이름
-    };
-  }[];
-  goal: {
-    // 프로젝트 목표
-    id: number; // 프로젝트 목표 id
-    name: string; // 프로젝트 목표 이름
-  };
-  tag: // 프로젝트 선호 협업 성향
-  {
-    id: number; // 프로젝트 선호 협업 성향 id
-    name: string; // 프로젝트 선호 협업 성향 이름
-  }[];
-  field: // 프로젝트 분야
-  {
-    id: number; // 프로젝트 분야 id
-    name: string; // 프로젝트 분야 이름
-  }[];
+
+  projectDetail: ProjectDetail;
 }
 
 export function ProjectSummary(props: ProjectSummaryProps) {
-  const { className, endDate, area, period, position, goal, tag, field } = props;
+  const { className, projectDetail } = props;
 
   return (
     <StyledWrapper className={className}>
       <StyledField>
         <StyledLeft>프로젝트 예상 기간</StyledLeft>
-        <StyledRight>{period.name}</StyledRight>
+        <StyledRight>{projectDetail.project.period.name}</StyledRight>
       </StyledField>
       <StyledField>
         <StyledLeft>모집 포지션</StyledLeft>
         <StyledRight>
-          {position.map((key) => (
+          {projectDetail.project.position.map((key) => (
             <>
               <div>
                 {key.name} {key.positionNum.name}명
@@ -62,16 +32,14 @@ export function ProjectSummary(props: ProjectSummaryProps) {
       </StyledField>
       <StyledField>
         <StyledLeft>목표</StyledLeft>
-        <StyledRight>{goal.name}</StyledRight>
+        <StyledRight>{projectDetail.project.goal.name}</StyledRight>
       </StyledField>
       <StyledField>
         <StyledLeft>선호 협업 성향</StyledLeft>
         <StyledRight>
           <StyledTagWrapper>
-            {tag.map((key) => (
-              <BasicTag key={key.id} id={key.id}>
-                {key.name}
-              </BasicTag>
+            {projectDetail.project.type.map((key) => (
+              <StyledTag key={key.id}>{key.name}</StyledTag>
             ))}
           </StyledTagWrapper>
         </StyledRight>
@@ -80,21 +48,19 @@ export function ProjectSummary(props: ProjectSummaryProps) {
         <StyledLeft>프로젝트 분야</StyledLeft>
         <StyledRight>
           <StyledTagWrapper>
-            {field.map((key) => (
-              <BasicTag key={key.id} id={+key}>
-                {key.name}
-              </BasicTag>
+            {projectDetail.project.field.map((key) => (
+              <StyledTag key={key.id}>{key.name}</StyledTag>
             ))}
           </StyledTagWrapper>
         </StyledRight>
       </StyledField>
       <StyledField>
         <StyledLeft>지역</StyledLeft>
-        <StyledRight>{area}</StyledRight>
+        <StyledRight>{projectDetail.project.area}</StyledRight>
       </StyledField>
       <StyledField>
         <StyledLeft>모집 기간</StyledLeft>
-        <StyledRight>{endDate}</StyledRight>
+        <StyledRight>{projectDetail.project.endDate.slice(0, 10)}</StyledRight>
       </StyledField>
     </StyledWrapper>
   );
@@ -103,12 +69,15 @@ export function ProjectSummary(props: ProjectSummaryProps) {
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding-bottom: 8.25rem;
+  border-bottom: 1px solid ${teambleColors.deepGray};
+  margin-bottom: 5.8rem;
 `;
 
 const StyledField = styled.div`
   display: flex;
-  width: 51rem;
+  align-items: center;
 
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -116,14 +85,15 @@ const StyledField = styled.div`
 `;
 
 const StyledLeft = styled.div`
-  width: 21rem;
-  font-size: 24px;
+  width: 19rem;
+  font-size: 18px;
   font-weight: 700;
+  color: ${teambleColors.black};
 `;
 
 const StyledRight = styled.div`
   display: flex;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   color: ${teambleColors.darkGray};
 
@@ -139,7 +109,19 @@ const StyledRight = styled.div`
 const StyledTagWrapper = styled.div`
   display: flex;
 
-  & > div + div {
-    margin-left: 0.8rem;
+  & > button + button {
+    margin-left: 0.9rem;
   }
+`;
+
+const StyledTag = styled.button`
+  display: inline-block;
+
+  background-color: ${teambleColors.lightPurple};
+  color: ${teambleColors.black};
+  border: 1px solid ${teambleColors.deepPurple};
+  border-radius: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0.6rem 1.25rem;
 `;

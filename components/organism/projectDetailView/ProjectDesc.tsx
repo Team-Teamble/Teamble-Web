@@ -6,7 +6,7 @@ import { ConfirmButton } from "../../atom/button/ConfirmButton";
 export interface ProjectDescProp {
   className?: string;
   description: string;
-  onClick(): boolean;
+  onClick(): void;
 }
 
 export function ProjectDesc(props: ProjectDescProp) {
@@ -26,6 +26,7 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 17rem;
 
   & > h3 {
     font-size: 30px;
@@ -38,6 +39,7 @@ const StyledWrapper = styled.div`
     width: 62rem;
     height: 39.5rem;
     border: 3px solid ${teambleColors.gray};
+    font-size: 20px;
   }
 
   & > button {

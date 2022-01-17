@@ -11,13 +11,3 @@ const Template: Story<ProjectHeaderProps> = (args) => {
 };
 
 export const Header = Template.bind({});
-
-Header.args = {
-  title: "프로젝트 제목",
-  intro: "프로젝트 한줄소개를 적어주세요! 적어주세요 적어주세요 적어..",
-  user: {
-    id: 1,
-    name: "김연이",
-    photo: "",
-  },
-};

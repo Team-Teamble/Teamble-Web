@@ -198,7 +198,7 @@ export const ProjectAPIMock = withLogger(
         ],
       };
     }
-    async getProjectDetail(projectId: string): Promise<ProjectDetail> {
+    async getProjectDetail(projectId: number): Promise<ProjectDetail> {
       return {
         project: {
           id: 1,
@@ -261,7 +261,7 @@ export const ProjectAPIMock = withLogger(
         },
       };
     }
-    async markCompleteProject(projectId: string): Promise<ProjectDetail> {
+    async markCompleteProject(projectId: number): Promise<ProjectDetail> {
       return {
         project: {
           id: 1,

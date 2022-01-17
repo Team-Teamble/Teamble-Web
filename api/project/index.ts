@@ -4,8 +4,8 @@ export interface ProjectAPI {
   addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput>;
   getSearchMetadata(): Promise<GetSearchMetadataOutput>;
   searchProject(data: SearchProjectInput): Promise<SearchProjectOutput>;
-  getProjectDetail(projectId: string): Promise<ProjectDetail>;
-  markCompleteProject(projectId: string): Promise<ProjectDetail>;
+  getProjectDetail(projectId: number): Promise<ProjectDetail>;
+  markCompleteProject(projectId: number): Promise<ProjectDetail>;
 }
 
 export interface GetProjectMetadataOutput {

@@ -237,6 +237,22 @@ export const ProjectAPIMock = withLogger(
               id: 1,
               name: "열정적인",
             },
+            {
+              id: 2,
+              name: "진취적인",
+            },
+            {
+              id: 3,
+              name: "주도적인",
+            },
+            {
+              id: 4,
+              name: "지도력있는",
+            },
+            {
+              id: 5,
+              name: "목표지향적인",
+            },
           ],
           field: [
             {

@@ -29,7 +29,7 @@ Projectcard.args = {
   thumbnail: thumbnail,
   profileImgSrc: profileImgSrc,
   dday: "3일 남음",
-  recruitInfo: recruitInfo,
+
   title: "프로젝트 제목",
   summary: "프로젝트 한줄 소개 한줄 소개",
   userName: userName,

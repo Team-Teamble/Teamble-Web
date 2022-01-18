@@ -265,7 +265,7 @@ export const ProjectAPIMock = withLogger(
         ],
       };
     }
-    async getProjectDetail(projectId: string): Promise<ProjectDetail> {
+    async getProjectDetail(projectId: number): Promise<ProjectDetail> {
       return {
         project: {
           id: 1,
@@ -304,6 +304,22 @@ export const ProjectAPIMock = withLogger(
               id: 1,
               name: "열정적인",
             },
+            {
+              id: 2,
+              name: "진취적인",
+            },
+            {
+              id: 3,
+              name: "주도적인",
+            },
+            {
+              id: 4,
+              name: "지도력있는",
+            },
+            {
+              id: 5,
+              name: "목표지향적인",
+            },
           ],
           field: [
             {
@@ -328,7 +344,7 @@ export const ProjectAPIMock = withLogger(
         },
       };
     }
-    async markCompleteProject(projectId: string): Promise<ProjectDetail> {
+    async markCompleteProject(projectId: number): Promise<ProjectDetail> {
       return {
         project: {
           id: 1,

@@ -20,11 +20,12 @@ export interface TendencyTestSet {
 
 export interface TendencyEndState {
   annotation: string;
+  imageURL: string;
   name: string;
   tags: string[];
   messageFirst: string;
   messageSecond: string;
-  characteristic: string;
+  characteristics: string[];
   toFix: string;
   preferEnvironment: string[];
   bestBlend: string;

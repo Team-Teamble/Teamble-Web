@@ -6,7 +6,7 @@ interface WithLayout {
 
 type ComponentWithChildren = (props: { children: ReactNode }) => ReactElement;
 
-export function setLayout<T extends () => ReactNode>(component: T, layout: ComponentWithChildren) {
+export function setLayout<T extends (...args: any[]) => ReactNode>(component: T, layout: ComponentWithChildren) {
   (component as WithLayout).layout = layout;
 }
 

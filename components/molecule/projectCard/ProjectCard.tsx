@@ -3,53 +3,54 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ImgWrapper } from "../../atom/image/ImgWrapper";
 import { ProfileImage } from "../../atom/image/ProfileImage";
-export interface ProjectCardProps {
-  className?: string;
-  thumbnail?: string;
-  profileImgSrc: string;
-  dday: string;
 
-  title: string;
-  summary: string;
-  userName: { id: number; name: string };
+interface ProjectCard {
+  id: number;
+  intro: string;
   isClosed: boolean;
-  recruitInfo: { id: number; name: string; value: { id: number; count: number } }[];
-
-  onClick(): void;
+  photo: string;
+  position: { id: number; name: string; num: string }[];
+  startDate: string;
+  title: string;
+  user: { id: string; name: string; photo: string };
+}
+export interface ProjectCardProps {
+  cardInfo: ProjectCard;
+  className?: string;
 }
 
 export function ProjectCard(props: ProjectCardProps) {
-  const { className, thumbnail, profileImgSrc, dday, title, summary, userName, isClosed, recruitInfo, onClick } = props;
+  const { className, cardInfo } = props;
   return (
     <StyledWrapper className={className}>
       <a href="">
-        {thumbnail && (
+        {cardInfo.photo && (
           <ImgWrapper ratio="56%">
-            <img src={profileImgSrc} alt="profile" />
-            <StyledDay>{dday}</StyledDay>
+            <img src={cardInfo.photo} alt="profile" />
+            <StyledDay>d-day</StyledDay>
           </ImgWrapper>
         )}
       </a>
-      <StyledLink onClick={onClick}>
+      <StyledLink>
         <StyledDesc>
-          <h3>{title}</h3>
-          <h4>{summary}</h4>
+          <h3>{cardInfo.title}</h3>
+          <h4>{cardInfo.intro}</h4>
           <StyledProfile>
-            <ProfileImage profileImgSrc={profileImgSrc} profileSize="extra-small" onClick={onClick} />
-            <span>{userName.name}</span>
+            <ProfileImage profileImgSrc={cardInfo.user.photo} profileSize="extra-small" />
+            <span>{cardInfo.user.name}</span>
           </StyledProfile>
         </StyledDesc>
         <StyledRecruit>
-          <span>{isClosed ? "모집완료" : "모집중"}</span>
+          <span>{cardInfo.isClosed ? "모집완료" : "모집중"}</span>
           <div>
             <span>
-              기획자 <span>{recruitInfo[0].value.count}</span>
+              기획자 <span>{cardInfo.position[0].num}</span>
             </span>
             <span>
-              디자이너 <span>{recruitInfo[1].value.count}</span>
+              디자이너 <span>{cardInfo.position[1].num}</span>
             </span>
             <span>
-              개발자 <span>{recruitInfo[2].value.count}</span>
+              개발자 <span>{cardInfo.position[2].num}</span>
             </span>
           </div>
         </StyledRecruit>
@@ -65,9 +66,9 @@ const StyledWrapper = styled.div`
   border-radius: 1em;
   width: 38em;
   height: 47em;
-
   border: 1px solid ${teambleColors.gray};
   box-shadow: 4px 4px 7px 0px #0000000a;
+  margin-bottom: 7.5em;
 `;
 
 const StyledDay = styled.div`

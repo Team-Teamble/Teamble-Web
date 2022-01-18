@@ -18,5 +18,4 @@ export const Basic = Template.bind({});
 Basic.args = {
   children: "소셜 네트워크",
   tagSize: "small",
-  src: path,
 } as BasicTagProps;

@@ -57,46 +57,16 @@ export const MemberAPIMock = withLogger(
     }
     async searchMembers(): Promise<SearchMembersOutput> {
       return {
-        member: [
+        memberCard: [
           {
             id: 1,
             name: "김팀블",
             photo:
               "https://firebasestorage.googleapis.com/v0/b/wesopt29-21638.appspot.com/o/20211224_151914_345381153135.png?alt=media&token=b58ddd85-7cd8-4226-becf-3266a560e8a3",
-            position: [
-              {
-                id: 1,
-                name: "기획자",
-              },
-              {
-                id: 2,
-                name: "디자이너",
-              },
-            ],
-            type: {
-              id: 1,
-              name: "ISTP",
-            },
-            tag: [
-              {
-                id: 1,
-                name: "체계적인",
-              },
-              {
-                id: 4,
-                name: "계획적인",
-              },
-            ],
-            field: [
-              {
-                id: 4,
-                name: "스포츠",
-              },
-              {
-                id: 6,
-                name: "여행",
-              },
-            ],
+            position: ["기획자", "디자이너"],
+            type: "ISTP",
+            tag: ["체계적인", "계획적인"],
+            field: ["스포츠", "여행"],
           },
         ],
       };

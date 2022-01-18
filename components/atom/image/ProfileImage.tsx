@@ -65,8 +65,8 @@ const StyledProfileImg = styled.img<{
       `;
     } else if (props.profileSize === "extra-extra-large") {
       return css`
-        width: 12.052em;
-        height: 12.424em;
+        width: 110px;
+        height: 110px;
       `;
     }
   }}

@@ -4,15 +4,15 @@ import { FindPasswordModal as Modal } from "../../atom/modal/FindPasswordModal";
 import { ModalBg } from "../../atom/modal/ModalBg";
 
 export interface FindPasswordModalProps {
-  handleClose?(): void;
+  onClose?(): void;
 }
 
 export function FindPasswordModal(props: FindPasswordModalProps) {
-  const { handleClose } = props;
+  const { onClose } = props;
   return (
     <StyledFindPasswordModal>
       <ModalBg />
-      <Modal handleClose={handleClose} />
+      <Modal onClose={onClose} />
     </StyledFindPasswordModal>
   );
 }

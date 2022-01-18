@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MakeProjectFoldButton } from "../../atom/button/MakeProjectFoldButton";
 import { SingleDropDown } from "../../atom/drop-down/SingleDropDown";
 export interface PositionDropDownProps {
-  eachInfo: { id: number; name: string; positionNum: { id: number; option: string }[] };
+  eachInfo: { id: number; name: string; positionNum: { id: number; name: string }[] };
   selectedPositions: { id: number; numId: number }[];
   setSelectedPositions: React.Dispatch<React.SetStateAction<{ id: number; numId: number }[]>>;
 }
@@ -29,8 +29,8 @@ export function PositionDropDown(props: PositionDropDownProps) {
 
   function setCurrentOption(): string {
     const [{ numId }] = selectedPositions.filter((position) => position.id === id);
-    const [{ option }] = positionNum.filter((option) => option.id === numId);
-    return option;
+    const [{ name }] = positionNum.filter((option) => option.id === numId);
+    return name;
   }
 
   function handleOpen() {
@@ -46,7 +46,7 @@ export function PositionDropDown(props: PositionDropDownProps) {
         handleOpen={handleOpen}
         isChecked={isChecked}
       />
-      {isOpened && <SingleDropDown options={positionNum} handleSelect={handleSelect} isFilter={false}></SingleDropDown>}
+      {isOpened && <SingleDropDown options={positionNum} onClick={handleSelect} isFilter={false} />}
     </StyledPositionDropDown>
   );
 }

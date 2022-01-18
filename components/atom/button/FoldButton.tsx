@@ -33,11 +33,12 @@ const StyledWrapper = styled.div<{
   isSelected: boolean;
 }>`
   min-width: 212px;
-  height: 38px;
+  height: 48px;
   display: ${(props) => (props.isTagBox ? "inline-flex" : "flex")};
   align-items: center;
   cursor: pointer;
   padding: 0 1.11em;
+  justify-content: space-between;
   border: 1px solid ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
   box-sizing: border-box;
   border-radius: 0.38em;
@@ -55,11 +56,11 @@ const StyledWrapper = styled.div<{
   color: ${(props) => (props.isSelected ? `${teambleColors.darkPurple}` : `${teambleColors.deepGray}`)};
 
   & > svg {
-    margin-left: 1.8em;
     transform: ${(props) => (props.isOpened ? "rotate(180deg)" : "rotate(0)")};
+    flex-shrink: 0;
   }
 
-  & > div + div {
-    margin-left: 1.8em;
+  & > div {
+    margin-right: 1.8em;
   }
 `;

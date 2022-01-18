@@ -37,11 +37,23 @@ export const UserProfileMock = withLogger(
           tag: [
             {
               id: 1,
-              name: "성실함",
+              name: "논리적인",
+            },
+            {
+              id: 2,
+              name: "분석적인",
             },
             {
               id: 3,
-              name: "꼼꼼함",
+              name: "객관적인",
+            },
+            {
+              id: 4,
+              name: "빈틈없는",
+            },
+            {
+              id: 5,
+              name: "체계적인",
             },
           ],
           position: [
@@ -68,18 +80,50 @@ export const UserProfileMock = withLogger(
         user: {
           position: [
             {
-              id: 2,
+              id: 1,
               name: "기획자",
+            },
+            {
+              id: 2,
+              name: "개발자",
+            },
+            {
+              id: 3,
+              name: "디자이너",
             },
           ],
           type: [
             {
               id: 1,
-              name: "정열적인 빨강이",
+              name: "직진모드 깡브리",
             },
             {
               id: 2,
-              name: "느긋한 초록이",
+              name: "재기발랄 팀블리",
+            },
+            {
+              id: 3,
+              name: "프로조율러 옼블리",
+            },
+            {
+              id: 4,
+              name: "빈틈없는 쏙블리",
+            },
+            {
+              id: 5,
+              name: "든든한 캡틴 캡블리",
+            },
+            {
+              id: 6,
+              name: "자존감 지킴이 킵블리",
+            },
+            {
+              id: 7,
+              name: "철두철미 꼼블리",
+            },
+            {
+              id: 8,
+              name: "원칙주의 놉블리",
             },
           ],
           field: [

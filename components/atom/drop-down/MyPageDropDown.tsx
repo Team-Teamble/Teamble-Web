@@ -4,8 +4,8 @@ import { teambleColors } from "../../../styles/color";
 
 export interface MyPageDropDownProps {
   className?: string;
-  options: { id: number; name: string }[];
-  onClick(payload: { id: number; name: string }): void;
+  options: { id: number; name: string; positionNum?: { id: number; name: string }[] }[];
+  onClick?(payload: { id: number; name: string }): void;
 }
 
 export function MyPageDropDown(props: MyPageDropDownProps) {
@@ -15,7 +15,7 @@ export function MyPageDropDown(props: MyPageDropDownProps) {
     <StyledMyPageDropDown className={className}>
       <StyledMaximum>최대 2개 선택</StyledMaximum>
       {options.map(({ id, name }) => (
-        <StyledOption key={id} onClick={() => handleSelect({ id, name })}>
+        <StyledOption key={id} onClick={() => handleSelect && handleSelect({ id, name })}>
           {name}
         </StyledOption>
       ))}

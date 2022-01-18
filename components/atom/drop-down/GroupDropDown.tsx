@@ -15,7 +15,7 @@ export function GroupDropDown(props: GroupDropDownProps) {
   return (
     <StyledGroupDropDown className={className} isForMyPage={isForMyPage}>
       <StyledMaximum>최대 3개 선택</StyledMaximum>
-      {options.map(({ id, name }) => (
+      {options?.map(({ id, name }) => (
         <StyledOption key={id} onClick={() => handleSelect({ id, name })}>
           {name}
         </StyledOption>
@@ -28,7 +28,7 @@ const StyledGroupDropDown = styled.ul<{
   isForMyPage: boolean;
 }>`
   position: absolute;
-  top: calc(100% + 0.9em);
+  top: calc(100% + 9px);
   right: 0;
   box-sizing: border-box;
   width: ${(props) => (props.isForMyPage ? "212px" : "233px")};
@@ -38,6 +38,7 @@ const StyledGroupDropDown = styled.ul<{
   background-color: ${teambleColors.white};
   padding: 0 1.2em;
   overflow: auto;
+  z-index: 5;
 
   & > li:last-child {
     border: none;

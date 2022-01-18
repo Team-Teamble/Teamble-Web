@@ -35,7 +35,11 @@ export function Tendencies(props: TendenciesProps) {
         {isEditing ? (
           <StyledEditingTypes>
             {metaType.map(({ id, name }) => (
-              <MyPageTag key={id} isActive={selectedTypeId === id} onClick={() => handleClick(id, { id, name })}>
+              <MyPageTag
+                key={id}
+                isActive={selectedTypeId === id}
+                onClick={() => handleClick(id, { id, name })}
+                size="big">
                 {name}
               </MyPageTag>
             ))}
@@ -49,7 +53,7 @@ export function Tendencies(props: TendenciesProps) {
       {!isEditing ? (
         <StyledTags>
           {user.tag.map(({ id, name }) => (
-            <MyPageTag key={id} isActive={true}>
+            <MyPageTag key={id} isActive={true} size="small">
               {name}
             </MyPageTag>
           ))}
@@ -80,7 +84,7 @@ const StyledTitle = styled.div`
   font-weight: bold;
   font-size: 24px;
   letter-spacing: -0.02em;
-  margin-right: 14px;
+  margin-right: 9px;
 
   div {
     height: 35px;
@@ -92,37 +96,40 @@ const StyledType = styled.div`
   font-weight: bold;
   font-size: 24px;
   letter-spacing: -0.02em;
-  margin-left: -20px;
+  margin-left: -10px;
   color: ${teambleColors.purple};
 `;
 const StyledUnderLine = styled.div`
   position: relative;
-  top: 50%;
   width: 198px;
   height: 30px;
   border-bottom: 2px solid ${teambleColors.black};
 `;
 const StyledTags = styled.div`
   padding-top: 27px;
-
+  display: flex;
+  flex-wrap: wrap;
   & > div + div {
     margin-left: 10px;
   }
 `;
 const StyledEditingTypes = styled.div`
   position: relative;
-  top: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -14px;
+  top: 100%;
 
   & > div {
     margin-bottom: 4px;
-    margin-right: 10px;
+    margin-right: 9px;
   }
 `;
 const StyledTypeTestWrapper = styled.div`
   width: 100%;
   height: 67px;
   display: flex;
-  padding-top: 92px;
+  padding-top: 100px;
 
   & > div > span {
     font-weight: 500;

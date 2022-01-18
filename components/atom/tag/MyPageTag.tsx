@@ -7,13 +7,14 @@ export interface MyPageTagProps {
   children?: string;
   onClick?(): void;
   isActive: boolean;
+  size: "big" | "small";
 }
 
 export function MyPageTag(props: MyPageTagProps) {
-  const { children, className, isActive = false, onClick: handleClick } = props;
+  const { children, className, isActive = false, onClick: handleClick, size } = props;
 
   return (
-    <StyledMyPageTag className={className} onClick={handleClick} isActive={isActive}>
+    <StyledMyPageTag className={className} onClick={handleClick} isActive={isActive} size={size}>
       {children}
     </StyledMyPageTag>
   );
@@ -21,10 +22,14 @@ export function MyPageTag(props: MyPageTagProps) {
 
 const StyledMyPageTag = styled.div<{
   isActive: boolean;
+  size: "big" | "small";
 }>`
-  display: inline-flex;
+  min-width: 100px;
+  max-width: 158px;
+  width: ${(props) => (props.size === "big" ? "158px" : "77px")};
+  display: flex;
+  /* padding: 0 10.5px; */
   box-sizing: border-box;
-  padding: 0 20px;
   align-items: center;
   justify-content: center;
   letter-spacing: 0.03em;

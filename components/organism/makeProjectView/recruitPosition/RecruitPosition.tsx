@@ -4,14 +4,10 @@ import { PositionDropDown } from "../../../molecule/drop-down/PositionDropDown";
 import { teambleColors } from "../../../../styles/color";
 
 export interface RecruitPositionProps {
-  position: { id: number; name: string; positionNum: { id: number; option: string }[] }[];
-  // selectedPositions: { id: number; numId: number }[];
-  // setSelectedPositions: React.Dispatch<SetStateAction<{ id: number; numId: number }[]>>;
+  position: { id: number; name: string; positionNum: { id: number; name: string }[] }[];
 }
 
 export function RecruitPosition(props: RecruitPositionProps) {
-  // 추후 부모로부터 state / setter 함수 프롭으로 사용, 현재는 세터 함수를 사용하기 위한 테스트용
-  // 이 방식이 괜찮은지 추후 건영에게 컨펌
   const { position } = props;
   const [selectedPositions, setSelectedPositions] = useState([
     {

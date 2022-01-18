@@ -58,4 +58,5 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 
 const StyledEditorWrapper = styled.div`
   margin-top: 2.3rem;
+  z-index: 2;
 `;

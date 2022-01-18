@@ -136,31 +136,91 @@ export const ProjectAPIMock = withLogger(
           period: [
             {
               id: 1,
+              name: "전체",
+            },
+            {
+              id: 2,
               name: "1주 ~ 1개월",
+            },
+            {
+              id: 3,
+              name: "1개월 ~ 3개월",
             },
           ],
           position: [
             {
               id: 1,
+              name: "전체",
+            },
+            {
+              id: 2,
               name: "기획자",
+            },
+            {
+              id: 3,
+              name: "개발자",
             },
           ],
           goal: [
             {
               id: 1,
-              name: "프로젝트 개빌",
+              name: "전체",
+            },
+            {
+              id: 2,
+              name: "기획 / 디자인",
+            },
+            {
+              id: 3,
+              name: "프로젝트 개발",
+            },
+            {
+              id: 4,
+              name: "프로젝트 출시",
             },
           ],
-          type: [
+          tag: [
             {
               id: 1,
+              name: "전체",
+            },
+            {
+              id: 2,
               name: "열정적인",
+            },
+            {
+              id: 3,
+              name: "냉소적인",
+            },
+            {
+              id: 4,
+              name: "사려깊은",
+            },
+            {
+              id: 5,
+              name: "그냥저냥",
             },
           ],
           field: [
             {
               id: 1,
-              name: "여행",
+              name: "전체",
+            },
+            {
+              id: 2,
+              name: "여기",
+            },
+            {
+              id: 3,
+              name: "저기",
+            },
+            {
+              id: 4,
+              name: "어디",
+            },
+            {
+              id: 5,
+              name: "거기",
             },
           ],
         },
@@ -168,7 +228,7 @@ export const ProjectAPIMock = withLogger(
     }
     async searchProject(data: SearchProjectInput): Promise<SearchProjectOutput> {
       return {
-        project: [
+        projectCard: [
           {
             id: 1,
             title: "프로젝트 제목",
@@ -182,10 +242,17 @@ export const ProjectAPIMock = withLogger(
               {
                 id: 1,
                 name: "기획자",
-                positionNum: {
-                  id: 2,
-                  name: "1",
-                },
+                num: "1",
+              },
+              {
+                id: 2,
+                name: "디자이너",
+                num: "2",
+              },
+              {
+                id: 3,
+                name: "개발자",
+                num: "4",
               },
             ],
             user: {

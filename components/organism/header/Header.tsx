@@ -80,7 +80,6 @@ const StyledHeaderDesc = styled.div`
 const StyledNav = styled.nav`
   width: 100%;
   height: 3.6em;
-  margin-left: 3em;
   padding-top: 1.35em;
   display: flex;
 

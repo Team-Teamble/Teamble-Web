@@ -64,7 +64,7 @@ const StyledBodySection = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 1168px;
-  padding: 67px 63px 0 61px;
+  padding: 67px 14px 0 61px;
   background: ${teambleColors.white};
   box-shadow: 3px 4px 8px 6px rgba(0, 0, 0, 0.03);
 `;

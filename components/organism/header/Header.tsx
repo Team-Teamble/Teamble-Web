@@ -68,19 +68,23 @@ const StyledHeader = styled.div`
   justify-content: center;
   background-color: ${teambleColors.white};
   box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+  padding-top: 48px;
+  padding-bottom: 5.5px;
 `;
 
 const StyledHeaderDesc = styled.div`
   width: 100%;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 47.5px;
 `;
 
 const StyledNav = styled.nav`
   width: 100%;
   height: 3.6em;
-  padding-top: 1.35em;
   display: flex;
 
   & > div + div {

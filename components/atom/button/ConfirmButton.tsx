@@ -6,7 +6,7 @@ export interface ConfirmButtonProps {
   className?: string;
   children: ReactNode;
 
-  onClick(): void;
+  onClick?(): void;
 }
 
 export function ConfirmButton(props: ConfirmButtonProps) {
@@ -18,7 +18,7 @@ export function ConfirmButton(props: ConfirmButtonProps) {
   );
 }
 
-const StyledSearchBtn = styled.button`
+export const StyledSearchBtn = styled.button`
   display: inline-block;
   cursor: pointer;
 

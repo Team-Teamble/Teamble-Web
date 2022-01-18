@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { apiService } from "../../api";
 import { ProjectDesc } from "../../components/organism/projectDetailView/ProjectDesc";
 import { ProjectHeader } from "../../components/organism/projectDetailView/ProjectHeader";
 import { ProjectMember } from "../../components/organism/projectDetailView/ProjectMember";
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
+import { useUser } from "../../utils/hook/auth";
 import { withAuth } from "../../utils/ssr";
 
 interface ViewProjectProps {
@@ -13,8 +15,20 @@ interface ViewProjectProps {
 
 export default function ViewProject(props: ViewProjectProps) {
   const { projectId, projectDetail } = props;
-  console.log(projectDetail);
+  const [checkProjectOwner, setCheckProjectOwner] = useState(false);
+  const loginUser = useUser();
 
+  useEffect(() => {
+    checkIsOwner();
+  }, []);
+
+  function checkIsOwner() {
+    if (projectDetail.project.user.id === loginUser?.id) {
+      setCheckProjectOwner(() => true);
+    }
+  }
+
+  // 팀 지원하기 클릭 시, 동작 구현
   function onApply() {
     return -1;
   }
@@ -23,7 +37,7 @@ export default function ViewProject(props: ViewProjectProps) {
     <ProjectDetailTemplate
       header={<ProjectHeader projectDetail={projectDetail} />}
       summary={<ProjectSummary projectDetail={projectDetail} />}
-      desc={<ProjectDesc description={projectDetail.project.description} onClick={onApply} />}
+      desc={<ProjectDesc projectDetail={projectDetail} isOwner={checkProjectOwner} onClick={onApply} />}
       member={<ProjectMember projectDetail={projectDetail} />}></ProjectDetailTemplate>
   );
 }

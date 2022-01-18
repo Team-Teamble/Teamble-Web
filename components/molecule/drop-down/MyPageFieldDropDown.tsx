@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TagBox } from "../tagBox/TagBox";
 import { GroupDropDown } from "../../atom/drop-down/GroupDropDown";
 export interface MyPageFieldDropDownProps {
   className?: string;
-  metaField: { id: number; name: string }[];
-  field: { id: number; name: string }[];
+  meta: { id: number; name: string }[];
+  data?: { id: number; name: string }[];
   onChange(key: "field", payload: { id: number; name: string }[]): void;
 }
 
 export function MyPageFieldDropDown(props: MyPageFieldDropDownProps) {
-  const { className, metaField, onChange: onUpdate, field } = props;
+  const { className, meta, onChange: onUpdate, data } = props;
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  const [currentOption, setCurrentOption] = useState<{ id: number; name: string }[]>(field);
-  const [isSelected, setIsSelected] = useState<boolean>(field.length !== 0);
+  const [currentOption, setCurrentOption] = useState<{ id: number; name: string }[]>(data ? data : []);
+  const [isSelected, setIsSelected] = useState<boolean>(data ? data.length !== 0 : false);
 
   function handleOpen(): void {
     setIsOpened((state) => !state);
@@ -29,14 +29,28 @@ export function MyPageFieldDropDown(props: MyPageFieldDropDownProps) {
     if (index == -1) {
       newOption.length >= 3 ? newOption.splice(index, 1, payload) : newOption.push(payload);
     }
-    setCurrentOption(newOption);
-    setIsSelected(newOption.length !== 0);
     onUpdate("field", newOption);
   }
+
+  function handleDelete(selectedId: number) {
+    const newOption = currentOption.filter(({ id }) => id !== selectedId);
+    onUpdate("field", newOption);
+  }
+  useEffect(() => {
+    setIsSelected(data ? data.length !== 0 : false);
+    setCurrentOption(data ? data : []);
+  }, [data]);
   return (
     <StyledMyPageFieldDropDown className={className} onFocus={handleOpen} onBlur={handleOpen} tabIndex={-1}>
-      <TagBox tags={currentOption} isOpened={isOpened} isSelected={isSelected} />
-      {isOpened && <GroupDropDown options={metaField} onClick={handleSelect} isForMyPage={true} />}
+      <TagBox
+        tags={currentOption}
+        isOpened={isOpened}
+        isSelected={isSelected}
+        default="선택"
+        tagSize="small"
+        onClick={handleDelete}
+      />
+      {isOpened && <GroupDropDown options={meta} onClick={handleSelect} isForMyPage={true} />}
     </StyledMyPageFieldDropDown>
   );
 }

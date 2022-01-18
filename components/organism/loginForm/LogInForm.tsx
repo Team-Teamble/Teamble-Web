@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import { FieldToLogin, LoginFieldChanger } from "../../../utils/hook/field";
 import { BasicButton } from "../../atom/button/BasicButton";
 import { BasicLink } from "../../atom/button/BasicLink";
 import Input from "../../atom/Input/Input";
@@ -8,35 +9,29 @@ import { FindPasswordModal } from "../../atom/modal/FindPasswordModal";
 
 export interface LogInFormProps {
   className?: string;
-  onLogin?(username: string, password: string): void;
+  field: FieldToLogin;
+  onChange: LoginFieldChanger;
+  onLogin?(email: string, password: string): void;
 }
 
 export function LogInForm(props: LogInFormProps) {
-  const { className, onLogin } = props;
+  const { className, field, onLogin, onChange } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  function handleClose() {
-    setIsModalOpen(false);
+  const handleDialogOpen = () => setIsModalOpen(true);
+
+  const handleDialogClose = useCallback(() => setIsModalOpen(false), []);
+
+  function onChangeField(name: keyof FieldToLogin) {
+    return function (e: ChangeEvent<{ value: string }>) {
+      const value = e.target.value;
+      onChange(name, value);
+    };
   }
 
-  function handleModal(e: React.MouseEvent) {
-    e.preventDefault();
-    setIsModalOpen(true);
-  }
-
-  function handleUserName(value: string) {
-    setUsername(value);
-  }
-
-  function handlePassword(value: string) {
-    setPassword(value);
-  }
-
-  function handleLogin() {
+  function onProcessLogin() {
     if (onLogin) {
-      onLogin(username, password);
+      onLogin(field.email, field.password);
     }
   }
 
@@ -44,12 +39,22 @@ export function LogInForm(props: LogInFormProps) {
     <StyledWrapper className={className}>
       <h2>로그인</h2>
       <div>
-        <Input placeholder="이메일 주소(ID)를 입력해주세요" type="text" value={username} onChange={handleUserName} />
-        <Input placeholder="비밀번호를 입력해주세요" type="password" value={password} onChange={handlePassword} />
-        <button onClick={handleModal}>비밀번호 찾기</button>
+        <Input
+          placeholder="이메일 주소(ID)를 입력해주세요"
+          type="text"
+          value={field.email}
+          onChange={onChangeField("email")}
+        />
+        <Input
+          placeholder="비밀번호를 입력해주세요"
+          type="password"
+          value={field.password}
+          onChange={onChangeField("password")}
+        />
+        <button onClick={handleDialogOpen}>비밀번호 찾기</button>
       </div>
-      {isModalOpen && <FindPasswordModal handleClose={handleClose} />}
-      <BasicButton variant="filled" disabled={false} onClick={handleLogin}>
+      <FindPasswordModal open={isModalOpen} onClose={handleDialogClose}></FindPasswordModal>
+      <BasicButton variant="filled" disabled={false} onClick={onProcessLogin}>
         로그인
       </BasicButton>
       <BasicLink href="" variant="outlined">
@@ -59,7 +64,7 @@ export function LogInForm(props: LogInFormProps) {
   );
 }
 
-const StyledWrapper = styled.form`
+const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

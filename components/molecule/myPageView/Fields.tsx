@@ -13,7 +13,7 @@ export function Fields(props: FieldsProps) {
       <div>관심 프로젝트 분야</div>
       <StyledTagWrapper>
         {field.map(({ id, name }) => (
-          <BasicTag tagSize="big" key={id} id={id}>
+          <BasicTag tagSize="big" key={id} id={id} isEditing={false}>
             {name}
           </BasicTag>
         ))}

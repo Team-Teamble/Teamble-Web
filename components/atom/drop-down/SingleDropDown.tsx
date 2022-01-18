@@ -3,19 +3,19 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface SingleDropDownProps {
-  options: { id: number; option: string }[];
-  handleSelect(selectedId: number): void;
+  options: { id: number; name: string }[];
+  onClick(selectedId: number): void;
   isFilter: boolean;
 }
 
 export function SingleDropDown(props: SingleDropDownProps) {
-  const { options, handleSelect, isFilter } = props;
+  const { options, onClick: handleSelect, isFilter } = props;
 
   return (
     <StyledSingleDropDown isFilter={isFilter}>
       {options.map((option) => (
         <StyledOption key={option.id} onClick={() => handleSelect(option.id)} isFilter={isFilter}>
-          {option.option}
+          {option.name}
         </StyledOption>
       ))}
     </StyledSingleDropDown>
@@ -32,9 +32,10 @@ const StyledSingleDropDown = styled.ul<{
   box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   padding: 0 1.2em;
-  top: calc(100% + 4px);
+  top: calc(100% + 9px);
   left: ${(props) => (props.isFilter ? "50%" : "75%")};
   transform: translateX(-50%);
+  z-index: 5;
 
   li:last-child {
     border: none;
@@ -53,6 +54,7 @@ const StyledOption = styled.li<{
   border-bottom: 1px solid #dfdfdf;
   padding: 8px 0;
   box-sizing: border-box;
+  font-weight: 500;
   cursor: pointer;
 
   &:hover {

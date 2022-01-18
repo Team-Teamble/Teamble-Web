@@ -7,22 +7,28 @@ export interface TagBoxProps {
   tags: { id: number; name: string }[];
   isOpened: boolean;
   isSelected: boolean;
-  src?: string;
-  onClick?(): void;
+  onClick(selectedId: number): void;
+  tagSize: "small" | "big";
+  default: string;
 }
 
 export function TagBox(props: TagBoxProps) {
-  const { className, tags, isOpened, isSelected } = props;
-
+  const { default: msg, className, tags, isOpened, isSelected, tagSize, onClick: handleDelete } = props;
   return (
     <FoldButton className={className} isTagBox={true} isOpened={isOpened} isSelected={isSelected}>
-      {tags.length
+      {tags?.length
         ? tags.map((tag) => (
-            <BasicTag key={tag.id} className={className} id={tag.id} tagSize="small">
+            <BasicTag
+              key={tag.id}
+              className={className}
+              id={tag.id}
+              tagSize={tagSize}
+              onClick={handleDelete}
+              isEditing={true}>
               {tag.name}
             </BasicTag>
           ))
-        : "선택"}
+        : msg}
     </FoldButton>
   );
 }

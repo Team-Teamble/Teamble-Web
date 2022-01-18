@@ -6,7 +6,6 @@ import { teambleColors } from "../../../styles/color";
 
 export interface FooterProps {
   className?: string;
-
   onClick?(): void;
 }
 

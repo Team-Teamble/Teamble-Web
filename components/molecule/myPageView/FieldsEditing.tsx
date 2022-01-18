@@ -14,7 +14,7 @@ export function FieldsEditing(props: FieldEditingProps) {
   return (
     <StyledFieldEditing>
       <div>관심 프로젝트 분야</div>
-      <MyPageFieldDropDown field={field} metaField={metaField} onChange={onUpdate} />
+      <MyPageFieldDropDown data={field} meta={metaField} onChange={onUpdate} />
     </StyledFieldEditing>
   );
 }

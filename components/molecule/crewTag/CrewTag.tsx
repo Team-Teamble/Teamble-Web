@@ -1,24 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import CloseIcon from "../../../assets/svg/ic_close_.svg";
+import { ProfileImage } from "../../atom/image/ProfileImage";
+
 export interface CrewTagProps {
   className?: string;
-  profileImgSrc: string;
-  closeImgSrc: string; // 추후 아이콘으로 직접 추가 예정
-  userName: { id: number; name: string };
-
-  onClick(): void;
+  photo: string;
+  user: string;
+  isEditView?: boolean;
+  onClick?(): void;
 }
 
 export function CrewTag(props: CrewTagProps) {
-  const { className, userName, profileImgSrc, closeImgSrc, onClick } = props;
+  const { className, user, photo, isEditView, onClick } = props;
   return (
     <StyledWrapper className={className}>
-      <img src={closeImgSrc} className="close-btn" alt="close-btn" onClick={onClick} />
+      {isEditView ? <CloseIcon onClick={onClick} /> : null}
       <StyledImgWrapper>
-        <img src={profileImgSrc} alt="" />
+        <ProfileImage profileImgSrc={photo} profileSize="large" />
       </StyledImgWrapper>
-      <span>{userName.name}</span>
+      <span>{user}</span>
     </StyledWrapper>
   );
 }
@@ -46,7 +48,7 @@ export const StyledWrapper = styled.div`
     margin-top: 0.8rem;
   }
 
-  & > .close-btn {
+  & > svg {
     position: absolute;
     top: 0.63em;
     right: 0.5em;

@@ -4,8 +4,8 @@ export interface ProjectAPI {
   addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput>;
   getSearchMetadata(): Promise<GetSearchMetadataOutput>;
   searchProject(data: SearchProjectInput): Promise<SearchProjectOutput>;
-  getProjectDetail(projectId: string): Promise<ProjectDetail>;
-  markCompleteProject(projectId: string): Promise<ProjectDetail>;
+  getProjectDetail(projectId: number): Promise<ProjectDetail>;
+  markCompleteProject(projectId: number): Promise<ProjectDetail>;
 }
 
 export interface GetProjectMetadataOutput {
@@ -160,7 +160,7 @@ export interface GetSearchMetadataOutput {
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     }[];
-    type: // 프로젝트 선호 협업 성향
+    tag: // 프로젝트 선호 협업 성향
     {
       id: number; // 선호 협업 성향 id
       name: string; // 선호 협업 성향 이름
@@ -184,7 +184,7 @@ export interface SearchProjectInput {
 }
 
 export interface SearchProjectOutput {
-  project: {
+  projectCard: {
     id: number; // 프로젝트 id
     title: string; // 프로젝트 제목
     intro: string; // 프로젝트 한줄소개
@@ -196,11 +196,7 @@ export interface SearchProjectOutput {
     {
       id: number; // 프로젝트 협업 포지션 id
       name: string; // 프로젝트 협업 포지션 이름
-      positionNum: {
-        // 프로젝트 협업 포지션 인원
-        id: number; // 프로젝트 협업 포지션 인원 id
-        name: string; // 프로젝트 협업 포지션 인원 이름
-      };
+      num: string; // 프로젝트 협업 포지션 모집 인원
     }[];
     user: {
       // 프로젝트를 만든 유저

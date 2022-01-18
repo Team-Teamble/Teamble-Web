@@ -6,15 +6,15 @@ import { SearchButton } from "../../atom/button/SearchButton";
 export interface FilterLayoutProps {
   title: string;
   children?: ReactNode;
+  onReset(): void;
 }
 
 export function FilterLayout(props: FilterLayoutProps) {
-  const { title, children } = props;
+  const { title, children, onReset } = props;
 
   function onClick() {
-    console.log("test");
+    //
   }
-
   return (
     <StyledFilterLayout>
       <StyledTopWrapper>
@@ -26,7 +26,7 @@ export function FilterLayout(props: FilterLayoutProps) {
         {children}
       </StyledMainWrapper>
       <StyledSearchWrapper>
-        <Reset />
+        <Reset onClick={() => onReset()} />
         <SearchButton onClick={onClick} />
       </StyledSearchWrapper>
     </StyledFilterLayout>
@@ -34,8 +34,8 @@ export function FilterLayout(props: FilterLayoutProps) {
 }
 
 const StyledFilterLayout = styled.div`
-  width: 1200px;
-  max-height: 521px;
+  width: 100%;
+  max-height: 600px;
   border-bottom: 1px solid ${teambleColors.deepGray};
   box-sizing: border-box;
   padding-bottom: 36px;
@@ -49,7 +49,7 @@ const StyledTopWrapper = styled.div`
 `;
 const StyledTitle = styled.div`
   box-sizing: border-box;
-  width: 284px;
+  width: 290px;
   padding-right: 28px;
   font-weight: bold;
   font-size: 30px;
@@ -81,6 +81,7 @@ const StyledSearchWrapper = styled.div`
   min-height: 36px;
   display: flex;
   align-items: center;
+  margin-top: 12px;
 
   & > svg {
     margin-left: auto;

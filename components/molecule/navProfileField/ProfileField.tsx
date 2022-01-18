@@ -28,7 +28,7 @@ export function ProfileField(props: ProfileFieldProps) {
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 4.4rem;
+  height: 40px;
 
   & > a {
     padding-top: 0.18rem;

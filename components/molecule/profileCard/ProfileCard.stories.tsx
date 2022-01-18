@@ -32,11 +32,4 @@ const Template: Story<ProfileCardProps> = (args) => {
 };
 
 export const Profilecard = Template.bind({});
-Profilecard.args = {
-  profileImgSrc: profileImgSrc,
-  userName: userName,
-  userPosition: userPosition,
-  tags: tags,
-  fields: fields,
-  isMyPage: true,
-};
+Profilecard.args = {};

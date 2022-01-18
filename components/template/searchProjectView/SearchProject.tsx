@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { FilterLayout } from "../../molecule/filter-layout/FilterLayout";
 
 export interface SearchProjectProps {
-  period: ReactNode;
+  period?: ReactNode;
   position: ReactNode;
-  goal: ReactNode;
+  goal?: ReactNode;
   tag: ReactNode;
   field: ReactNode;
   projectCards: ReactNode;
@@ -19,18 +19,22 @@ export function SearchProject(props: SearchProjectProps) {
     <StyledSearchProject>
       <FilterLayout title="사이드 프로젝트 찾기" onReset={onReset}>
         <StyledTagWrapper>
-          <StyledEachWrapper>
-            <span>기간</span>
-            {period}
-          </StyledEachWrapper>
+          {period && (
+            <StyledEachWrapper>
+              <span>기간</span>
+              {period}
+            </StyledEachWrapper>
+          )}
           <StyledEachWrapper>
             <span>협업 포지션</span>
             {position}
           </StyledEachWrapper>
-          <StyledEachWrapper>
-            <span>목표</span>
-            {goal}
-          </StyledEachWrapper>
+          {goal && (
+            <StyledEachWrapper>
+              <span>목표</span>
+              {goal}
+            </StyledEachWrapper>
+          )}
           <StyledEachWrapper>
             <span>협업 성향</span>
             {tag}
@@ -76,7 +80,7 @@ const StyledTagWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 350px;
+  max-height: 350px;
 `;
 const StyledEachWrapper = styled.div`
   display: flex;
@@ -85,6 +89,11 @@ const StyledEachWrapper = styled.div`
   align-items: center;
   width: 300px;
   justify-content: space-between;
+  margin-bottom: 26px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   & > span {
     min-width: 160px;

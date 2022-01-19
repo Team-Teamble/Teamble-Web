@@ -33,30 +33,14 @@ export interface SearchMembersInput {
 }
 
 export interface SearchMembersOutput {
-  member: // 팀원들
+  memberCard: // 팀원들
   {
     id: number; // 유저 id
     name: string; // 유저 이름
     photo: string; // 유저 프로필 사진 url
-    position: // 유저 포지션 (최대 2개)
-    {
-      id: number; // 유저 포지션 id
-      name: string; // 유저 포지션 이름
-    }[];
-    type: {
-      // 유저 협업 성향
-      id: number;
-      name: string;
-    };
-    tag: // 유저 협업 성향 태그
-    {
-      id: number; // 유저 협업 성향 태그 id
-      name: string; // 유저 협업 성향 태그 이름
-    }[];
-    field: // 유저 관심 프로젝트 분야 (최대 3개)
-    {
-      id: number; // 유저 관심 프로젝트 분야 id
-      name: string; // 유저 관심 프로젝트 분야 이름
-    }[];
+    position: string[]; // 유저 포지션 (최대 2개)
+    type: string; // 유저 협업 성향
+    tag: string[]; // 유저 협업 성향 태그
+    field: string[]; // 유저 관심 프로젝트 분야 (최대 3개)
   }[];
 }

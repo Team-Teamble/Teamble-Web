@@ -4,58 +4,36 @@ import { teambleColors } from "../../../styles/color";
 import { ProfileImage } from "../../atom/image/ProfileImage";
 import CloseIcon from "../../../assets/svg/ic_close_.svg";
 
+interface ProfileCard {
+  id: number;
+  name: string;
+  photo: string;
+  type: string;
+  position: string[];
+  tag: string[];
+  field: string[];
+}
 export interface ProfileCardProps {
   className?: string;
-  profileImgSrc: string;
-
-  userName: { id: number; name: string };
-  userPosition: { id: number; name: string };
-  tags: { id: number; name: string }[];
-  fields: { id: number; name: string }[];
-
+  cardInfo: ProfileCard;
   isMyPage?: boolean;
-
-  onClick(): void;
 }
 
 export function ProfileCard(props: ProfileCardProps) {
-  const { className, profileImgSrc, userName, userPosition, tags, fields, isMyPage, onClick } = props;
+  const { className, cardInfo, isMyPage } = props;
 
   return (
     <StyledWrapper className={className}>
       {isMyPage ? <CloseIcon className="close-icon" /> : null}
       <StyledInfo>
-        <ProfileImage className={className} profileImgSrc={profileImgSrc} profileSize="extra-large" onClick={onClick} />
-        <span className="user-name">{userName.name}</span>
-        <span className="user-position">{userPosition.name}</span>
+        <ProfileImage profileImgSrc={cardInfo.photo} profileSize="extra-extra-large" />
+        <span className="user-name">{cardInfo.name}</span>
+        <span className="user-position">{cardInfo.position.join(" • ")}</span>
       </StyledInfo>
-      <StyledTags>
-        {tags.map(({ id, name }) => {
-          if (id <= 4) {
-            return (
-              <>
-                <span key={id} onClick={onClick}>
-                  {name}
-                </span>
-                <span>•</span>
-              </>
-            );
-          } else {
-            return (
-              <>
-                <span key={id} onClick={onClick}>
-                  {name}
-                </span>
-              </>
-            );
-          }
-        })}
-      </StyledTags>
+      <StyledTags>{cardInfo.tag.join(" • ")}</StyledTags>
       <StyledInterests>
-        {fields.map(({ id, name }) => (
-          <StyledIntrestTag key={id} onClick={onClick}>
-            {name}
-          </StyledIntrestTag>
+        {cardInfo.field.map((name, i) => (
+          <StyledIntrestTag key={i}>{name}</StyledIntrestTag>
         ))}
       </StyledInterests>
       {isMyPage ? <a href="">프로필 보기</a> : null}
@@ -70,8 +48,11 @@ const StyledWrapper = styled.div`
   align-items: center;
   position: relative;
 
-  width: 23.31em;
-  padding: 7.1em 5.2em 3em 5.2em;
+  width: 380px;
+  height: 446px;
+  margin-bottom: 75px;
+  box-sizing: border-box;
+  padding: 7.1em 5.2em 0em 5.2em;
   border-radius: 1em;
   background-color: ${teambleColors.lightPurple};
   box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.04);
@@ -97,9 +78,11 @@ const StyledWrapper = styled.div`
 
 const StyledInfo = styled.div`
   display: flex;
+  width: 110px;
+  height: 170px;
   flex-direction: column;
   align-items: center;
-  /* padding-bottom: 1.8em; */
+  justify-content: space-between;
 
   & > .user-name {
     font-size: 20px;
@@ -118,17 +101,15 @@ const StyledInfo = styled.div`
 
 const StyledTags = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   margin-top: 2em;
   width: 100%;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
   color: ${teambleColors.darkGray};
-
-  padding-bottom: 1.5em;
+  padding-bottom: 18px;
   border-bottom: 1px solid ${teambleColors.brightPurple};
-  & > span + span {
-    margin-left: 0.1rem;
-  }
 `;
 
 const StyledInterests = styled.div`
@@ -142,10 +123,14 @@ const StyledInterests = styled.div`
 
 const StyledIntrestTag = styled.div`
   display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 31px;
   border: 1px solid ${teambleColors.deepPurple};
   border-radius: 1.83em;
+  font-size: 12px;
   font-weight: 500;
   color: ${teambleColors.black};
-
-  padding: 0.58em 1.58em;
+  box-sizing: border-box;
 `;

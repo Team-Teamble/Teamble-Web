@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FoldButton } from "../../atom/button/FoldButton";
 import { SingleDropDown as Options } from "../../atom/drop-down/SingleDropDown";
 
-interface RequestInfo {
+interface ProjectRequestInfo {
   periodId: number; // 선택한 기간 id
   positionId: number; // 선택한 협업 포지션 id
   goalId: number; // 선택한 목표 id
@@ -13,11 +13,21 @@ interface RequestInfo {
   page: number; // 받을 페이지 번호 (1부터 시작)
 }
 
+interface MemberRequestInfo {
+  id: number;
+  name: string;
+  photo: string;
+  position: string[];
+  type: string;
+  tag: string[];
+  field: string[];
+}
+
 export interface SingleDropDownProps {
   className?: string;
   meta: { id: number; name: string }[];
-  category: keyof RequestInfo;
-  onChange<K extends keyof RequestInfo>(key: K, payload: RequestInfo[K]): void;
+  category: string;
+  onChange(key: string, payload: number | number[]): void;
   info: number;
 }
 

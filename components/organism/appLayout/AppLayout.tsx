@@ -17,7 +17,7 @@ export function AppLayout(props: AppLayoutProps) {
   return (
     <StyledAppLayout>
       <Header user={user} currentPath={router.pathname} />
-      <ChildrenSlot>{children}</ChildrenSlot>
+      <ChildrenSlot page={router.pathname.slice(1)}>{children}</ChildrenSlot>
       <Footer />
     </StyledAppLayout>
   );
@@ -27,9 +27,11 @@ const StyledAppLayout = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  zoom: 70%;
 `;
 
-const ChildrenSlot = styled.div`
+const ChildrenSlot = styled.div<{
+  page: string;
+}>`
   flex-grow: 1;
+  zoom: ${(props) => (props.page === "" ? "100%" : "70%")};
 `;

@@ -20,17 +20,20 @@ interface sliderProps {
   speed?: number;
   /** 반복 여부 */
   loop?: boolean;
+
+  cssEase?: string;
 }
 
-export function Slick({ children, className, autoplay = true, speed = 300, loop = true }: sliderProps) {
+export function Slick({ children, className, autoplay = true, speed = 300, loop = true, cssEase }: sliderProps) {
   const settings = useMemo<Settings>(
     () => ({
-      dots: true,
+      dots: false,
       infinite: loop,
-      speed: speed,
-      slidesToShow: 1,
-      autoplay: Boolean(autoplay),
-      autoplaySpeed: typeof autoplay === "boolean" ? 3000 : autoplay,
+      speed: 8000,
+      slidesToShow: 5,
+      autoplay: true,
+      autoplaySpeed: 0,
+      cssEase: "linear",
     }),
     [autoplay, loop, speed],
   );

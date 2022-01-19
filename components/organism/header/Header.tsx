@@ -68,6 +68,7 @@ const StyledHeader = styled.div`
   justify-content: center;
   background-color: ${teambleColors.white};
   box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.07);
+  zoom: 70%;
 `;
 
 const StyledHeaderDesc = styled.div`

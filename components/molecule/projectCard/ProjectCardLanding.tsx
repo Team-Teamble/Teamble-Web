@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ImgWrapper } from "../../atom/image/ImgWrapper";
@@ -79,8 +79,8 @@ const StyledWrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
   border-radius: 1em;
-  width: 27em;
-  height: 31em;
+  width: 26em;
+  height: 29em;
   border: 1px solid ${teambleColors.gray};
   box-shadow: 4px 4px 7px 0px #0000000a;
   background-color: ${teambleColors.white};
@@ -96,7 +96,7 @@ const StyledDay = styled.div`
   border-radius: 0.4rem;
   background-color: ${teambleColors.darkGray};
 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: ${teambleColors.white};
 `;
@@ -118,14 +118,14 @@ const StyledDesc = styled.div`
   & > h3 {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
   }
 
   & > h4 {
     margin: 0;
     margin-bottom: 2rem;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: ${teambleColors.darkGray};
   }

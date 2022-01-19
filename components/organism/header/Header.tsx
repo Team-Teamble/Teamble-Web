@@ -71,6 +71,7 @@ const StyledHeader = styled.div`
   box-sizing: border-box;
   padding-top: 48px;
   padding-bottom: 5.5px;
+  zoom: 70%;
 `;
 
 const StyledHeaderDesc = styled.div`

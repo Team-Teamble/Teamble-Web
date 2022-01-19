@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { TendencyInit } from "../../components/organism/tendency/TendencyInit";
+import { TendencyTest } from "../../components/organism/tendency/TendencyTest";
 import { setLayout } from "../../utils/layout";
 import { withAuth } from "../../utils/ssr";
 import { TendencyTestSet, useTendencyState } from "../../utils/tendency";
@@ -16,28 +18,16 @@ export default function TendencyCheck() {
   }
 
   if (state === null) {
-    return (
-      <div>
-        <h2>초기화면</h2>
-        <button onClick={() => moveNextState(0)}>다음</button>
-      </div>
-    );
+    return <TendencyInit onStart={() => moveNextState(0)} />;
   }
 
   return (
-    <div>
-      <h1>협업성향 테스트 - {state.title}</h1>
-      <div>{state.question.message}</div>
-      <div>
-        {state.question.picks.map((select, idx) => {
-          return (
-            <button key={select} onClick={() => moveNextState(idx)} style={{ display: "block" }}>
-              {select}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    <TendencyTest
+      title={state.title}
+      description={state.question.message}
+      picks={state.question.picks}
+      onChoose={(idx) => moveNextState(idx)}
+    />
   );
 }
 
@@ -51,8 +41,8 @@ export const getServerSideProps = withAuth(async () => {
 
 const testSet: TendencyTestSet = {
   init: {
-    title: "DISC 구분",
-    questions: [{ message: "D I S C 를 구분하는 질문", picks: ["D일때", "I일때", "S일때", "C알때"] }],
+    title: "Q1",
+    questions: [{ message: "스트레스를 많이 받았을 때 당신은", picks: ["D일때", "I일때", "S일때", "C알때"] }],
     nextState: {
       "1": { to: "2DvsDI" },
       "2": { to: "2IvsID" },

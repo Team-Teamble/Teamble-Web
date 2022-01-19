@@ -67,6 +67,7 @@ const StyledWrapper = styled.div`
   width: 38em;
   height: 47em;
   border: 1px solid ${teambleColors.gray};
+  box-sizing: border-box;
   box-shadow: 4px 4px 7px 0px #0000000a;
   margin-bottom: 7.5em;
 `;

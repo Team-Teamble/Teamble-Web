@@ -30,6 +30,7 @@ export function TendencyTest(props: TendencyTestProps) {
     <StyledTendencyTest>
       <MainBox>
         <Title>{title}</Title>
+        <Line />
         <Description>{description}</Description>
         <ButtonGroup cols={buttonCols}>
           {picks.map((pick, idx) => (
@@ -49,6 +50,10 @@ const StyledTendencyTest = styled.div`
   padding: 5rem;
 
   justify-content: center;
+
+  & * {
+    box-sizing: border-box;
+  }
 `;
 
 const MainBox = styled.div`
@@ -59,19 +64,29 @@ const MainBox = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 4.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  line-height: 6rem;
+  word-break: keep-all;
 
   color: ${teambleColors.purple};
+
+  margin-bottom: 2rem;
+`;
+
+const Line = styled.span`
+  height: 0.3rem;
+  width: 3rem;
+  background-color: ${teambleColors.purple};
 `;
 
 const Description = styled.h2`
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 3.7rem;
+  word-break: keep-all;
 
-  font-size: 3.5rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
   font-weight: 700;
-  line-height: 5rem;
 `;
 
 const ButtonGroup = styled.div<{ cols: number }>`
@@ -79,21 +94,32 @@ const ButtonGroup = styled.div<{ cols: number }>`
   grid-template-columns: repeat(${(props) => props.cols ?? 1}, 1fr);
 
   column-gap: 1rem;
-  row-gap: 4.5rem;
+  row-gap: 2rem;
 `;
 
 const Button = styled.a`
   height: 10rem;
-  line-height: 10rem;
-  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
   text-align: center;
   width: 100%;
+
+  padding: 0.5rem 1.4rem;
 
   background-color: ${teambleColors.lightPurple};
   border: 2px solid ${teambleColors.purple};
   border-radius: 1rem;
 
+  word-break: keep-all;
   cursor: pointer;
+
+  &:hover {
+    background-color: ${teambleColors.purple};
+    color: ${teambleColors.white};
+  }
 `;
 
 const Logo = styled(TeambleLogo)`

@@ -1,19 +1,19 @@
 import React, { Children, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
-import landingPage1 from "../../../assets/svg/landing1.png";
+import landingPage4 from "../../../assets/svg/landing4.png";
 
 export interface LandingPageProps {
   className?: string;
 }
 
-export function LandingPage(props: LandingPageProps) {
+export function LandingPageFourth(props: LandingPageProps) {
   const { className } = props;
 
   return <StyledWrapper className={className}></StyledWrapper>;
 }
 
 const StyledWrapper = styled.div`
-  background: url(${landingPage1.src});
+  background: url(${landingPage4.src});
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-size: cover;

@@ -26,12 +26,12 @@ export const BannerButton = forwardRef<HTMLAnchorElement, BannerBtnProps>(functi
 const StyledBannerBtn = styled.a`
   display: block;
   box-sizing: border-box;
-  width: 38em;
-  height: 10.8em;
+  width: 30em;
+  height: 8.8em;
   border: 1px solid ${teambleColors.deepPurple};
   border-radius: 8px;
   background-color: ${teambleColors.lightPurple};
-  padding: 2.5em 3.1em 2.5em 1.9em;
+  padding: 2.5em 1.9em 2.5em 1.9em;
   padding-right: auto;
   text-decoration: none;
   cursor: pointer;
@@ -56,14 +56,16 @@ const StyledContent = styled.div`
     transform: translateY(-50%);
   }
 `;
+
 const StyledTitle = styled.div`
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: ${teambleColors.black};
 `;
+
 const StyledDesc = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 11px;
   line-height: 23px;
   color: ${teambleColors.deepGray};
   background-color: transparent;

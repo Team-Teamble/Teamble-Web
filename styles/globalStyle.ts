@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { progressBarCSS } from "../utils/progress";
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -21,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: inherit;
     }
 
+    ${progressBarCSS}
 `;
 
 function createTransitionQuery() {

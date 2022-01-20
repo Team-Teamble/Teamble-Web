@@ -9,11 +9,14 @@ import { MetaProps } from "../utils/ssr";
 import { useSetUser } from "../utils/hook/auth";
 import { UnauthorizedError } from "../api/util/error";
 import { getLayout } from "../utils/layout";
+import { installProgressBar } from "../utils/progress";
 
 interface MyAppProps {
   _META_PROPS?: MetaProps;
   [key: string]: unknown;
 }
+
+installProgressBar();
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
   const { _META_PROPS, ...otherPageProps } = pageProps as MyAppProps;

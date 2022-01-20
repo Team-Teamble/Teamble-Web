@@ -17,7 +17,7 @@ export function SearchProject(props: SearchProjectProps) {
 
   return (
     <StyledSearchProject>
-      <FilterLayout title="사이드 프로젝트 찾기" onReset={onReset}>
+      <FilterLayout title="팀원 찾기" onReset={onReset}>
         <StyledTagWrapper>
           {period && (
             <StyledEachWrapper>
@@ -45,18 +45,7 @@ export function SearchProject(props: SearchProjectProps) {
           </StyledEachWrapper>
         </StyledTagWrapper>
       </FilterLayout>
-      <StyledProjectWrapper>
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-        {projectCards}
-      </StyledProjectWrapper>
+      <StyledProjectWrapper>{projectCards}</StyledProjectWrapper>
     </StyledSearchProject>
   );
 }

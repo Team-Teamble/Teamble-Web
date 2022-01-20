@@ -68,8 +68,8 @@ const StyledFooterTop = styled.div`
 const StyledNav = styled.nav`
   display: flex;
   align-items: center;
-
   margin-left: 1em;
+  margin-top: 2rem;
 
   & > a {
     text-decoration: none;

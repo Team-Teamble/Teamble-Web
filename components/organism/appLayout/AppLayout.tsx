@@ -15,7 +15,7 @@ export function AppLayout(props: AppLayoutProps) {
   const router = useRouter();
 
   return (
-    <StyledAppLayout>
+    <StyledAppLayout page={router.pathname.slice(1)}>
       <Header user={user} currentPath={router.pathname} />
       <ChildrenSlot page={router.pathname.slice(1)}>{children}</ChildrenSlot>
       <Footer />
@@ -23,7 +23,9 @@ export function AppLayout(props: AppLayoutProps) {
   );
 }
 
-const StyledAppLayout = styled.div`
+const StyledAppLayout = styled.div<{
+  page: string;
+}>`
   display: flex;
   flex-direction: column;
   min-height: 100vh;

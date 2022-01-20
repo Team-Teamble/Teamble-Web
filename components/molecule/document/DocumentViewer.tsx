@@ -30,6 +30,7 @@ export function DocumentViewer(props: DocumentViewerProps) {
 
   useEffect(() => {
     ref.current?.getInstance().setMarkdown(value);
+    console.log(value);
   }, [value]);
 
   return (

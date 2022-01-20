@@ -6,14 +6,15 @@ import { SearchProject as Main } from "../../components/template/searchProjectVi
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
+import Link from "next/link";
 
 export interface SearchMemberProps {
-  searchMember: MemberInfo;
+  searchMember: MemberInfo[];
   memberMetadata: MemberMeta;
 }
 
 export default function SearchMember(props: SearchMemberProps) {
-  const initial = {
+  const requsetInitial = {
     positionId: 1,
     tagId: [1],
     fieldId: [1],
@@ -21,8 +22,8 @@ export default function SearchMember(props: SearchMemberProps) {
     page: 1,
   };
   const { searchMember, memberMetadata: meta } = props;
-  const [memberInfo, setMemberInfo] = useState<MemberInfo>(searchMember);
-  const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
+  const [memberInfo, setMemberInfo] = useState<MemberInfo[]>(searchMember);
+  const [requestInfo, setRequestInfo] = useState<RequestInfo>(requsetInitial);
 
   const onUpdate = (key: string, payload: number | number[]) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
@@ -33,7 +34,7 @@ export default function SearchMember(props: SearchMemberProps) {
       setRequestInfo({ ...requestInfo, [category]: [...payload] });
       return;
     }
-    setRequestInfo(initial);
+    setRequestInfo(requsetInitial);
   }
 
   return (
@@ -56,13 +57,13 @@ export default function SearchMember(props: SearchMemberProps) {
             />
           }
           onReset={onReset}
-          projectCards={
-            Array.isArray(memberInfo) ? (
-              memberInfo.map((each) => <ProfileCard key={each.id} cardInfo={each} />)
-            ) : (
-              <div>로딩중</div>
-            )
-          }
+          projectCards={memberInfo.map((each) => (
+            <Link href={`/profile/${each.id}`} key={each.id} passHref>
+              <ResetA>
+                <ProfileCard cardInfo={each} />
+              </ResetA>
+            </Link>
+          ))}
         />
       </StyledMain>
     </StyledSearchProject>
@@ -80,13 +81,19 @@ const StyledMain = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const getServerSideProps = withAuth(async () => {
+
+const ResetA = styled.a`
+  text-decoration: none;
+  outline: none;
+`;
+
+export const getServerSideProps = withAuth<SearchMemberProps>(async () => {
   const [searchMember, memberMetadata] = await Promise.all([
     apiService.member.searchMembers({
       positionId: 1,
       tagId: [1],
       fieldId: [1],
-      count: 1,
+      count: 100,
       page: 1,
     }),
     apiService.member.getFilterMetadata(),
@@ -104,17 +111,14 @@ interface HandleRequestUpdate {
   <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;
 }
 interface MemberInfo {
-  memberCard: [
-    {
-      id: number;
-      name: string;
-      photo: string;
-      position: string[];
-      type: string;
-      tag: string[];
-      field: string[];
-    },
-  ];
+  // 팀원들
+  id: number; // 유저 id
+  name: string; // 유저 이름
+  photo: string; // 유저 프로필 사진 url
+  position: string[]; // 유저 포지션 이름 (최대 2개)
+  type: string; // 유저 협업 성향 이름
+  tag: string[]; // 유저 협업 성향 태그 이름
+  field: string[]; // 유저 관심 프로젝트 분야 이름 (최대 3개)
 }
 
 interface MemberMeta {

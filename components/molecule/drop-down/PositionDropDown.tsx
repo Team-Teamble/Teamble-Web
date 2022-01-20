@@ -1,49 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { MakeProjectFoldButton } from "../../atom/button/MakeProjectFoldButton";
 import { SingleDropDown } from "../../atom/drop-down/SingleDropDown";
 export interface PositionDropDownProps {
-  eachInfo: { id: number; name: string; positionNum: { id: number; name: string }[] };
-  selectedPositions: { id: number; numId: number }[];
-  setSelectedPositions: React.Dispatch<React.SetStateAction<{ id: number; numId: number }[]>>;
+  className?: string;
+  requestInfo: number[][];
+  index: number;
+  meta: { id: number; name: string; positionNum: { id: number; name: string }[] };
+  onClick(key: string, payload: number[][]): void;
 }
+
 export function PositionDropDown(props: PositionDropDownProps) {
   const {
-    eachInfo: { id, name, positionNum },
-    selectedPositions,
-    setSelectedPositions,
+    className,
+    requestInfo: position,
+    meta: { id, name, positionNum },
+    onClick: onUpdate,
+    index,
   } = props;
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [currentOption, setCurrentOption] = useState<{ id: number; name: string }>(positionNum[0]);
 
   function handleSelect(selectedId: number): void {
-    const newSelectedPositions: { id: number; numId: number }[] = selectedPositions.map((position) => {
-      if (position.id === id) position.numId = selectedId;
-      return position;
-    });
-
-    positionNum[0].id === selectedId ? setIsChecked(false) : setIsChecked(true);
-    setSelectedPositions(newSelectedPositions);
-    setIsOpened(false);
+    const newOption = [...position];
+    newOption[index] = [id, selectedId];
+    onUpdate("position", newOption);
   }
 
-  function setCurrentOption(): string {
-    const [{ numId }] = selectedPositions.filter((position) => position.id === id);
-    const [{ name }] = positionNum.filter((option) => option.id === numId);
-    return name;
+  const updateCurrent = useCallback(() => {
+    const [current] = positionNum.filter((each) => each.id === position[index][1]);
+    return current ? current : { id: 1, name: "0" };
+  }, [position, positionNum, index]);
+
+  function handleOpen(e: React.FocusEvent<HTMLDivElement>) {
+    if (e.currentTarget !== e.target) setIsOpened((state) => !state);
   }
 
-  function handleOpen() {
-    setIsOpened((state) => !state);
-  }
+  useEffect(() => {
+    setCurrentOption(updateCurrent());
+  }, [position, updateCurrent]);
+
+  useEffect(() => {
+    setIsChecked(currentOption?.name !== positionNum[0].name);
+  }, [currentOption, positionNum]);
 
   return (
-    <StyledPositionDropDown>
+    <StyledPositionDropDown className={className} onFocus={handleOpen} onBlur={handleOpen} tabIndex={-1}>
       <MakeProjectFoldButton
         name={name}
-        id={id}
-        currentOption={setCurrentOption()}
-        handleOpen={handleOpen}
+        currentOption={currentOption ? currentOption.name : positionNum[0].name}
         isChecked={isChecked}
       />
       {isOpened && <SingleDropDown options={positionNum} onClick={handleSelect} isFilter={false} />}

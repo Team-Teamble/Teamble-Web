@@ -31,7 +31,7 @@ export interface GetProjectMetadataOutput {
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     }[];
-    type: // 프로젝트 선호 협업 성향
+    tag: // 프로젝트 선호 협업 성향
     {
       id: number; // 프로젝트 선호 협업 성향 id
       name: string; // 프로젝트 선호 협업 성향 이름
@@ -140,7 +140,7 @@ export interface AddMemberToProjectOutput {
     id: number; // 팀 구성원 id
     name: string; // 팀 구성원 이름
     photo: string; // 팀 구성원 사진 url
-  }[];
+  };
 }
 
 export interface GetSearchMetadataOutput {

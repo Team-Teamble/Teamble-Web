@@ -5,19 +5,14 @@ import { teambleColors } from "../../../styles/color";
 export interface MakeProjectButtonProps {
   children: string;
   isChecked: boolean;
-  id: number;
-  handleCheck(): void;
+  onClick(): void;
 }
 
 export function MakeProjectButton(props: MakeProjectButtonProps) {
-  const { children, isChecked = false, handleCheck } = props;
-
-  function handleClick() {
-    handleCheck();
-  }
+  const { children, isChecked = false, onClick: handleCheck } = props;
 
   return (
-    <StyledButton isChecked={isChecked} onClick={handleClick}>
+    <StyledButton isChecked={isChecked} onClick={handleCheck}>
       {children}
     </StyledButton>
   );
@@ -34,4 +29,5 @@ const StyledButton = styled.button<{
   color: ${(props) => (props.isChecked ? teambleColors.deepPurple : teambleColors.deepGray)};
   border: 1px solid ${(props) => (props.isChecked ? teambleColors.deepPurple : teambleColors.deepGray)};
   border-radius: 5px;
+  cursor: pointer;
 `;

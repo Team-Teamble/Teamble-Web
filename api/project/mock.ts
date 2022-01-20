@@ -21,6 +21,14 @@ export const ProjectAPIMock = withLogger(
               id: 1,
               name: "1주 ~ 1개월",
             },
+            {
+              id: 2,
+              name: "1개월 ~ 3개월",
+            },
+            {
+              id: 3,
+              name: "3개월 이상",
+            },
           ],
           position: [
             {
@@ -31,25 +39,153 @@ export const ProjectAPIMock = withLogger(
                   id: 1,
                   name: "0",
                 },
+                {
+                  id: 2,
+                  name: "1",
+                },
+                {
+                  id: 3,
+                  name: "2",
+                },
+              ],
+            },
+            {
+              id: 2,
+              name: "개발자",
+              positionNum: [
+                {
+                  id: 1,
+                  name: "0",
+                },
+                {
+                  id: 2,
+                  name: "1",
+                },
+                {
+                  id: 3,
+                  name: "2",
+                },
+              ],
+            },
+            {
+              id: 3,
+              name: "디자이너",
+              positionNum: [
+                {
+                  id: 1,
+                  name: "0",
+                },
+                {
+                  id: 2,
+                  name: "1",
+                },
+                {
+                  id: 3,
+                  name: "2",
+                },
               ],
             },
           ],
           goal: [
             {
               id: 1,
-              name: "프로젝트 개빌",
+              name: "기획 디자인",
+            },
+            {
+              id: 2,
+              name: "프로젝트 개발",
+            },
+            {
+              id: 3,
+              name: "프로젝트 출시",
+            },
+            {
+              id: 4,
+              name: "창업",
             },
           ],
-          type: [
+          tag: [
             {
               id: 1,
-              name: "열정적인",
+              name: "여행",
+            },
+            {
+              id: 2,
+              name: "반려동물",
+            },
+            {
+              id: 3,
+              name: "O2O",
+            },
+            {
+              id: 4,
+              name: "모바일결제",
+            },
+            {
+              id: 5,
+              name: "소셜데이팅",
+            },
+            {
+              id: 6,
+              name: "헬스케어",
+            },
+            {
+              id: 7,
+              name: "소셜네트워크",
+            },
+            {
+              id: 8,
+              name: "뷰티 / 패션",
+            },
+            {
+              id: 9,
+              name: "이커머스",
+            },
+            {
+              id: 10,
+              name: "헬스 / 스포츠",
             },
           ],
           field: [
             {
               id: 1,
               name: "여행",
+            },
+            {
+              id: 2,
+              name: "반려동물",
+            },
+            {
+              id: 3,
+              name: "O2O",
+            },
+            {
+              id: 4,
+              name: "모바일결제",
+            },
+            {
+              id: 5,
+              name: "소셜데이팅",
+            },
+            {
+              id: 6,
+              name: "헬스케어",
+            },
+            {
+              id: 7,
+              name: "소셜네트워크",
+            },
+            {
+              id: 8,
+              name: "뷰티 / 패션",
+            },
+            {
+              id: 9,
+              name: "이커머스",
+            },
+            {
+              id: 10,
+              name: "헬스 / 스포츠",
             },
           ],
         },
@@ -120,14 +256,12 @@ export const ProjectAPIMock = withLogger(
     }
     async addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput> {
       return {
-        member: [
-          {
-            id: 1,
-            name: "김팀블",
-            photo:
-              "https://firebasestorage.googleapis.com/v0/b/wesopt29-21638.appspot.com/o/20211224_151914_345381153135.png?alt=media&token=b58ddd85-7cd8-4226-becf-3266a560e8a3",
-          },
-        ],
+        member: {
+          id: 1,
+          name: "김팀블",
+          photo:
+            "https://firebasestorage.googleapis.com/v0/b/wesopt29-21638.appspot.com/o/20211224_151914_345381153135.png?alt=media&token=b58ddd85-7cd8-4226-becf-3266a560e8a3",
+        },
       };
     }
     async getSearchMetadata(): Promise<GetSearchMetadataOutput> {

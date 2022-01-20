@@ -6,7 +6,7 @@ import { ProfileImage } from "../../atom/image/ProfileImage";
 
 export interface CrewTagProps {
   className?: string;
-  photo: string;
+  photo: string | undefined;
   user: string;
   isEditView?: boolean;
   onClick?(): void;
@@ -14,6 +14,7 @@ export interface CrewTagProps {
 
 export function CrewTag(props: CrewTagProps) {
   const { className, user, photo, isEditView, onClick } = props;
+
   return (
     <StyledWrapper className={className}>
       {isEditView ? <CloseIcon onClick={onClick} /> : null}
@@ -26,6 +27,8 @@ export function CrewTag(props: CrewTagProps) {
 }
 
 export const StyledWrapper = styled.div`
+  width: 129px;
+  height: 141px;
   cursor: pointer;
   position: relative;
   display: flex;
@@ -35,11 +38,10 @@ export const StyledWrapper = styled.div`
   font-size: 16px;
   font-weight: 500;
   color: ${teambleColors.darkGray};
-
-  width: 7.69em;
-  border: 1px solid ${teambleColors.purple};
   border-radius: 0.63em;
+  border: 1px solid ${teambleColors.purple};
   background-color: ${teambleColors.lightPurple};
+  box-sizing: border-box;
 
   padding-top: 1.44em;
   padding-bottom: 1.31em;

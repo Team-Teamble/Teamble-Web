@@ -12,7 +12,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.2",
+    "@datepicker-react/styled": "^2.8.4",
     "@toast-ui/editor": "^3.1.2",
     "@toast-ui/react-editor": "^3.1.2",
     "axios": "^0.24.0",

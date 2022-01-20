@@ -8,7 +8,7 @@ export function ModalBg() {
 const StyledModalBg = styled.div`
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   left: 0;
   top: 0;
   background-color: ${teambleColors.black};

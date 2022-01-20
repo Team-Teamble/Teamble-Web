@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { apiService } from "../../api";
 import { ProjectDesc } from "../../components/organism/projectDetailView/ProjectDesc";
 import { ProjectHeader } from "../../components/organism/projectDetailView/ProjectHeader";

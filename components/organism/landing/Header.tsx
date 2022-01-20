@@ -56,7 +56,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 123.9px);
+  height: calc(100vh - 103px);
 `;
 
 const StyledTop = styled.div`

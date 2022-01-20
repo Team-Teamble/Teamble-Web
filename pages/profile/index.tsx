@@ -41,6 +41,7 @@ export default function SearchMember(props: SearchMemberProps) {
     <StyledSearchProject>
       <StyledMain>
         <Main
+          title="팀원 찾기"
           position={
             <Single meta={meta.position} onChange={onUpdate} category="positionId" info={requestInfo.positionId} />
           }

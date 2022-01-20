@@ -17,7 +17,7 @@ export function BasicTag(props: BasicTagProps) {
   return (
     <StyledBasicTag className={className} tagSize={tagSize} onClick={() => handleDelete && handleDelete(id)}>
       {children}
-      {isEditing && <Close />}
+      {isEditing && <StyledClose />}
     </StyledBasicTag>
   );
 }
@@ -54,4 +54,8 @@ const StyledBasicTag = styled.div<{
 
   & > svg {
   }
+`;
+const StyledClose = styled(Close)`
+  width: 18px;
+  height: 18px;
 `;

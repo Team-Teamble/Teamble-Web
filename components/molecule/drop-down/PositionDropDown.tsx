@@ -52,7 +52,7 @@ export function PositionDropDown(props: PositionDropDownProps) {
         currentOption={currentOption ? currentOption.name : positionNum[0].name}
         isChecked={isChecked}
       />
-      {isOpened && <SingleDropDown options={positionNum} onClick={handleSelect} isFilter={false} />}
+      {isOpened && <SingleDropDown options={positionNum} onClick={handleSelect} isFilter={false} optionType="number" />}
     </StyledPositionDropDown>
   );
 }

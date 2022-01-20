@@ -2,7 +2,7 @@ import { withAuth } from "../utils/ssr";
 import LandingTemplate from "../components/template/LandingTemplate";
 import { Header } from "../components/organism/landing/Header";
 import { apiService } from "../api";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ProjectCard } from "../components/molecule/projectCard/ProjectCard";
 
 interface ProjectCardProps {

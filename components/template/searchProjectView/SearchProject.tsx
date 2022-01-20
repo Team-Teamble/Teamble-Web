@@ -9,15 +9,16 @@ export interface SearchProjectProps {
   tag: ReactNode;
   field: ReactNode;
   projectCards: ReactNode;
+  title: string;
   onReset(): void;
 }
 
 export function SearchProject(props: SearchProjectProps) {
-  const { period, position, goal, tag, field, projectCards, onReset } = props;
+  const { period, position, goal, tag, field, projectCards, onReset, title } = props;
 
   return (
     <StyledSearchProject>
-      <FilterLayout title="팀원 찾기" onReset={onReset}>
+      <FilterLayout title={title} onReset={onReset}>
         <StyledTagWrapper>
           {period && (
             <StyledEachWrapper>
@@ -58,12 +59,17 @@ const StyledSearchProject = styled.div`
 
 const StyledProjectWrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   box-sizing: border-box;
   padding-top: 7.6em;
   padding-bottom: 20em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `;
 const StyledTagWrapper = styled.div`
   display: flex;

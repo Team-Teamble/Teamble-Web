@@ -68,14 +68,13 @@ const StyledFooterTop = styled.div`
 const StyledNav = styled.nav`
   display: flex;
   align-items: center;
-  margin-left: 1em;
+
   margin-top: 2rem;
 
   & > a {
     text-decoration: none;
     font-size: 14px;
     color: ${teambleColors.darkGray};
-    margin-left: 1em;
   }
 `;
 
@@ -83,7 +82,7 @@ const StyledSplit = styled.div`
   width: 1px;
   height: 13px;
   background-color: ${teambleColors.darkGray};
-  margin-left: 1.4em;
+  margin: 0 1.4em;
 `;
 
 const StyledFooterBottom = styled.div`

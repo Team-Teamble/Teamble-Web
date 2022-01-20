@@ -11,7 +11,7 @@ export function SearchButton(props: SearchButtonProps) {
   const { className, onClick } = props;
   return (
     <StyledSearchBtn onClick={onClick} className={className}>
-      <SearchIcon />
+      <StyledSearch />
       <span>검색</span>
     </StyledSearchBtn>
   );
@@ -32,12 +32,6 @@ const StyledSearchBtn = styled.button`
   font-size: 18px;
   color: ${teambleColors.deepPurple};
 
-  & > svg {
-    width: 1.96em;
-    height: 1.96em;
-    padding-right: 1em;
-  }
-
   &:hover {
     background-color: ${teambleColors.deepPurple};
     border: 0;
@@ -46,5 +40,14 @@ const StyledSearchBtn = styled.button`
     & > svg {
       filter: brightness(0) invert(1);
     }
+  }
+`;
+const StyledSearch = styled(SearchIcon)`
+  width: 1.8em;
+  height: 1.8em;
+  margin-right: 0.2em;
+
+  &:hover {
+    filter: brightness(0) invert(1);
   }
 `;

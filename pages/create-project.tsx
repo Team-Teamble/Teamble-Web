@@ -20,6 +20,8 @@ import { ConfirmButton } from "../components/atom/button/ConfirmButton";
 import { teambleColors } from "../styles/color";
 import { AddMemberModal } from "../components/molecule/modal/AddMemberModal";
 import { useAPI } from "../utils/hook/api";
+import { useRouter } from "next/router";
+import { NotFoundError } from "../api/util/error";
 export interface CreateProjectProps {
   className?: string;
   createProjectMetadata: CreateProjectMeta;
@@ -28,6 +30,8 @@ export interface CreateProjectProps {
 
 export default function CreateProject(props: CreateProjectProps) {
   const addMember = useAPI((api) => api.project.addMemberToProject);
+  const createProject = useAPI((api) => api.project.createProject);
+
   const { createProjectMetadata: meta, className, user } = props;
   const initial: RequestInfo = {
     userId: user.id, // 로그인된 유저 id
@@ -60,7 +64,8 @@ export default function CreateProject(props: CreateProjectProps) {
     endDate: new Date(),
     focusedInput: null,
   });
-
+  const router = useRouter();
+  console.log(requestInfo);
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
@@ -88,10 +93,33 @@ export default function CreateProject(props: CreateProjectProps) {
     setMemberEmail(e.target.value);
   }
 
+  function handleDeleteMember(id: number) {
+    const newMembers = membersInfo.filter((member) => member.id !== id);
+    setMembersInfo(newMembers);
+  }
+
   async function handleAddMember() {
-    const newMemberInfo = await addMember.request({ email: memberEmail });
-    console.log(newMemberInfo);
-    newMemberInfo && setMembersInfo([...membersInfo, newMemberInfo.member]);
+    try {
+      const newMemberInfo = await addMember.request({ email: memberEmail });
+      if (newMemberInfo) {
+        setMembersInfo([...membersInfo, newMemberInfo.member]);
+        onUpdate("memberId", [...requestInfo.memberId, newMemberInfo.member.id]);
+      }
+    } catch (e) {
+      alert("에렁 ㅎ");
+    }
+  }
+
+  async function handleCreateProject() {
+    try {
+      const data = await createProject.request(requestInfo);
+      router.push(`/project/${data?.project.id}`);
+    } catch (e) {
+      if (e instanceof NotFoundError) {
+      } else {
+        throw e;
+      }
+    }
   }
 
   const addMemberModal = isModalOpened ? (
@@ -144,10 +172,16 @@ export default function CreateProject(props: CreateProjectProps) {
           <DocumentEditor onChange={(val) => onUpdate("description", val)} />
         </StyledEditorSlot>
         <StyledMembersSlot>
-          <TeamMembers myId={user.id} membersInfo={membersInfo} onClick={handleOpen} addMemberModal={addMemberModal} />
+          <TeamMembers
+            myId={user.id}
+            membersInfo={membersInfo}
+            onClick={handleOpen}
+            addMemberModal={addMemberModal}
+            onDelete={handleDeleteMember}
+          />
         </StyledMembersSlot>
         <StyledButtonSlot>
-          <StyledCreateButton>생성하기</StyledCreateButton>
+          <StyledCreateButton onClick={handleCreateProject}>생성하기</StyledCreateButton>
         </StyledButtonSlot>
       </StyledLayout>
     </StyledSearchProject>

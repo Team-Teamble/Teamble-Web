@@ -15,17 +15,18 @@ export interface TeamMembersProps {
   membersInfo: MemberInfo[];
   addMemberModal: ReactNode;
   onClick(): void;
+  onDelete(id: number): void;
 }
 
 export function TeamMembers(props: TeamMembersProps) {
-  const { myId, onClick: handleOpen, className, membersInfo, addMemberModal } = props;
+  const { myId, onClick: handleOpen, className, membersInfo, addMemberModal, onDelete } = props;
 
   return (
     <StyledTeamMembers className={className}>
       <StyledTitle>팀 구성원</StyledTitle>
       <MembersWrapper>
         {membersInfo.map(({ id, name, photo }) => (
-          <CrewTag key={id} photo={photo} user={name} isEditView={id !== myId} />
+          <CrewTag key={id} photo={photo} user={name} isEditView={id !== myId} onClick={() => onDelete(id)} />
         ))}
         <EmailAddButton onClick={handleOpen} />
       </MembersWrapper>

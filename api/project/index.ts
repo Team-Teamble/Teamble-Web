@@ -48,20 +48,15 @@ export interface CreateProjectInput {
   title: string; // 프로젝트 제목
   intro: string; // 프로젝트 한줄 소개
   periodId: number; // 프로젝트 예상 기간 id
-  position: // 프로젝트 모집 포지션
-  {
-    id: number; // 프로젝트 모집 포지션 id
-    numId: number; // 프로젝트 모집 포지션 인원 id
-  }[];
-
+  position: number[][]; // 프로젝트 모집 포지션
   goalId: number; // 프로젝트 목표 id
-  typeId: number[]; // 프로젝트 선호 협업 성향 id
+  tagId: number[]; // 프로젝트 선호 협업 성향 id
   fieldId: number[]; // 프로젝트 분야 id
   area: string; // 프로젝트 지역
   startDate: string; // 프로젝트 모집 시작 날짜
   endDate: string; // 프로젝트 모집 마감 날짜
   description: string; // 프로젝트 내용
-  teamId: number[] | null; // 프로젝트 팀 구성원
+  memberId: number[]; // 프로젝트 팀 구성원
 }
 
 export interface CreateProjectOutput {

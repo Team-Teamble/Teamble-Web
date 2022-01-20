@@ -42,6 +42,7 @@ export function createAxiosSession(context: APIContext, endpoint: string): Sessi
                 } else if (e.response?.status === 404) {
                   throw new NotFoundError(message);
                 } else {
+                  console.error(e);
                   throw new UnknownAPIError(e.response?.status ?? -1);
                 }
               }

@@ -7,23 +7,7 @@ export default {
 } as Meta;
 
 const Template: Story<PositionDropDownProps> = (args) => {
-  const [selectedPositions, setSelectedPositions] = useState([
-    {
-      id: 1,
-      numId: 11,
-    },
-    {
-      id: 2,
-      numId: 21,
-    },
-    {
-      id: 3,
-      numId: 31,
-    },
-  ]);
-  return (
-    <PositionDropDown {...args} selectedPositions={selectedPositions} setSelectedPositions={setSelectedPositions} />
-  );
+  return <PositionDropDown {...args} />;
 };
 
 export const Basic = Template.bind({});

@@ -14,6 +14,4 @@ const Template: Story<EmailAddButtonProps> = (args) => {
 };
 
 export const EmailAdd = Template.bind({});
-EmailAdd.args = {
-  addImgSrc: addImgSrc,
-};
+EmailAdd.args = {};

@@ -58,6 +58,7 @@ const StyledFooter = styled.footer`
   padding: 4.9rem 3.6rem;
   background-color: ${teambleColors.lightPurple};
   box-shadow: 0px -4px 20px 2px #00000012;
+  zoom: 70%;
 `;
 
 const StyledFooterTop = styled.div`

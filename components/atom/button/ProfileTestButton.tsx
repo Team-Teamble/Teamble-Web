@@ -33,6 +33,7 @@ const StyledEditBtn = styled.a`
   & > svg {
     width: 24px;
     height: 24px;
+    margin-right: 0.5rem;
   }
 
   &:hover {

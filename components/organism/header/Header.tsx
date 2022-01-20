@@ -64,6 +64,7 @@ export function Header(props: HeaderProps) {
 }
 
 const StyledHeader = styled.div`
+  padding-top: 1.5rem;
   display: flex;
   justify-content: center;
   background-color: ${teambleColors.white};

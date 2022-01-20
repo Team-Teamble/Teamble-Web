@@ -13,12 +13,14 @@ export interface RegisterFormProps {
   className?: string;
   disabled: boolean;
   field: Field;
+  canPass: boolean;
+  error: string;
   onChange: RegisterFieldChanger;
   onRegister?(name: string, email: string, password: string): void;
 }
 
 export function RegisterForm(props: RegisterFormProps) {
-  const { className, onRegister, onChange, field } = props;
+  const { className, canPass, onRegister, onChange, field, error } = props;
 
   const [isValid, setIsValid] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
@@ -134,9 +136,10 @@ export function RegisterForm(props: RegisterFormProps) {
             </StyledSelectWrapper>
           </StyledInnerWrapper>
         </StyledCheckWrapper>
-        <BasicButton variant="filled" disabled={!isValid} onClick={onClickRegister}>
+        <BasicButton variant="filled" disabled={!(isValid && canPass)} onClick={onClickRegister}>
           회원가입
         </BasicButton>
+        <ErrorMessage>{error}</ErrorMessage>
         <div>
           <span>이미 계정이 있으신가요?</span>
           <Link href="/login"> 로그인</Link>
@@ -233,4 +236,11 @@ const StyledInnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 1.5rem;
+`;
+
+const ErrorMessage = styled.div`
+  color: ${teambleColors.red};
+  font-size: 1rem;
+
+  margin-bottom: 2rem;
 `;

@@ -5,6 +5,7 @@ import { teambleColors } from "../../../styles/color";
 import { ConfirmButton } from "../../atom/button/ConfirmButton";
 import { StyledSearchBtn } from "../../atom/button/ConfirmButton";
 import { CrewTag } from "../../molecule/crewTag/CrewTag";
+import { DocumentViewer } from "../../molecule/document/DocumentViewer";
 
 export interface ProjectDescProp {
   className?: string;
@@ -23,16 +24,14 @@ export function ProjectDesc(props: ProjectDescProp) {
     projectDetail.project.isClosed = true;
   }
 
-  function onCheckApply() {
+  function handleCheckApply() {
     setIsApply(() => true);
   }
 
   return (
     <StyledWrapper className={className}>
       <h3>프로젝트 및 팀 소개</h3>
-      <textarea name="desc" id="project-desc" cols={30} rows={10} readOnly>
-        {projectDetail.project.description}
-      </textarea>
+      <DocumentViewer value={projectDetail.project.description} />
       <div>
         {projectDetail.project.member.map((key) => (
           <CrewTag key={key.id} photo={key.photo} user={key.name} isEditView={false} />
@@ -43,7 +42,7 @@ export function ProjectDesc(props: ProjectDescProp) {
       ) : isApply ? (
         <CustomConfirmBtn>팀 지원완료</CustomConfirmBtn>
       ) : (
-        <ConfirmButton onClick={onCheckApply}>팀 지원하기</ConfirmButton>
+        <ConfirmButton onClick={handleCheckApply}>팀 지원하기</ConfirmButton>
       )}
     </StyledWrapper>
   );

@@ -16,6 +16,7 @@ import { DocumentEditor } from "../../components/molecule/document/DocumentEdito
 import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
 import { useUser } from "../../utils/hook/auth";
 import { useAPI } from "../../utils/hook/api";
+import { NotFoundError } from "../../api/util/error";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -23,14 +24,15 @@ interface ProfileByIdProps {
 }
 
 export default function ProfileById(props: ProfileByIdProps) {
-  const { userId, userProfileInfo, userProfileMetadata: meta } = props;
+  const { userProfileInfo, userProfileMetadata: meta } = props;
+
+  const authedUser = useUser();
+  const updateUser = useAPI((api) => api.userProfile.updateProfile);
+
   const [userInfo, setUserInfo] = useState<UserProfileInfo>(userProfileInfo);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
-
-  const updateUser = useAPI((api) => api.userProfile.updateProfile);
-
-  const authedUser = useUser();
+  const [error, setError] = useState("");
 
   function onEdit() {
     setIsEditing((state) => !state);
@@ -39,19 +41,31 @@ export default function ProfileById(props: ProfileByIdProps) {
     setUserInfo({ ...userInfo, [category]: payload });
   };
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (authedUser && userInfo.type) {
-      updateUser.request(authedUser.id, {
-        area: userInfo.area,
-        description: userInfo.description,
-        fieldId: userInfo.field.map((v) => v.id),
-        intro: userInfo.intro,
-        major: userInfo.major,
-        phone: userInfo.phone,
-        positionId: userInfo.field.map((v) => v.id),
-        typeId: userInfo.type.id,
-        university: userInfo.university,
-      });
+      try {
+        const updated = await updateUser.request(authedUser.id, {
+          area: userInfo.area,
+          description: userInfo.description,
+          fieldId: userInfo.field.map((v) => v.id),
+          intro: userInfo.intro,
+          major: userInfo.major,
+          phone: userInfo.phone,
+          positionId: userInfo.field.map((v) => v.id),
+          typeId: userInfo.type.id,
+          university: userInfo.university,
+        });
+        if (updated) {
+          setUserInfo(updated.user);
+        }
+        setIsEditing(false);
+      } catch (e) {
+        if (e instanceof NotFoundError) {
+          setError(e.message);
+        } else {
+          throw e;
+        }
+      }
     }
   }
 
@@ -91,7 +105,12 @@ export default function ProfileById(props: ProfileByIdProps) {
             }
             fields={<FieldsEditing field={userInfo.field} metaField={meta.field} onChange={handleUpdate} />}
             editor={<DocumentEditor onChange={(val) => handleUpdate("description", val)} />}
-            submit={<button onClick={handleSubmit}>제출</button>}
+            submit={
+              <div>
+                <button onClick={handleSubmit}>제출</button>
+                <p>{error}</p>
+              </div>
+            }
           />
         )}
       </StyledMain>

@@ -18,11 +18,9 @@ export default function Home(props: ProjectCardProps) {
     <LandingTemplate
       header={
         <Header>
-          {Array.isArray(projectInfo) ? (
-            projectInfo.map((each) => <ProjectCard key={each.id} cardInfo={each} />)
-          ) : (
-            <div>로딩중</div>
-          )}
+          {projectInfo.map((each) => (
+            <ProjectCard key={each.id} cardInfo={each} />
+          ))}
         </Header>
       }></LandingTemplate>
   );

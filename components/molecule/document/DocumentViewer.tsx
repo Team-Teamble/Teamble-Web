@@ -1,3 +1,4 @@
+import Editor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Viewer as ViewerType, ViewerProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
@@ -26,16 +27,26 @@ export interface DocumentViewerProps {
 export function DocumentViewer(props: DocumentViewerProps) {
   const { className, value = "" } = props;
 
-  const ref = useRef<ViewerType>(null);
+  const ref = useRef<{ editor: Editor | null }>({
+    editor: null,
+  });
+
+  function setMarkdown() {
+    ref.current.editor?.setMarkdown(value);
+  }
 
   useEffect(() => {
-    ref.current?.getInstance().setMarkdown(value);
-    console.log(value);
+    setMarkdown();
   }, [value]);
 
   return (
     <StyledViewerWrapper className={className}>
-      <ViewerWithRef ref={ref} />
+      <ViewerWithRef
+        onLoad={(e) => {
+          ref.current.editor = e;
+          setMarkdown();
+        }}
+      />
     </StyledViewerWrapper>
   );
 }

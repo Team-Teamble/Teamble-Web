@@ -22,7 +22,10 @@ export default function SearchProject(props: SearchProjectProps) {
     count: 1, // 한 번(한 페이지)에 받을 프로젝트 개수
     page: 1, // 받을 페이지 번호 (1부터 시작)
   };
-  const { searchProject, projectMetadata: meta } = props;
+  const {
+    searchProject,
+    projectMetadata: { project: meta },
+  } = props;
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>(searchProject);
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
 
@@ -60,13 +63,9 @@ export default function SearchProject(props: SearchProjectProps) {
             />
           }
           onReset={onReset}
-          projectCards={
-            Array.isArray(projectInfo) ? (
-              projectInfo.map((each) => <ProjectCard key={each.id} cardInfo={each} />)
-            ) : (
-              <div>로딩중</div>
-            )
-          }
+          projectCards={projectInfo.projectCard.map((each) => (
+            <ProjectCard key={each.id} cardInfo={each} />
+          ))}
         />
       </StyledMain>
     </StyledSearchProject>
@@ -84,7 +83,7 @@ const StyledMain = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const getServerSideProps = withAuth(async () => {
+export const getServerSideProps = withAuth<SearchProjectProps>(async () => {
   const [searchProject, projectMetadata] = await Promise.all([
     apiService.project.searchProject({
       periodId: 1, // 선택한 기간 id
@@ -92,7 +91,7 @@ export const getServerSideProps = withAuth(async () => {
       goalId: 1, // 선택한 목표 id
       tagId: [1], // 선택한 협업 성향 id
       fieldId: [1], // 선택한 관심 프로젝트 id
-      count: 1, // 한 번(한 페이지)에 받을 프로젝트 개수
+      count: 50, // 한 번(한 페이지)에 받을 프로젝트 개수
       page: 1,
     }),
     apiService.project.getSearchMetadata(),
@@ -100,8 +99,8 @@ export const getServerSideProps = withAuth(async () => {
 
   return {
     props: {
-      searchProject: searchProject.projectCard,
-      projectMetadata: projectMetadata.project,
+      searchProject: searchProject,
+      projectMetadata: projectMetadata,
     },
   };
 });
@@ -110,80 +109,62 @@ interface HandleRequestUpdate {
   <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;
 }
 interface ProjectInfo {
-  project: [
-    {
-      id: number; // 프로젝트 id
-      title: string; // 프로젝트 제목
-      intro: string; // 프로젝트 한줄소개
-      photo: string; // 프로젝트 사진
-      startDate: string; // 프로젝트 시작 날짜
-      endDate: string; // 프로젝트 마감 날짜
-      isClosed: boolean; // 프로젝트 모집 완료 여부
-      position: [
-        // 프로젝트 협업 포지션
-        {
-          id: number; // 프로젝트 협업 포지션 id
-          name: string; // 프로젝트 협업 포지션 이름
-          positionNum: {
-            // 프로젝트 협업 포지션 인원
-            id: number; // 프로젝트 협업 포지션 인원 id
-            name: string; // 프로젝트 협업 포지션 인원 이름
-          };
-        },
-      ];
-      user: {
-        // 프로젝트를 만든 유저
-        id: number; // 프로젝트를 만든 유저 id
-        name: string; // 프로젝트를 만든 유저 이름
-        photo: string; // 프로젝트를 만든 유저 사진 url
-      };
-    },
-  ];
+  projectCard: {
+    id: number; // 프로젝트 id
+    title: string; // 프로젝트 제목
+    intro: string; // 프로젝트 한줄소개
+    photo: string; // 프로젝트 사진
+    startDate: string; // 프로젝트 시작 날짜
+    endDate: string; // 프로젝트 마감 날짜
+    isClosed: boolean; // 프로젝트 모집 완료 여부
+    position: {
+      // 프로젝트 협업 포지션
+      id: number; // 프로젝트 협업 포지션 id
+      name: string; // 프로젝트 협업 포지션 이름
+      num: string; // 프로젝트 협업 포지션 인원 이름
+    }[];
+    user: {
+      // 프로젝트를 만든 유저
+      id: number; // 프로젝트를 만든 유저 id
+      name: string; // 프로젝트를 만든 유저 이름
+      photo: string; // 프로젝트를 만든 유저 사진 url
+    };
+  }[];
 }
 
 interface ProjectMeta {
-  period: [
-    // 프로젝트 기간
-    {
+  project: {
+    period: {
+      // 프로젝트 기간
       id: number; // 프로젝트 기간 id
       name: string; // 프로젝트 예상 기간 이름
-    },
-  ];
-  position: [
-    // 프로젝트 모집 포지션
-    {
+    }[];
+    position: {
+      // 프로젝트 모집 포지션
       id: number; // 프로젝트 모집 포지션 id
       name: string; // 프로젝트 모집 포지션 이름
-      positionNum: [
+      positionNum: {
         //  프로젝트 모집 인원
-        {
-          id: number; // 프로젝트 모집 포지션 인원 id
-          name: string; // 프로젝트 모집 포지션 인원 이름
-        },
-      ];
-    },
-  ]; // 프로젝트 목표
-  goal: [
-    {
+        id: number; // 프로젝트 모집 포지션 인원 id
+        name: string; // 프로젝트 모집 포지션 인원 이름
+      }[];
+    }[];
+    goal: {
+      // 프로젝트 목표
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
-    },
-  ];
-  tag: [
-    // 프로젝트 선호 협업 성향
-    {
+    }[];
+    tag: {
+      // 프로젝트 선호 협업 성향
       id: number; // 선호 협업 성향 id
       name: string; // 선호 협업 성향 이름
-    },
-  ];
-
-  field: [
-    // 프로젝트 분야
-    {
+    }[];
+    field: {
+      // 프로젝트 분야
       id: number; // 프로젝트 분야 id
       name: string; // 프로젝트 분야 이름
-    },
-  ];
+    }[];
+  };
 }
 
 interface RequestInfo {

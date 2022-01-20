@@ -88,8 +88,8 @@ export interface ProjectDetail {
       id: number; // 프로젝트 예상 기간 id
       name: string; // 프로젝트 예상 기간 이름
     };
-    position: // 프로젝트 모집 포지션
-    {
+    position: {
+      // 프로젝트 모집 포지션
       id: number; // 프로젝트 모집 포지션 id
       name: string; // 프로젝트 모집 포지션 이름
       positionNum: {
@@ -103,18 +103,18 @@ export interface ProjectDetail {
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     };
-    type: // 프로젝트 선호 협업 성향
-    {
+    tag: {
+      // 프로젝트 선호 협업 성향
       id: number; // 프로젝트 선호 협업 성향 id
       name: string; // 프로젝트 선호 협업 성향 이름
     }[];
-    field: // 프로젝트 분야
-    {
+    field: {
+      // 프로젝트 분야
       id: number; // 프로젝트 분야 id
       name: string; // 프로젝트 분야 이름
     }[];
-    member: // 프로젝트 팀 구성원
-    {
+    member: {
+      // 프로젝트 팀 구성원
       id: number; // 프로젝트 팀 구성원 id
       name: string; // 프로젝트 팀 구성원 이름
       photo: string; // 프로젝트 팀 구성원 사진 url

@@ -33,7 +33,7 @@ export const StyledSearchBtn = styled.button`
 
   &:hover {
     background-color: ${teambleColors.deepPurple};
-    border: 0;
+    border: 1px solid ${teambleColors.deepPurple};
     color: ${teambleColors.white};
   }
 `;

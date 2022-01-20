@@ -55,7 +55,7 @@ export const AuthAPIMock = withLogger(
             },
           ],
         },
-        accessToken: `TEST_TOKEN_${data.email}_${data.password.length}`,
+        accesstoken: `TEST_TOKEN_${data.email}_${data.password.length}`,
       };
     }
 

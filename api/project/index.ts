@@ -1,6 +1,6 @@
 export interface ProjectAPI {
   getProjectMetadata(): Promise<GetProjectMetadataOutput>;
-  createProject(): Promise<CreateProjectOutput>;
+  createProject(data: CreateProjectInput): Promise<CreateProjectOutput>;
   addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput>;
   getSearchMetadata(): Promise<GetSearchMetadataOutput>;
   searchProject(data: SearchProjectInput): Promise<SearchProjectOutput>;
@@ -11,33 +11,33 @@ export interface ProjectAPI {
 export interface GetProjectMetadataOutput {
   project: {
     // 프로젝트
-    period: // 프로젝트 기간
-    {
+    period: {
+      // 프로젝트 기간
       id: number; // 프로젝트 기간 id
       name: string; // 프로젝트 예상 기간 이름
     }[];
-    position: // 프로젝트 모집 포지션
-    {
+    position: {
+      // 프로젝트 모집 포지션
       id: number; // 프로젝트 모집 포지션 id
       name: string; // 프로젝트 모집 포지션 이름
-      positionNum: // 프로젝트 모집 인원
-      {
+      positionNum: {
+        // 프로젝트 모집 인원
         id: number; // 프로젝트 모집 포지션 인원 id
         name: string; // 프로젝트 모집 포지션 인원 이름
       }[];
     }[];
-    goal: // 프로젝트 목표
-    {
+    goal: {
+      // 프로젝트 목표
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     }[];
-    tag: // 프로젝트 선호 협업 성향
-    {
+    tag: {
+      // 프로젝트 선호 협업 성향
       id: number; // 프로젝트 선호 협업 성향 id
       name: string; // 프로젝트 선호 협업 성향 이름
     }[];
-    field: // 프로젝트 분야
-    {
+    field: {
+      // 프로젝트 분야
       id: number; // 프로젝트 분야 id
       name: string; // 프로젝트 분야 이름
     }[];
@@ -83,51 +83,37 @@ export interface CreateProjectOutput {
       id: number; // 프로젝트 예상 기간 id
       name: string; // 프로젝트 예상 기간 이름
     };
-    position: [
+    position: {
       // 프로젝트 모집 포지션
-      {
-        id: number; // 프로젝트 모집 포지션 id
-        name: string; // 프로젝트 모집 포지션 이름
-        positionNum: {
-          //  프로젝트 모집 인원
-          id: number; // 프로젝트 모집 포지션 인원 id
-          name: string; // 프로젝트 모집 포지션 인원 이름
-        };
-      },
-    ];
+      id: number; // 프로젝트 모집 포지션 id
+      name: string; // 프로젝트 모집 포지션 이름
+      positionNum: {
+        //  프로젝트 모집 인원
+        id: number; // 프로젝트 모집 포지션 인원 id
+        name: string; // 프로젝트 모집 포지션 인원 이름
+      };
+    }[];
     goal: {
       // 프로젝트 목표
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     };
-    type: [
+    tag: {
       // 프로젝트 선호 협업 성향
-      {
-        id: number; // 프로젝트 선호 협업 성향 id
-        name: string; // 프로젝트 선호 협업 성향 이름
-      },
-    ];
-    field: [
+      id: number; // 프로젝트 선호 협업 성향 id
+      name: string; // 프로젝트 선호 협업 성향 이름
+    }[];
+    field: {
       // 프로젝트 분야
-      {
-        id: number; // 프로젝트 분야 id
-        name: string; // 프로젝트 분야 이름
-      },
-    ];
-    member: [
+      id: number; // 프로젝트 분야 id
+      name: string; // 프로젝트 분야 이름
+    }[];
+    member: {
       // 프로젝트 팀 구성원
-      {
-        id: number; // 프로젝트 팀 구성원 id
-        name: string; // 프로젝트 팀 구성원 이름
-        photo: string; // 프로젝트 팀 구성원 사진 url
-      },
-    ];
-    user: {
-      // 프로젝트를 만든 유저
-      id: number; // 프로젝트를 만든 유저 id
-      name: string; // 프로젝트를 만든 유저 이름
-      photo: string; // 프로젝트를 만든 유저 사진 url
-    };
+      id: number; // 프로젝트 팀 구성원 id
+      name: string; // 프로젝트 팀 구성원 이름
+      photo: string; // 프로젝트 팀 구성원 사진 url
+    }[];
   };
 }
 
@@ -145,28 +131,33 @@ export interface AddMemberToProjectOutput {
 
 export interface GetSearchMetadataOutput {
   project: {
-    period: // 프로젝트 기간
-    {
+    period: {
+      // 프로젝트 기간
       id: number; // 프로젝트 기간 id
       name: string; // 프로젝트 예상 기간 이름
     }[];
-    position: // 프로젝트 모집 포지션
-    {
+    position: {
+      // 프로젝트 모집 포지션
       id: number; // 프로젝트 모집 포지션 id
       name: string; // 프로젝트 모집 포지션 이름
+      positionNum: {
+        //  프로젝트 모집 인원
+        id: number; // 프로젝트 모집 포지션 인원 id
+        name: string; // 프로젝트 모집 포지션 인원 이름
+      }[];
     }[];
-    goal: // 프로젝트 목표
-    {
+    goal: {
+      // 프로젝트 목표
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     }[];
-    tag: // 프로젝트 선호 협업 성향
-    {
+    tag: {
+      // 프로젝트 선호 협업 성향
       id: number; // 선호 협업 성향 id
       name: string; // 선호 협업 성향 이름
     }[];
-    field: // 프로젝트 분야
-    {
+    field: {
+      // 프로젝트 분야
       id: number; // 프로젝트 분야 id
       name: string; // 프로젝트 분야 이름
     }[];
@@ -192,11 +183,11 @@ export interface SearchProjectOutput {
     startDate: string; // 프로젝트 시작 날짜
     endDate: string; // 프로젝트 마감 날짜
     isClosed: boolean; // 프로젝트 모집 완료 여부
-    position: // 프로젝트 협업 포지션
-    {
+    position: {
+      // 프로젝트 협업 포지션
       id: number; // 프로젝트 협업 포지션 id
       name: string; // 프로젝트 협업 포지션 이름
-      num: string; // 프로젝트 협업 포지션 모집 인원
+      num: string; // 프로젝트 협업 포지션 인원 이름
     }[];
     user: {
       // 프로젝트를 만든 유저
@@ -226,8 +217,8 @@ export interface ProjectDetail {
       id: number; // 프로젝트 예상 기간 id
       name: string; // 프로젝트 예상 기간 이름
     };
-    position: // 프로젝트 모집 포지션
-    {
+    position: {
+      // 프로젝트 모집 포지션
       id: number; // 프로젝트 모집 포지션 id
       name: string; // 프로젝트 모집 포지션 이름
       positionNum: {
@@ -241,18 +232,18 @@ export interface ProjectDetail {
       id: number; // 프로젝트 목표 id
       name: string; // 프로젝트 목표 이름
     };
-    type: // 프로젝트 선호 협업 성향
-    {
+    tag: {
+      // 프로젝트 선호 협업 성향
       id: number; // 프로젝트 선호 협업 성향 id
       name: string; // 프로젝트 선호 협업 성향 이름
     }[];
-    field: // 프로젝트 분야
-    {
+    field: {
+      // 프로젝트 분야
       id: number; // 프로젝트 분야 id
       name: string; // 프로젝트 분야 이름
     }[];
-    member: // 프로젝트 팀 구성원
-    {
+    member: {
+      // 프로젝트 팀 구성원
       id: number; // 프로젝트 팀 구성원 id
       name: string; // 프로젝트 팀 구성원 이름
       photo: string; // 프로젝트 팀 구성원 사진 url

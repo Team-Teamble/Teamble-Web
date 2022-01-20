@@ -4,6 +4,7 @@ import { ProjectDetail } from "../../../api/project";
 import { teambleColors } from "../../../styles/color";
 import { ConfirmButton } from "../../atom/button/ConfirmButton";
 import { StyledSearchBtn } from "../../atom/button/ConfirmButton";
+import { CrewTag } from "../../molecule/crewTag/CrewTag";
 
 export interface ProjectDescProp {
   className?: string;
@@ -32,6 +33,11 @@ export function ProjectDesc(props: ProjectDescProp) {
       <textarea name="desc" id="project-desc" cols={30} rows={10} readOnly>
         {projectDetail.project.description}
       </textarea>
+      <div>
+        {projectDetail.project.member.map((key) => (
+          <CrewTag key={key.id} photo={key.photo} user={key.name} isEditView={false} />
+        ))}
+      </div>
       {isOwner ? (
         <ConfirmButton onClick={onCloseProject}>프로젝트 종료</ConfirmButton>
       ) : isApply ? (
@@ -63,6 +69,11 @@ const StyledWrapper = styled.div`
     font-size: 20px;
   }
 
+  & > div {
+    width: 62rem;
+    display: flex;
+    margin-top: 1.5rem;
+  }
   & > button {
     cursor: pointer;
     margin-top: 5.8rem;

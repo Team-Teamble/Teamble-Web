@@ -1,22 +1,18 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { TopProjectsOutput } from "../../../api/landing";
 import { teambleColors } from "../../../styles/color";
 import { ProfileTestButton } from "../../atom/button/ProfileTestButton";
-import { ProjectCard } from "../../molecule/projectCard/ProjectCard";
 import { Slick } from "../Slick";
 
 export interface HeaderProps {
   className?: string;
-  projectCardInfo: TopProjectsOutput;
   children: ReactNode;
   onClick?(): void;
 }
 
 export function Header(props: HeaderProps) {
-  const { className, children, projectCardInfo, onClick } = props;
-
+  const { className, children } = props;
   return (
     <StyledWrapper className={className}>
       <StyledTop>
@@ -60,7 +56,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 63.62px);
+  height: calc(100vh - 123.9px);
 `;
 
 const StyledTop = styled.div`

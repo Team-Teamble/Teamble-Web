@@ -1,3 +1,4 @@
+import { differenceInDays, parseISO } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -14,7 +15,7 @@ interface ProjectCard {
   position: { id: number; name: string; num: string }[];
   startDate: string;
   title: string;
-  user: { id: string; name: string; photo: string };
+  user: { id: number; name: string; photo: string };
 }
 export interface ProjectCardProps {
   cardInfo: ProjectCard;
@@ -26,14 +27,26 @@ export function ProjectCard(props: ProjectCardProps) {
   const router = useRouter();
   const page = router.pathname.slice(1);
 
+  const ddayStr = (() => {
+    const diff = differenceInDays(parseISO(cardInfo.startDate), new Date());
+
+    if (diff === 0) {
+      return "D-Day";
+    } else if (diff > 0) {
+      return `D-${diff}`;
+    } else {
+      return `D+${-diff}`;
+    }
+  })();
+
   return (
-    <Link href={`/project/${cardInfo.id}`}>
+    <Link href={`/project/${cardInfo.id}`} passHref>
       <StyledWrapper className={className} page={page}>
         <a href="">
           {cardInfo.photo && (
             <ImgWrapper ratio="56%">
               <img src={cardInfo.photo} alt="profile" />
-              <StyledDay page={page}>d-day</StyledDay>
+              <StyledDay page={page}>{ddayStr}</StyledDay>
             </ImgWrapper>
           )}
         </a>
@@ -50,13 +63,13 @@ export function ProjectCard(props: ProjectCardProps) {
             <span>{cardInfo.isClosed ? "모집완료" : "모집중"}</span>
             <div>
               <span>
-                기획자 <span>{cardInfo.position[0].num}</span>
+                기획자 <span>{cardInfo.position[0]?.num ?? 0}</span>
               </span>
               <span>
-                디자이너 <span>{cardInfo.position[1].num}</span>
+                디자이너 <span>{cardInfo.position[1]?.num ?? 0}</span>
               </span>
               <span>
-                개발자 <span>{cardInfo.position[2].num}</span>
+                개발자 <span>{cardInfo.position[2]?.num ?? 0}</span>
               </span>
             </div>
           </StyledRecruit>

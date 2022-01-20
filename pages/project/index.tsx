@@ -26,8 +26,6 @@ export default function SearchProject(props: SearchProjectProps) {
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>(searchProject);
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
 
-  console.log("request", requestInfo);
-
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };

@@ -3,28 +3,31 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ProfileImage } from "../../atom/image/ProfileImage";
 import CloseIcon from "../../../assets/svg/ic_close_.svg";
+import Link from "next/link";
 
 interface ProfileCard {
   id: number;
   name: string;
   photo: string;
-  type: string;
   position: string[];
+  type: string;
   tag: string[];
   field: string[];
 }
+
 export interface ProfileCardProps {
   className?: string;
   cardInfo: ProfileCard;
   isMyPage?: boolean;
+  onDelete?(): void;
 }
 
 export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function ProfileCard(props, ref) {
-  const { className, cardInfo, isMyPage } = props;
+  const { className, cardInfo, isMyPage, onDelete } = props;
 
   return (
     <StyledWrapper ref={ref} className={className}>
-      {isMyPage ? <CloseIcon className="close-icon" /> : null}
+      {isMyPage ? <CloseIcon className="close-icon" onClick={onDelete} /> : null}
       <StyledInfo>
         <ProfileImage profileImgSrc={cardInfo.photo} profileSize="extra-extra-large" />
         <span className="user-name">{cardInfo.name}</span>
@@ -36,7 +39,7 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function
           <StyledIntrestTag key={i}>{name}</StyledIntrestTag>
         ))}
       </StyledInterests>
-      {isMyPage ? <a href="">프로필 보기</a> : null}
+      <Link href={`/profile/${cardInfo.id}`}>{!isMyPage ? <a href="">프로필 보기</a> : null}</Link>
     </StyledWrapper>
   );
 });
@@ -67,11 +70,11 @@ const StyledWrapper = styled.div`
   }
 
   & > a {
-    margin-top: 2.45em;
+    margin-top: 2em;
     text-decoration: none;
     border-radius: 0.36em;
     background-color: ${teambleColors.purple};
-    padding: 0.36em 2.07em;
+    padding: 0.8rem 3.6rem;
     font-size: 14px;
     font-weight: 500;
     color: ${teambleColors.white};

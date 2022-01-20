@@ -11,6 +11,8 @@ import { createProjectAPIReal } from "./project/real";
 import { UserProfileAPI } from "./userProfile";
 import { createUserProfileReal } from "./userProfile/real";
 import { createAxiosSession } from "./util/axios";
+import { PokeAPI } from "./poke";
+import { PokeAPIMock } from "./poke/mock";
 
 export interface APIService {
   auth: AuthAPI;
@@ -18,6 +20,7 @@ export interface APIService {
   member: MemberAPI;
   project: ProjectAPI;
   userProfile: UserProfileAPI;
+  poke: PokeAPI;
 }
 
 export function setAccessToken(token: string | null) {
@@ -28,6 +31,9 @@ export function createAPIService(config: { endpoint: string }): APIService {
   const axios = createAxiosSession(apiContext, config.endpoint);
 
   const auth = createAuthAPIReal(axios);
+
+  const poke = new PokeAPIMock();
+
   const landing = createLandingAPIReal(axios);
   const member = createMemberAPIReal(axios);
   const project = createProjectAPIReal(axios);
@@ -39,6 +45,7 @@ export function createAPIService(config: { endpoint: string }): APIService {
     member,
     project,
     userProfile,
+    poke,
   };
 }
 

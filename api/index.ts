@@ -4,7 +4,6 @@ import { apiContext } from "./context";
 import { LandingAPI } from "./landing";
 import { createLandingAPIReal } from "./landing/real";
 import { MemberAPI } from "./member";
-import { MemberAPIMock } from "./member/mock";
 import { createMemberAPIReal } from "./member/real";
 import { ProjectAPI } from "./project";
 import { createProjectAPIReal } from "./project/real";
@@ -12,7 +11,7 @@ import { UserProfileAPI } from "./userProfile";
 import { createUserProfileReal } from "./userProfile/real";
 import { createAxiosSession } from "./util/axios";
 import { PokeAPI } from "./poke";
-import { PokeAPIMock } from "./poke/mock";
+import { createPokeAPI } from "./poke/real";
 
 export interface APIService {
   auth: AuthAPI;
@@ -32,7 +31,7 @@ export function createAPIService(config: { endpoint: string }): APIService {
 
   const auth = createAuthAPIReal(axios);
 
-  const poke = new PokeAPIMock();
+  const poke = createPokeAPI(axios);
 
   const landing = createLandingAPIReal(axios);
   const member = createMemberAPIReal(axios);

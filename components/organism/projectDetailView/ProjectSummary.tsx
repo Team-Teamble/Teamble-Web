@@ -38,7 +38,7 @@ export function ProjectSummary(props: ProjectSummaryProps) {
         <StyledLeft>선호 협업 성향</StyledLeft>
         <StyledRight>
           <StyledTagWrapper>
-            {projectDetail.project.type.map((key) => (
+            {projectDetail.project.tag.map((key) => (
               <StyledTag key={key.id}>{key.name}</StyledTag>
             ))}
           </StyledTagWrapper>

@@ -24,7 +24,7 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [userInfo, setUserInfo] = useState<UserProfileInfo>(userProfileInfo);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
-  console.log(userInfo);
+
   function onEdit() {
     setIsEditing((state) => !state);
   }
@@ -35,6 +35,7 @@ export default function ProfileById(props: ProfileByIdProps) {
   function onActiveType(selectedId: number): void {
     setActiveType(selectedId);
   }
+
   return (
     <StyledProfileById>
       <StyledBg />

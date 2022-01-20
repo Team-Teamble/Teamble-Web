@@ -248,5 +248,11 @@ export interface ProjectDetail {
       name: string; // 프로젝트 팀 구성원 이름
       photo: string; // 프로젝트 팀 구성원 사진 url
     }[];
+    user: {
+      // 프로젝트를 만든 유저
+      id: number; // 프로젝트를 만든 유저 id
+      name: string; // 프로젝트를 만든 유저 이름
+      photo: string; // 프로젝트를 만든 유저 사진 url
+    };
   };
 }

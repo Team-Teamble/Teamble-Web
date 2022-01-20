@@ -10,6 +10,8 @@ import { ProjectAPIMock } from "./project/mock";
 import { UserProfileAPI } from "./userProfile";
 import { UserProfileMock } from "./userProfile/mock";
 import { createAxiosSession } from "./util/axios";
+import { PokeAPI } from "./poke";
+import { PokeAPIMock } from "./poke/mock";
 
 export interface APIService {
   auth: AuthAPI;
@@ -17,6 +19,7 @@ export interface APIService {
   member: MemberAPI;
   project: ProjectAPI;
   userProfile: UserProfileAPI;
+  poke: PokeAPI;
 }
 
 export function setAccessToken(token: string | null) {
@@ -31,6 +34,7 @@ export function createAPIService(): APIService {
   const member = new MemberAPIMock();
   const project = new ProjectAPIMock();
   const userProfile = new UserProfileMock();
+  const poke = new PokeAPIMock();
 
   return {
     auth,
@@ -38,6 +42,7 @@ export function createAPIService(): APIService {
     member,
     project,
     userProfile,
+    poke,
   };
 }
 

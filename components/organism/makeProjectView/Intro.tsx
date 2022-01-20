@@ -1,13 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ImgWrapper } from "../../atom/image/ImgWrapper";
 import Logo from "../../../assets/svg/ic_logo_placeholder.svg";
+import { useAPI } from "../../../utils/hook/api";
+import { useUser } from "../../../utils/hook/auth";
 
 export interface IntroProps {
   requestInfo: { title: string; intro: string };
-  fileInfo: { photo: string; url: string };
-  onUpload(name: { photo: string; url: string }): void;
+  fileInfo: { photo: FormData | null; url: string };
+  onUpload(name: { photo: FormData | null; url: string }): void;
   onChange(key: string, payload: number | number[] | number[][] | string): void;
 }
 
@@ -30,15 +32,24 @@ export function Intro(props: IntroProps) {
   function handleImg() {
     fileInput.current?.click();
   }
-
+  const api = useAPI((api) => api.project.addPictureToProject);
+  const user = useUser();
+  async function handlePhoto(file: FormData) {
+    if (user?.currentProjectId) {
+      await api.request(user.currentProjectId.toString(), { photo: file });
+    }
+  }
   function fileLoader(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
-    if (!files || !files[0] || !files[0].type.match("image.*")) return;
+    const formData = new FormData();
 
+    if (!files || !files[0] || !files[0].type.match("image.*")) return;
+    formData.append("file", files[0]);
+    handlePhoto(formData);
     const reader = new FileReader();
     reader.onload = () => {
       onUpload({
-        photo: files[0].name,
+        photo: formData,
         url: reader.result as string,
       });
     };
@@ -63,7 +74,7 @@ export function Intro(props: IntroProps) {
       <StyledImgPlaceholder hasFile={fileInfo.url !== ""}>
         {fileInfo.url ? (
           <ImgWrapper ratio="50%">
-            <img src={fileInfo.url} alt={fileInfo.photo} onClick={handleImg} />
+            <img src={fileInfo.url} alt={"이미지"} onClick={handleImg} />
           </ImgWrapper>
         ) : (
           <StyledDescWrapper onClick={handleImg}>

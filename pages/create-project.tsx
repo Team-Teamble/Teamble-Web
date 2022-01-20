@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { withAuth } from "../utils/ssr";
 import { apiService } from "../api";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ import { Field } from "../components/organism/makeProjectView/Field";
 import { Area } from "../components/organism/makeProjectView/Area";
 import { DateRangeInput, START_DATE } from "@datepicker-react/styled";
 import { OnDatesChangeProps } from "@datepicker-react/styled";
-import { DocumentEditor } from "../components/molecule/document/DocumentEditor";
+import { DocumentEditor, DocumentEditorRef } from "../components/molecule/document/DocumentEditor";
 import { TeamMembers } from "../components/organism/makeProjectView/TeamMembers";
 import { UserInfo } from "../states/auth";
 import { formatISO } from "date-fns";
@@ -31,8 +31,11 @@ export interface CreateProjectProps {
 export default function CreateProject(props: CreateProjectProps) {
   const addMember = useAPI((api) => api.project.addMemberToProject);
   const createProject = useAPI((api) => api.project.createProject);
-
+  const addPicture = useAPI((api) => api.project.addPictureToProject);
   const { createProjectMetadata: meta, className, user } = props;
+
+  const editorRef = useRef<DocumentEditorRef>(null);
+
   const initial: RequestInfo = {
     userId: user.id, // 로그인된 유저 id
     title: "", // 프로젝트 제목
@@ -55,36 +58,38 @@ export default function CreateProject(props: CreateProjectProps) {
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
   const [membersInfo, setMembersInfo] = useState([{ id: user.id, name: user.name, photo: user.profilePic }]);
   const [memberEmail, setMemberEmail] = useState<string>("");
-  const [fileInfo, setFileInfo] = useState<{ photo: string; url: string }>({
-    photo: "",
+  const [fileInfo, setFileInfo] = useState<{ photo: FormData | null; url: string }>({
+    photo: null,
     url: "",
   });
   const [datesInfo, setDatesInfo] = useState<OnDatesChangeProps>({
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: null,
+    endDate: null,
     focusedInput: null,
   });
   const router = useRouter();
-  console.log(requestInfo);
+
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
 
-  function onUpload(name: { photo: string; url: string }) {
+  function onUpload(name: { photo: FormData | null; url: string }) {
     setFileInfo(name);
   }
 
   function handleDatesChange(data: OnDatesChangeProps) {
-    data.startDate && onUpdate("startDate", formatISO(data.startDate));
-    data.endDate && onUpdate("endDate", formatISO(data.endDate));
+    console.log(data);
 
     if (!data.focusedInput) {
       setDatesInfo({ ...data, focusedInput: START_DATE });
+      data.endDate && onUpdate("endDate", formatISO(data.endDate));
     } else {
       setDatesInfo(data);
+      data.startDate && onUpdate("startDate", formatISO(data.startDate));
     }
   }
-
+  console.log("info", requestInfo);
+  console.log("file", fileInfo);
   function handleOpen() {
     setIsModalOpened((state) => !state);
   }
@@ -106,26 +111,45 @@ export default function CreateProject(props: CreateProjectProps) {
         onUpdate("memberId", [...requestInfo.memberId, newMemberInfo.member.id]);
       }
     } catch (e) {
-      alert("에렁 ㅎ");
+      alert("추가 에러");
     }
   }
 
   async function handleCreateProject() {
     try {
       const data = await createProject.request(requestInfo);
+      if (data) {
+        handlePicture(data.project.id.toString());
+      }
       router.push(`/project/${data?.project.id}`);
     } catch (e) {
       if (e instanceof NotFoundError) {
       } else {
+        alert("생성 에러");
         throw e;
       }
     }
   }
-
+  async function handlePicture(id: string) {
+    if (fileInfo.photo) {
+      try {
+        // console.log("real", fileInfo.photo.va);
+        await addPicture.request(id, { photo: fileInfo.photo });
+      } catch (e) {
+        throw e;
+      }
+    }
+  }
   const addMemberModal = isModalOpened ? (
     <AddMemberModal onChange={handleEmail} value={memberEmail} onClick={handleAddMember} onOpen={handleOpen} />
   ) : null;
 
+  useEffect(() => {
+    editorRef.current?.setMarkdown(".");
+  }, []);
+  useLayoutEffect(() => {
+    document.body.scrollTop - 0;
+  }, []);
   return (
     <StyledSearchProject className={className}>
       <StyledLayout>
@@ -169,7 +193,7 @@ export default function CreateProject(props: CreateProjectProps) {
           />
         </StyledDateSlot>
         <StyledEditorSlot>
-          <DocumentEditor onChange={(val) => onUpdate("description", val)} />
+          <DocumentEditor ref={editorRef} onChange={(val) => onUpdate("description", val)} />
         </StyledEditorSlot>
         <StyledMembersSlot>
           <TeamMembers
@@ -260,6 +284,14 @@ export const getServerSideProps = withAuth<CreateProjectProps>(async (context, a
     return {
       redirect: {
         destination: "/login",
+        permanent: false,
+      },
+    };
+  } else if (auth.user.currentProjectId) {
+    console.log(auth.user.currentProjectId);
+    return {
+      redirect: {
+        destination: `/`,
         permanent: false,
       },
     };

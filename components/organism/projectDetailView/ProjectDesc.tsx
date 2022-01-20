@@ -32,11 +32,11 @@ export function ProjectDesc(props: ProjectDescProp) {
     <StyledWrapper className={className}>
       <h3>프로젝트 및 팀 소개</h3>
       <DocumentViewer value={projectDetail.project.description} />
-      <div>
+      <StyledCardWrapper>
         {projectDetail.project.member.map((key) => (
           <CrewTag key={key.id} photo={key.photo} user={key.name} isEditView={false} />
         ))}
-      </div>
+      </StyledCardWrapper>
       {isOwner ? (
         <ConfirmButton onClick={onCloseProject}>프로젝트 종료</ConfirmButton>
       ) : isApply ? (
@@ -52,7 +52,6 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 17rem;
 
   & > h3 {
     font-size: 30px;
@@ -78,7 +77,7 @@ const StyledWrapper = styled.div`
     margin-top: 5.8rem;
   }
 `;
-
+const StyledCardWrapper = styled.div``;
 const CustomConfirmBtn = styled(StyledSearchBtn)`
   background-color: ${teambleColors.deepPurple};
   border: 0;

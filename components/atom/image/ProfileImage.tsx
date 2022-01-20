@@ -15,7 +15,7 @@ export const ProfileImage = forwardRef<HTMLImageElement, ProfileProps>(function 
 
   function checkDefaultProfile(profileImgSrc: string | undefined) {
     if (profileImgSrc === "" || profileImgSrc === undefined) {
-      return <DefaultProfile />;
+      return <StyledDefault />;
     } else {
       return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} />;
     }
@@ -30,6 +30,7 @@ export const ProfileImage = forwardRef<HTMLImageElement, ProfileProps>(function 
 const StyledImgWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const StyledProfileImg = styled.img<{
@@ -71,3 +72,4 @@ const StyledProfileImg = styled.img<{
     }
   }}
 `;
+const StyledDefault = styled(DefaultProfile)``;

@@ -26,7 +26,7 @@ export function FilterLayout(props: FilterLayoutProps) {
         {children}
       </StyledMainWrapper>
       <StyledSearchWrapper>
-        <Reset onClick={() => onReset()} />
+        <StyledReset onClick={() => onReset()} />
         <SearchButton onClick={onClick} />
       </StyledSearchWrapper>
     </StyledFilterLayout>
@@ -82,10 +82,9 @@ const StyledSearchWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-top: 12px;
-
-  & > svg {
-    margin-left: auto;
-    margin-right: 14px;
-    cursor: pointer;
-  }
+`;
+const StyledReset = styled(Reset)`
+  margin-left: auto;
+  margin-right: 1.5em;
+  cursor: pointer;
 `;

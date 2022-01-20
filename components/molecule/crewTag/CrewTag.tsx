@@ -17,7 +17,7 @@ export function CrewTag(props: CrewTagProps) {
 
   return (
     <StyledWrapper className={className}>
-      {isEditView ? <CloseIcon onClick={onClick} /> : null}
+      {isEditView ? <StyledClose onClick={onClick} /> : null}
       <StyledImgWrapper>
         <ProfileImage profileImgSrc={photo} profileSize="large" />
       </StyledImgWrapper>
@@ -49,12 +49,6 @@ export const StyledWrapper = styled.div`
   & > span {
     margin-top: 0.8rem;
   }
-
-  & > svg {
-    position: absolute;
-    top: 0.63em;
-    right: 0.5em;
-  }
 `;
 
 export const StyledImgWrapper = styled.div`
@@ -67,4 +61,12 @@ export const StyledImgWrapper = styled.div`
     max-width: 100%;
     max-height: 100%;
   }
+`;
+
+const StyledClose = styled(CloseIcon)`
+  width: 1.6em;
+  height: 1.6em;
+  position: absolute;
+  top: 0.4em;
+  right: 0.3em;
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 
 export interface SingleDropDownProps {
@@ -7,16 +7,17 @@ export interface SingleDropDownProps {
   onClick(selectedId: number): void;
   isFilter: boolean;
   className?: string;
+  optionType?: string;
 }
 
 export function SingleDropDown(props: SingleDropDownProps) {
-  const { options, onClick: handleSelect, isFilter, className } = props;
+  const { options, onClick: handleSelect, isFilter, className, optionType = "string" } = props;
 
   return (
     <StyledSingleDropDown isFilter={isFilter} className={className}>
       {options.map((option) => (
         <StyledOption key={option.id} onMouseDown={() => handleSelect(option.id)} isFilter={isFilter}>
-          {option.name} 명
+          {optionType === "number" ? `${option.name} 명` : option.name}
         </StyledOption>
       ))}
     </StyledSingleDropDown>
@@ -45,6 +46,8 @@ const StyledSingleDropDown = styled.ul<{
 const StyledOption = styled.li<{
   isFilter: boolean;
 }>`
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 40px;
   font-size: 16px;
@@ -57,7 +60,11 @@ const StyledOption = styled.li<{
   box-sizing: border-box;
   font-weight: 500;
   cursor: pointer;
-
+  ${(props) =>
+    !props.isFilter &&
+    css`
+      justify-content: center;
+    `}
   &:hover {
     color: ${teambleColors.deepPurple};
   }

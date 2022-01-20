@@ -10,23 +10,27 @@ interface ProjectTemplateProps {
 
 export function ProjectDetailTemplate(props: ProjectTemplateProps) {
   return (
-    <StyledWrapper>
-      <StyledHeader>{props.header}</StyledHeader>
-      <StyledSummary>{props.summary}</StyledSummary>
-      <StyledDesc>{props.desc}</StyledDesc>
-      <StyledMember>{props.member}</StyledMember>
-    </StyledWrapper>
+    <StyledLayout>
+      <StyledWrapper>
+        <StyledHeader>{props.header}</StyledHeader>
+        <StyledSummary>{props.summary}</StyledSummary>
+        <StyledDesc>{props.desc}</StyledDesc>
+      </StyledWrapper>
+    </StyledLayout>
   );
 }
-
+const StyledLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  padding-bottom: 70em;
+`;
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 0 22rem;
+  max-width: 1200px;
   box-sizing: border-box;
 `;
 
@@ -39,9 +43,5 @@ const StyledSummary = styled.div`
 `;
 
 const StyledDesc = styled.div`
-  width: 100%;
-`;
-
-const StyledMember = styled.div`
   width: 100%;
 `;

@@ -43,7 +43,7 @@ export function Header(props: HeaderProps) {
             </NavTabItem>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem isSelected={currentPath?.startsWith("/project")} onClick={handleClick}>
+            <NavTabItem isSelected={currentPath === "/project"} onClick={handleClick}>
               프로젝트 찾기
             </NavTabItem>
           </Link>
@@ -52,8 +52,13 @@ export function Header(props: HeaderProps) {
               팀원 찾기
             </NavTabItem>
           </Link>
-          <Link href="/create-project" passHref>
-            <NavTabItem isSelected={currentPath?.startsWith("/create-project")} onClick={handleClick}>
+          <Link
+            href={user && user.currentProjectId ? `/project/${user.currentProjectId}` : "/create-project"}
+            passHref
+            scroll={true}>
+            <NavTabItem
+              isSelected={currentPath?.startsWith("/create-project") || currentPath?.startsWith("/project/")}
+              onClick={handleClick}>
               {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>

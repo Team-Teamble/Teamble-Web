@@ -45,6 +45,7 @@ export default function SearchProject(props: SearchProjectProps) {
     <StyledSearchProject>
       <StyledMain>
         <Main
+          title="사이드 프로젝트 찾기"
           period={<Single meta={meta.period} onChange={onUpdate} category="periodId" info={requestInfo.periodId} />}
           position={
             <Single meta={meta.position} onChange={onUpdate} category="positionId" info={requestInfo.positionId} />

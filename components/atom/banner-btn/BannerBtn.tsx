@@ -1,42 +1,41 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
+import RightIcon from "../../../assets/svg/ic_right_arrow.svg";
 
 export interface BannerBtnProps {
   className?: string;
   title: string;
   desc: string;
-  href: string;
-  src: string;
 }
 
-export function BannerBtn(props: BannerBtnProps) {
-  const { title, desc, href = "/", src, className } = props;
+export const BannerButton = forwardRef<HTMLAnchorElement, BannerBtnProps>(function BannerButton(props, ref) {
+  const { title, desc, className } = props;
+
   return (
-    <StyledBannerBtn className={className} href={href}>
+    <StyledBannerBtn className={className} ref={ref}>
       <StyledContent>
         <StyledTitle>{title}</StyledTitle>
         <StyledDesc>{desc}</StyledDesc>
-        <StyledImg src={src} />
-        {/*  */}
+        <RightIcon />
       </StyledContent>
     </StyledBannerBtn>
   );
-}
+});
 
 const StyledBannerBtn = styled.a`
   display: block;
   box-sizing: border-box;
-  width: 38em;
-  height: 10.8em;
-  border: 1px solid #7a5de8;
-  //추후 컬러 추가 후 수정
+  width: 30em;
+  height: 8.8em;
+  border: 1px solid ${teambleColors.deepPurple};
   border-radius: 8px;
-  background-color: ${teambleColors.white};
-  padding: 2.5em 3.1em 2.5em 1.9em;
+  background-color: ${teambleColors.lightPurple};
+  padding: 2.5em 1.9em 2.5em 1.9em;
   padding-right: auto;
   text-decoration: none;
   cursor: pointer;
+  z-index: 1;
 
   &:hover {
     background-color: ${teambleColors.lightPurple};
@@ -49,24 +48,25 @@ const StyledContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+
+  & > svg {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
 `;
+
 const StyledTitle = styled.div`
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: ${teambleColors.black};
 `;
+
 const StyledDesc = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 11px;
   line-height: 23px;
-  color: #6b6b6b;
-  //추후 컬러 추가 후 수정
-`;
-const StyledImg = styled.img`
-  position: absolute;
-  width: 0.7em;
-  height: 1.245em;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  color: ${teambleColors.deepGray};
+  background-color: transparent;
 `;

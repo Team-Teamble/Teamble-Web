@@ -57,7 +57,7 @@ export function LogInForm(props: LogInFormProps) {
       <BasicButton variant="filled" disabled={false} onClick={onProcessLogin}>
         로그인
       </BasicButton>
-      <BasicLink href="" variant="outlined">
+      <BasicLink href="/register" variant="outlined">
         회원가입
       </BasicLink>
     </StyledWrapper>

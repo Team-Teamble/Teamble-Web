@@ -14,19 +14,10 @@ interface ViewProjectProps {
 }
 
 export default function ViewProject(props: ViewProjectProps) {
-  const { projectId, projectDetail } = props;
-  const [checkProjectOwner, setCheckProjectOwner] = useState(false);
+  const { projectDetail } = props;
   const loginUser = useUser();
 
-  useEffect(() => {
-    checkIsOwner();
-  }, []);
-
-  function checkIsOwner() {
-    if (projectDetail.project.user.id === loginUser?.id) {
-      setCheckProjectOwner(() => true);
-    }
-  }
+  const checkProjectOwner = loginUser?.id === projectDetail.project.user.id;
 
   // 팀 지원하기 클릭 시, 동작 구현
   function onApply() {

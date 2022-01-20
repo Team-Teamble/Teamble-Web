@@ -25,7 +25,7 @@ export function Header(props: HeaderProps) {
           </div>
         </StyledTitle>
         <StyledBtns>
-          <Link href="/" passHref>
+          <Link href="/tendency" passHref>
             <a>
               <ProfileTestButton />
             </a>

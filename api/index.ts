@@ -1,5 +1,5 @@
 import { AuthAPI } from "./auth";
-import { AuthAPIMock } from "./auth/mock";
+import { createAuthAPIReal } from "./auth/real";
 import { apiContext } from "./context";
 import { LandingAPI } from "./landing";
 import { LandingAPIMock } from "./landing/mock";
@@ -26,10 +26,11 @@ export function setAccessToken(token: string | null) {
   apiContext.accessToken = token;
 }
 
-export function createAPIService(): APIService {
-  const axios = createAxiosSession(apiContext);
+export function createAPIService(config: { endpoint: string }): APIService {
+  const axios = createAxiosSession(apiContext, config.endpoint);
 
-  const auth = new AuthAPIMock();
+  // const auth = new AuthAPIMock();
+  const auth = createAuthAPIReal(axios);
   const landing = new LandingAPIMock();
   const member = new MemberAPIMock();
   const project = new ProjectAPIMock();
@@ -46,4 +47,4 @@ export function createAPIService(): APIService {
   };
 }
 
-export const apiService = createAPIService();
+export const apiService = createAPIService({ endpoint: process.env.NEXT_PUBLIC_API_ENDPOINT || "" });

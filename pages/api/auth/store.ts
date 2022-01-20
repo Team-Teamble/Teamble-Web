@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Cookies from "cookies";
 import { addDays } from "date-fns";
 import { UserInfo, userInfoChecker } from "../../../states/auth";
-import { z } from "zod";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const cookies = new Cookies(req, res);
@@ -17,6 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       cookies.set("access", encodeURIComponent(JSON.stringify({ accessToken, user })), {
         expires,
       });
+    } else {
+      throw new Error("WHAT");
     }
 
     res.status(200).json({ message: "success" });

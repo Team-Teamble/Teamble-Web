@@ -68,9 +68,8 @@ const StyledHeader = styled.div`
   justify-content: center;
   background-color: ${teambleColors.white};
   box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.07);
-  box-sizing: border-box;
-  padding-top: 48px;
-  padding-bottom: 5.5px;
+
+  zoom: 70%;
 `;
 
 const StyledHeaderDesc = styled.div`

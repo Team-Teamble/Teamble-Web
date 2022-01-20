@@ -8,9 +8,9 @@ export interface Session {
 
 export type AxiosSession = AxiosInstance;
 
-export function createAxiosSession(context: APIContext): Session {
+export function createAxiosSession(context: APIContext, endpoint: string): Session {
   const request = axios.create({
-    baseURL: "",
+    baseURL: endpoint,
   });
 
   context.addListener((ctx) => {

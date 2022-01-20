@@ -38,9 +38,9 @@ export function useLogin({ redirect }: { redirect?: string }) {
       currentProjectId: res.user.projectId,
     };
 
-    authStore(res.accessToken, user);
+    authStore(res.accesstoken, user);
 
-    setAccessToken(res.accessToken);
+    setAccessToken(res.accesstoken);
     setUser(user);
     if (redirect) {
       router.push(redirect);

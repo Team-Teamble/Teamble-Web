@@ -13,6 +13,13 @@ export function createProjectAPIReal(session: Session): ProjectAPI {
       const res = await request.post("project", data);
       return res.data.data;
     },
+    async addPictureToProject(projectId, data) {
+      const res = await request.post(`project/photo/${projectId}`, {
+        photo: data.photo,
+      });
+
+      return res.data.data;
+    },
     async addMemberToProject(data) {
       const res = await request.post("project/member", data);
       return res.data.data;

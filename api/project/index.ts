@@ -1,6 +1,7 @@
 export interface ProjectAPI {
   getProjectMetadata(): Promise<GetProjectMetadataOutput>;
   createProject(data: CreateProjectInput): Promise<CreateProjectOutput>;
+  addPictureToProject(projectId: number, data: AddPictureToProjectInput): Promise<AddPictureToProjectOutput>;
   addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput>;
   getSearchMetadata(): Promise<GetSearchMetadataOutput>;
   searchProject(data: SearchProjectInput): Promise<SearchProjectOutput>;
@@ -255,4 +256,12 @@ export interface ProjectDetail {
       photo: string; // 프로젝트를 만든 유저 사진 url
     };
   };
+}
+
+export interface AddPictureToProjectInput {
+  photo: File;
+}
+
+export interface AddPictureToProjectOutput {
+  projectPhoto: string;
 }

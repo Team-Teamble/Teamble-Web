@@ -9,7 +9,13 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
             Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         font-size: 62.5%;
+        
     }
+
+    body::-webkit-scrollbar {
+        display: none; 
+    }
+
 
     * {
         transition: ${createTransitionQuery()};

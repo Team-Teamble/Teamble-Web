@@ -8,10 +8,11 @@ export interface MyPageMainEditingProps {
   tendencies: ReactNode;
   fields: ReactNode;
   editor: ReactNode;
+  submit: ReactNode;
 }
 
 export function MyPageMainEditing(props: MyPageMainEditingProps) {
-  const { className, introInput, profileBoxEditing, tendencies, fields, editor } = props;
+  const { className, introInput, profileBoxEditing, tendencies, fields, editor, submit } = props;
 
   return (
     <StyledMyPageMain className={className}>
@@ -23,6 +24,7 @@ export function MyPageMainEditing(props: MyPageMainEditingProps) {
           {fields}
           {editor}
         </StyledBodySection>
+        {submit}
       </StyledBody>
     </StyledMyPageMain>
   );

@@ -5,6 +5,7 @@ import { LandingAPI } from "./landing";
 import { createLandingAPIReal } from "./landing/real";
 import { MemberAPI } from "./member";
 import { MemberAPIMock } from "./member/mock";
+import { createMemberAPIReal } from "./member/real";
 import { ProjectAPI } from "./project";
 import { ProjectAPIMock } from "./project/mock";
 import { UserProfileAPI } from "./userProfile";
@@ -28,7 +29,7 @@ export function createAPIService(config: { endpoint: string }): APIService {
 
   const auth = createAuthAPIReal(axios);
   const landing = createLandingAPIReal(axios);
-  const member = new MemberAPIMock();
+  const member = createMemberAPIReal(axios);
   const project = new ProjectAPIMock();
   const userProfile = createUserProfileReal(axios);
 

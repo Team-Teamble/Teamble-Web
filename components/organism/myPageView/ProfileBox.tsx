@@ -1,16 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Profile from "../../../assets/svg/Profile";
-import { ProfileEditButton } from "../../atom/button/ProfileEditButton";
 import { teambleColors } from "../../../styles/color";
 import { ProfileBoxFold } from "../../atom/button/ProfileBoxFold";
 export interface ProfileBoxProps {
   user: UserInfo;
   className?: string;
-  onEdit(): void;
+  editControl: ReactNode;
 }
 
 interface UserInfo {
+  name: string;
   photo: string;
   position: { id: number; name: string }[];
   email: string;
@@ -21,19 +21,19 @@ interface UserInfo {
 }
 
 export function ProfileBox(props: ProfileBoxProps) {
-  const { user, className, onEdit } = props;
+  const { user, className, editControl } = props;
 
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
-      <StyledName>정세연</StyledName>
+      <StyledName>{user.name}</StyledName>
       <ProfileBoxFold currentOption={user.position} />
       <StyledEmailNPhone>
         <div>{user.email}</div>
         <div>{user.phone}</div>
       </StyledEmailNPhone>
       <StyledSectionLine />
-      <ProfileEditButton onEdit={onEdit} />
+      {editControl}
       <StyledSubInfo>
         <div>
           학교 <span>{user.university}</span>

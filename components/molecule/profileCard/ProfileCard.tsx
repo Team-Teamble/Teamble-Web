@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ProfileImage } from "../../atom/image/ProfileImage";
@@ -19,11 +19,11 @@ export interface ProfileCardProps {
   isMyPage?: boolean;
 }
 
-export function ProfileCard(props: ProfileCardProps) {
+export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function ProfileCard(props, ref) {
   const { className, cardInfo, isMyPage } = props;
 
   return (
-    <StyledWrapper className={className}>
+    <StyledWrapper ref={ref} className={className}>
       {isMyPage ? <CloseIcon className="close-icon" /> : null}
       <StyledInfo>
         <ProfileImage profileImgSrc={cardInfo.photo} profileSize="extra-extra-large" />
@@ -39,7 +39,7 @@ export function ProfileCard(props: ProfileCardProps) {
       {isMyPage ? <a href="">프로필 보기</a> : null}
     </StyledWrapper>
   );
-}
+});
 
 const StyledWrapper = styled.div`
   cursor: pointer;
@@ -47,6 +47,8 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  text-decoration: none;
+  outline: none;
 
   width: 380px;
   height: 446px;

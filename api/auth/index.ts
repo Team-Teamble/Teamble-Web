@@ -10,7 +10,7 @@ export interface LoginInput {
 }
 
 export interface LoginOutput {
-  accessToken: string;
+  accesstoken: string;
   user: {
     id: number; // 유저 아이디
     idFirebase: string; // 유저 uid

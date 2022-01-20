@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import TeambleLogo from "../../../assets/svg/logo_img.svg";
 import { BasicButton } from "../../atom/button/BasicButton";
@@ -10,7 +11,11 @@ export function TendencyInit(props: TendencyInitProps) {
   const { onStart } = props;
   return (
     <StyledTendenctInit>
-      <Logo />
+      <Link href="/">
+        <a>
+          <Logo />
+        </a>
+      </Link>
       <Description>
         사이드프로젝트 팀에서
         <br />

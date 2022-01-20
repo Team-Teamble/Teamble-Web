@@ -31,11 +31,13 @@ export function createAPIService(config: { endpoint: string }): APIService {
   const axios = createAxiosSession(apiContext, config.endpoint);
 
   const auth = createAuthAPIReal(axios);
+
+  const poke = new PokeAPIMock();
+
   const landing = createLandingAPIReal(axios);
   const member = createMemberAPIReal(axios);
   const project = createProjectAPIReal(axios);
   const userProfile = createUserProfileReal(axios);
-  const poke = new PokeAPIMock();
 
   return {
     auth,

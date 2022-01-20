@@ -6,19 +6,16 @@ export interface MakeProjectFoldButtonProps {
   name: string;
   currentOption: string;
   isChecked?: boolean;
-  id: number;
-  handleOpen(): void;
+  className?: string;
 }
 
 export function MakeProjectFoldButton(props: MakeProjectFoldButtonProps) {
-  const { isChecked = false, name, currentOption, handleOpen } = props;
+  const { isChecked = false, name, currentOption, className } = props;
 
   return (
-    <StyledFoldButton>
+    <StyledFoldButton className={className}>
       <StyledTitle isChecked={isChecked}>{name}</StyledTitle>
-      <StyledButton isChecked={isChecked} onClick={handleOpen}>
-        {currentOption}
-      </StyledButton>
+      <StyledButton isChecked={isChecked}>{currentOption} 명</StyledButton>
     </StyledFoldButton>
   );
 }

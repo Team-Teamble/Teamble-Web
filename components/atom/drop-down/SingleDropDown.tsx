@@ -6,16 +6,17 @@ export interface SingleDropDownProps {
   options: { id: number; name: string }[];
   onClick(selectedId: number): void;
   isFilter: boolean;
+  className?: string;
 }
 
 export function SingleDropDown(props: SingleDropDownProps) {
-  const { options, onClick: handleSelect, isFilter } = props;
+  const { options, onClick: handleSelect, isFilter, className } = props;
 
   return (
-    <StyledSingleDropDown isFilter={isFilter}>
+    <StyledSingleDropDown isFilter={isFilter} className={className}>
       {options.map((option) => (
-        <StyledOption key={option.id} onClick={() => handleSelect(option.id)} isFilter={isFilter}>
-          {option.name}
+        <StyledOption key={option.id} onMouseDown={() => handleSelect(option.id)} isFilter={isFilter}>
+          {option.name} 명
         </StyledOption>
       ))}
     </StyledSingleDropDown>

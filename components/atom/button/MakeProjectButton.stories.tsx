@@ -10,9 +10,4 @@ const Template: Story<MakeProjectButtonProps> = (args) => {
 };
 
 export const Basic = Template.bind({});
-Basic.args = {
-  children: "성향",
-  handleCheck: function () {
-    console.log("test");
-  },
-} as MakeProjectButtonProps;
+Basic.args = {} as MakeProjectButtonProps;

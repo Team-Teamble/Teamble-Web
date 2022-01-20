@@ -5,7 +5,7 @@ import DefaultProfile from "../../../assets/svg/ic_profile.svg";
 
 export interface ProfileProps {
   className?: string;
-  profileImgSrc: string;
+  profileImgSrc: string | undefined;
   profileSize?: "extra-small" | "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
   onClick?(): void;
 }
@@ -13,7 +13,7 @@ export interface ProfileProps {
 export const ProfileImage = forwardRef<HTMLImageElement, ProfileProps>(function ProfileImage(props: ProfileProps, ref) {
   const { className, profileImgSrc, profileSize = "medium", onClick } = props;
 
-  function checkDefaultProfile(profileImgSrc: string) {
+  function checkDefaultProfile(profileImgSrc: string | undefined) {
     if (profileImgSrc === "" || profileImgSrc === undefined) {
       return <DefaultProfile />;
     } else {

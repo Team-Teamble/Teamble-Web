@@ -2,13 +2,14 @@ import { AuthAPI } from "./auth";
 import { createAuthAPIReal } from "./auth/real";
 import { apiContext } from "./context";
 import { LandingAPI } from "./landing";
-import { LandingAPIMock } from "./landing/mock";
+import { createLandingAPIReal } from "./landing/real";
 import { MemberAPI } from "./member";
 import { MemberAPIMock } from "./member/mock";
+import { createMemberAPIReal } from "./member/real";
 import { ProjectAPI } from "./project";
-import { ProjectAPIMock } from "./project/mock";
+import { createProjectAPIReal } from "./project/real";
 import { UserProfileAPI } from "./userProfile";
-import { UserProfileMock } from "./userProfile/mock";
+import { createUserProfileReal } from "./userProfile/real";
 import { createAxiosSession } from "./util/axios";
 import { PokeAPI } from "./poke";
 import { PokeAPIMock } from "./poke/mock";
@@ -29,12 +30,11 @@ export function setAccessToken(token: string | null) {
 export function createAPIService(config: { endpoint: string }): APIService {
   const axios = createAxiosSession(apiContext, config.endpoint);
 
-  // const auth = new AuthAPIMock();
   const auth = createAuthAPIReal(axios);
-  const landing = new LandingAPIMock();
-  const member = new MemberAPIMock();
-  const project = new ProjectAPIMock();
-  const userProfile = new UserProfileMock();
+  const landing = createLandingAPIReal(axios);
+  const member = createMemberAPIReal(axios);
+  const project = createProjectAPIReal(axios);
+  const userProfile = createUserProfileReal(axios);
   const poke = new PokeAPIMock();
 
   return {

@@ -13,6 +13,9 @@ import { Fields } from "../../components/molecule/myPageView/Fields";
 import { FieldsEditing } from "../../components/molecule/myPageView/FieldsEditing";
 import { DocumentViewer } from "../../components/molecule/document/DocumentViewer";
 import { DocumentEditor } from "../../components/molecule/document/DocumentEditor";
+import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
+import { useUser } from "../../utils/hook/auth";
+import { useAPI } from "../../utils/hook/api";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -25,16 +28,38 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
 
+  const updateUser = useAPI((api) => api.userProfile.updateProfile);
+
+  const authedUser = useUser();
+
   function onEdit() {
     setIsEditing((state) => !state);
   }
-  const onUpdate: HandleUpdate = (category, payload) => {
+  const handleUpdate: HandleUpdate = (category, payload) => {
     setUserInfo({ ...userInfo, [category]: payload });
   };
+
+  function handleSubmit() {
+    if (authedUser && userInfo.type) {
+      updateUser.request(authedUser.id, {
+        area: userInfo.area,
+        description: userInfo.description,
+        fieldId: userInfo.field.map((v) => v.id),
+        intro: userInfo.intro,
+        major: userInfo.major,
+        phone: userInfo.phone,
+        positionId: userInfo.field.map((v) => v.id),
+        typeId: userInfo.type.id,
+        university: userInfo.university,
+      });
+    }
+  }
 
   function onActiveType(selectedId: number): void {
     setActiveType(selectedId);
   }
+
+  const profileEditControlBox = authedUser?.id === userInfo.id ? <ProfileEditButton onEdit={onEdit} /> : null;
 
   return (
     <StyledProfileById>
@@ -43,27 +68,30 @@ export default function ProfileById(props: ProfileByIdProps) {
         {!isEditing ? (
           <MyPageMain
             intro={userInfo.intro}
-            profileBox={<ProfileBox user={userInfo} onEdit={onEdit} />}
+            profileBox={<ProfileBox user={userInfo} editControl={profileEditControlBox} />}
             tendencies={<Tendencies user={userInfo} metaType={meta.type} isEditing={false} />}
             fields={<Fields field={userInfo.field} />}
             viewer={<DocumentViewer value={userInfo.description} />}
           />
         ) : (
           <MyPageMainEditing
-            introInput={<IntroInput intro={userInfo.intro} onChange={onUpdate} />}
-            profileBoxEditing={<ProfileBoxEditing user={userInfo} onChange={onUpdate} metaPosition={meta.position} />}
+            introInput={<IntroInput intro={userInfo.intro} onChange={handleUpdate} />}
+            profileBoxEditing={
+              <ProfileBoxEditing user={userInfo} onChange={handleUpdate} metaPosition={meta.position} />
+            }
             tendencies={
               <Tendencies
                 user={userInfo}
                 metaType={meta.type}
                 isEditing={true}
                 onClick={onActiveType}
-                onUpdate={onUpdate}
+                onUpdate={handleUpdate}
                 selectedTypeId={activeType}
               />
             }
-            fields={<FieldsEditing field={userInfo.field} metaField={meta.field} onChange={onUpdate} />}
-            editor={<DocumentEditor />}
+            fields={<FieldsEditing field={userInfo.field} metaField={meta.field} onChange={handleUpdate} />}
+            editor={<DocumentEditor onChange={(val) => handleUpdate("description", val)} />}
+            submit={<button onClick={handleSubmit}>제출</button>}
           />
         )}
       </StyledMain>

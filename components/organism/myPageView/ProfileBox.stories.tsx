@@ -8,6 +8,7 @@ export default {
 
 const Template: Story<ProfileBoxProps> = (args) => {
   const { data: user } = useObject({
+    name: "haha",
     photo: "zz",
     phone: "010-1234-1234",
     position: [],

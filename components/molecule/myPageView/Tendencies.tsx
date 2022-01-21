@@ -85,6 +85,9 @@ const StyledTitle = styled.div`
   font-size: 24px;
   letter-spacing: -0.02em;
   margin-right: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
   div {
     height: 35px;

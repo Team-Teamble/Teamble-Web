@@ -6,23 +6,17 @@ import { EntryButton } from "../../atom/button/EntryButton";
 
 export interface EntryFieldProps {
   className?: string;
-
-  onClick(): void;
 }
 
 export function EntryField(props: EntryFieldProps) {
-  const { className, onClick } = props;
+  const { className } = props;
   return (
     <StyledWrapper className={className}>
       <Link href="/login" passHref>
-        <EntryButton className="login" onClick={onClick}>
-          로그인
-        </EntryButton>
+        <EntryButton className="login">로그인</EntryButton>
       </Link>
       <Link href="/register" passHref>
-        <EntryButton className="register" onClick={onClick}>
-          회원가입
-        </EntryButton>
+        <EntryButton className="register">회원가입</EntryButton>
       </Link>
     </StyledWrapper>
   );

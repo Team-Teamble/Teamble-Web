@@ -1,7 +1,7 @@
 export interface ProjectAPI {
   getProjectMetadata(): Promise<GetProjectMetadataOutput>;
   createProject(data: CreateProjectInput): Promise<CreateProjectOutput>;
-  addPictureToProject(projectId: string, data: AddPictureToProjectInput): Promise<AddPictureToProjectOutput>;
+  addPictureToProject(projectId: number, data: AddPictureToProjectInput): Promise<AddPictureToProjectOutput>;
   addMemberToProject(data: AddMemberToProjectInput): Promise<AddMemberToProjectOutput>;
   getSearchMetadata(): Promise<GetSearchMetadataOutput>;
   searchProject(data: SearchProjectInput): Promise<SearchProjectOutput>;
@@ -254,7 +254,7 @@ export interface ProjectDetail {
 }
 
 export interface AddPictureToProjectInput {
-  photo: FormData;
+  photo: File;
 }
 
 export interface AddPictureToProjectOutput {

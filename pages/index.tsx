@@ -4,7 +4,6 @@ import { Header } from "../components/organism/landing/Header";
 import { apiService } from "../api";
 import React, { useState } from "react";
 import { ProjectCard } from "../components/molecule/projectCard/ProjectCard";
-
 interface ProjectCardProps {
   topProjects: ProjectInfo[];
 }

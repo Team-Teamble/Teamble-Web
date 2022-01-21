@@ -30,7 +30,7 @@ export function ProjectSummary(props: ProjectSummaryProps) {
       </StyledField>
       <StyledField>
         <StyledLeft>목표</StyledLeft>
-        <StyledRight>{projectDetail.project.goal.name}</StyledRight>
+        <StyledRight>{projectDetail.project.goal?.name}</StyledRight>
       </StyledField>
       <StyledField>
         <StyledLeft>선호 협업 성향</StyledLeft>

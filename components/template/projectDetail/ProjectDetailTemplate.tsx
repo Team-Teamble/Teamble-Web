@@ -1,13 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-
 interface ProjectTemplateProps {
   header: ReactNode;
   summary: ReactNode;
   desc: ReactNode;
   member: ReactNode;
 }
-
 export function ProjectDetailTemplate(props: ProjectTemplateProps) {
   return (
     <StyledLayout>

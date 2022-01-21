@@ -20,9 +20,9 @@ export function TendencyInit(props: TendencyInitProps) {
         </a>
       </Link>
       <Description>
-        나는 협업할 때 어떤 유형일까?
+        사이드프로젝트 팀에서
         <br />
-        나의 협업 유형 컬러를 알아보자!
+        나의 협업성향은 무엇일까?
       </Description>
       <StyledSlider>
         <Characters.Character1 />
@@ -45,13 +45,26 @@ const StyledTendenctInit = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding-top: 6rem;
   min-height: 100vh;
+  width: 100%;
+
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 const Logo = styled(TeambleLogo)`
   transform: scale(1.3);
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    transform: scale(0.5);
+  }
 `;
 
 const Description = styled.h1`
@@ -64,12 +77,23 @@ const Description = styled.h1`
   letter-spacing: -0.02em;
 
   margin-top: 3rem;
+
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    font-size: 1.5rem;
+  }
 `;
 
 const StartButton = styled(BasicButton)`
   display: block;
 
   margin-top: 3rem;
+
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    font-size: 15px;
+    width: calc(100% - 9rem);
+  }
 `;
 
 const StyledSlider = styled.div`
@@ -79,5 +103,14 @@ const StyledSlider = styled.div`
 
   & > svg {
     margin-left: 0.7rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    height: 10rem;
+
+    & > svg:nth-child(7) {
+      margin-top: 1.1rem;
+    }
   }
 `;

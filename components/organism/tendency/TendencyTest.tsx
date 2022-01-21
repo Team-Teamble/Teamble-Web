@@ -39,7 +39,7 @@ export function TendencyTest(props: TendencyTestProps) {
             </Button>
           ))}
         </ButtonGroup>
-        <Logo />
+        <Logo cols={buttonCols} />
       </MainBox>
     </StyledTendencyTest>
   );
@@ -54,12 +54,21 @@ const StyledTendencyTest = styled.div`
   & * {
     box-sizing: border-box;
   }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding: 2rem;
+  }
 `;
 
 const MainBox = styled.div`
   width: 80rem;
   & > * {
     display: block;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
   }
 `;
 
@@ -71,6 +80,12 @@ const Title = styled.h1`
   color: ${teambleColors.purple};
 
   margin-bottom: 2rem;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
 `;
 
 const Line = styled.span`
@@ -87,6 +102,11 @@ const Description = styled.h2`
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 700;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.2rem;
+    width: 100%;
+  }
 `;
 
 const ButtonGroup = styled.div<{ cols: number }>`
@@ -95,6 +115,14 @@ const ButtonGroup = styled.div<{ cols: number }>`
 
   column-gap: 1rem;
   row-gap: 2rem;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    margin-top: ${(props) => (props.cols === 1 ? "10rem" : "0")};
+  }
 `;
 
 const Button = styled.a`
@@ -120,10 +148,26 @@ const Button = styled.a`
     background-color: ${teambleColors.purple};
     color: ${teambleColors.white};
   }
+
+  @media screen and (max-width: 767px) {
+    height: 4rem;
+    font-size: 0.8rem;
+    width: 100%;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.5rem;
+    color: ${teambleColors.purple};
+  }
 `;
 
-const Logo = styled(TeambleLogo)`
+const Logo = styled(TeambleLogo)<{
+  cols: number;
+}>`
   margin: 0 auto;
   margin-top: 4rem;
   transform: scale(1.3);
+
+  @media screen and (max-width: 767px) {
+    transform: scale(0.5);
+    margin-top: ${(props) => (props.cols === 1 ? "10rem" : "5rem")};
+  }
 `;

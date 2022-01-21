@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { withAuth } from "../utils/ssr";
 import { apiService } from "../api";
 import styled from "styled-components";
@@ -21,7 +21,7 @@ import { teambleColors } from "../styles/color";
 import { AddMemberModal } from "../components/molecule/modal/AddMemberModal";
 import { useAPI } from "../utils/hook/api";
 import { useRouter } from "next/router";
-import { NotFoundError } from "../api/util/error";
+import { BadRequestError, NotFoundError } from "../api/util/error";
 export interface CreateProjectProps {
   className?: string;
   createProjectMetadata: CreateProjectMeta;
@@ -32,8 +32,8 @@ export default function CreateProject(props: CreateProjectProps) {
   const addMember = useAPI((api) => api.project.addMemberToProject);
   const createProject = useAPI((api) => api.project.createProject);
   const addPicture = useAPI((api) => api.project.addPictureToProject);
-  const { createProjectMetadata: meta, className, user } = props;
 
+  const { createProjectMetadata: meta, className, user } = props;
   const editorRef = useRef<DocumentEditorRef>(null);
 
   const initial: RequestInfo = {
@@ -43,7 +43,11 @@ export default function CreateProject(props: CreateProjectProps) {
     periodId: NaN, // 프로젝트 예상 기간 id
     // 첫 번째 number: 프로젝트 모집 포지션 id
     // 두 번째 number: 프로젝트 모집 포지션 인원 id
-    position: [[], [], []], // 프로젝트 모집 포지션
+    position: [
+      [1, 1],
+      [2, 1],
+      [3, 1],
+    ], // 프로젝트 모집 포지션
     goalId: NaN, // 프로젝트 목표 id
     tagId: [], // 프로젝트 선호 협업 성향 id
     fieldId: [], // 프로젝트 분야 id
@@ -58,6 +62,8 @@ export default function CreateProject(props: CreateProjectProps) {
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
   const [membersInfo, setMembersInfo] = useState([{ id: user.id, name: user.name, photo: user.profilePic }]);
   const [memberEmail, setMemberEmail] = useState<string>("");
+  const [createErr, setCreateErr] = useState<string>("");
+  const [addMemberErr, setAddMemberErr] = useState<string>("");
   const [fileInfo, setFileInfo] = useState<{ photo: File | null; url: string }>({
     photo: null,
     url: "",
@@ -105,10 +111,15 @@ export default function CreateProject(props: CreateProjectProps) {
       const newMemberInfo = await addMember.request({ email: memberEmail });
       if (newMemberInfo) {
         setMembersInfo([...membersInfo, newMemberInfo.member]);
+        setAddMemberErr("");
         onUpdate("memberId", [...requestInfo.memberId, newMemberInfo.member.id]);
       }
     } catch (e) {
-      alert("추가 에러");
+      if (e instanceof NotFoundError || e instanceof BadRequestError) {
+        setAddMemberErr(e.message);
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -120,9 +131,9 @@ export default function CreateProject(props: CreateProjectProps) {
       }
       router.push(`/project/${data?.project.id}`);
     } catch (e) {
-      if (e instanceof NotFoundError) {
+      if (e instanceof NotFoundError || e instanceof BadRequestError) {
+        setCreateErr(e.message);
       } else {
-        alert("생성 에러");
         throw e;
       }
     }
@@ -137,7 +148,13 @@ export default function CreateProject(props: CreateProjectProps) {
     }
   }
   const addMemberModal = isModalOpened ? (
-    <AddMemberModal onChange={handleEmail} value={memberEmail} onClick={handleAddMember} onOpen={handleOpen} />
+    <AddMemberModal
+      onChange={handleEmail}
+      value={memberEmail}
+      onClick={handleAddMember}
+      onOpen={handleOpen}
+      error={addMemberErr}
+    />
   ) : null;
 
   useEffect(() => {
@@ -199,7 +216,10 @@ export default function CreateProject(props: CreateProjectProps) {
           />
         </StyledMembersSlot>
         <StyledButtonSlot>
-          <StyledCreateButton onClick={handleCreateProject}>생성하기</StyledCreateButton>
+          <div>
+            {<div>{createErr}</div>}
+            <StyledCreateButton onClick={handleCreateProject}>생성하기</StyledCreateButton>
+          </div>
         </StyledButtonSlot>
       </StyledLayout>
     </StyledSearchProject>
@@ -223,23 +243,25 @@ const StyledPeriodSlot = styled.div`
   margin-top: 26.2em;
 `;
 const StyledPositionSlot = styled.div`
-  margin-top: 7.2em;
+  margin-top: 8em;
 `;
 const StyledGoalSlot = styled.div`
-  margin-top: 31.3em;
+  margin-top: 8em;
 `;
 const StyledTagSlot = styled.div`
-  margin-top: 9.5em;
+  margin-top: 8em;
 `;
 const StyledFieldSlot = styled.div`
-  margin-top: 9.5em;
+  margin-top: 8em;
 `;
 const StyledAreaSlot = styled.div`
-  margin-top: 9.5em;
+  margin-top: 8em;
 `;
 const StyledDateSlot = styled.div`
-  margin-top: 9.5em;
-
+  margin-top: 8em;
+  & > div {
+    z-index: 99;
+  }
   & > div:first-child {
     font-weight: bold;
     font-size: 24px;
@@ -251,16 +273,27 @@ const StyledDateSlot = styled.div`
   }
 `;
 const StyledEditorSlot = styled.div`
-  margin-top: 50em;
+  margin-top: 8em;
 `;
 const StyledMembersSlot = styled.div`
-  margin-top: 8.5em;
+  margin-top: 8em;
 `;
 const StyledButtonSlot = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 75px;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > div {
+      color: ${teambleColors.red};
+      font-size: 1rem;
+      height: 2rem;
+    }
+  }
 `;
 const StyledCreateButton = styled(ConfirmButton)`
   width: 162px;

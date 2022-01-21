@@ -10,10 +10,11 @@ export interface AddMemberModalProps {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onClick(): void;
   onOpen(): void;
+  error: string;
 }
 
 export function AddMemberModal(props: AddMemberModalProps) {
-  const { value, onChange: handleChange, onClick: handleClick, onOpen: handleOpen } = props;
+  const { value, onChange: handleChange, onClick: handleClick, onOpen: handleOpen, error } = props;
 
   return (
     <StyledAddMember>
@@ -26,6 +27,7 @@ export function AddMemberModal(props: AddMemberModalProps) {
           <input type="email" value={value} onChange={handleChange} />
           <StyledAdd onClick={handleClick} />
         </StyledInputForm>
+        <div>{error}</div>
       </StyledModal>
     </StyledAddMember>
   );
@@ -46,6 +48,13 @@ const StyledModal = styled.div`
   filter: drop-shadow(2px 6px 12px rgba(0, 0, 0, 0.12));
   background-color: ${teambleColors.white};
   border-radius: 5px;
+
+  div:last-child {
+    color: ${teambleColors.red};
+    height: 1em;
+    font-size: 1rem;
+    margin-top: 1em;
+  }
 `;
 const StyledClose = styled(Close)`
   width: 30px;

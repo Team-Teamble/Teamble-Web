@@ -22,8 +22,18 @@ export interface ProfileCardProps {
   onDelete?(): void;
 }
 
+const DELIMETER = " • ";
+
 export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function ProfileCard(props, ref) {
   const { className, cardInfo, isMyPage, onDelete } = props;
+
+  const tags = (() => {
+    return (
+      <>
+        {cardInfo.tag.slice(0, 3).join(DELIMETER)} <br /> {cardInfo.tag.slice(3).join(DELIMETER)}
+      </>
+    );
+  })();
 
   return (
     <StyledWrapper ref={ref} className={className}>
@@ -31,9 +41,9 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function
       <StyledInfo>
         <ProfileImage profileImgSrc={cardInfo.photo} profileSize="extra-extra-large" />
         <span className="user-name">{cardInfo.name}</span>
-        <span className="user-position">{cardInfo.position.join(" • ")}</span>
+        <span className="user-position">{cardInfo.position.join(DELIMETER)}</span>
       </StyledInfo>
-      <StyledTags>{cardInfo.tag.join(" • ")}</StyledTags>
+      <StyledTags>{tags}</StyledTags>
       <StyledInterests>
         {cardInfo.field.map((name, i) => (
           <StyledIntrestTag key={i}>{name}</StyledIntrestTag>
@@ -57,10 +67,15 @@ const StyledWrapper = styled.div`
   height: 446px;
   margin-bottom: 75px;
   box-sizing: border-box;
-  padding: 7.1em 5.2em 0em 5.2em;
+  padding: 7.1em 5.2em 1.6em 5.2em;
   border-radius: 1em;
   background-color: ${teambleColors.lightPurple};
   box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.5s;
+
+  &:hover {
+    box-shadow: 8px 6px 7px rgba(0, 0, 0, 0.1);
+  }
 
   & > svg {
     cursor: pointer;
@@ -111,7 +126,9 @@ const StyledTags = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2em;
+  text-align: center;
+  line-height: 1.2rem;
+  margin-top: 1.3em;
   width: 100%;
   font-weight: 500;
   font-size: 14px;
@@ -122,7 +139,7 @@ const StyledTags = styled.div`
 
 const StyledInterests = styled.div`
   display: flex;
-  margin-top: 2.45em;
+  margin-top: 2.3em;
 
   & > div + div {
     margin-left: 0.38em;

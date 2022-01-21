@@ -30,6 +30,9 @@ const StyledNavTabItem = styled.div<NavTabItemProps>`
 const StyledItemContent = styled.div<{
   isSelected?: boolean;
 }>`
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.3s;
+
   ${(props) => {
     if (props.isSelected) {
       return css`
@@ -53,8 +56,6 @@ const StyledItemContent = styled.div<{
   }}
 
   &:hover {
-    border-bottom: 3px solid ${teambleColors.black};
-
     color: ${teambleColors.black};
   }
 `;

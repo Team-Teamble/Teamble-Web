@@ -8,10 +8,11 @@ export interface MyPageMainProps {
   tendencies: ReactNode;
   fields: ReactNode;
   viewer: ReactNode;
+  submit: ReactNode;
 }
 
 export function MyPageMain(props: MyPageMainProps) {
-  const { className, profileBox, tendencies, intro, fields, viewer } = props;
+  const { className, profileBox, tendencies, intro, fields, viewer, submit } = props;
 
   return (
     <StyledMyPageMain className={className}>
@@ -26,6 +27,7 @@ export function MyPageMain(props: MyPageMainProps) {
           {tendencies}
           {fields}
           {viewer}
+          {submit}
         </StyledBodySection>
       </StyledBody>
     </StyledMyPageMain>
@@ -70,4 +72,9 @@ const StyledBodySection = styled.div`
   padding: 67px 63px 0 61px;
   background: ${teambleColors.white};
   box-shadow: 3px 4px 8px 6px rgba(0, 0, 0, 0.03);
+
+  & > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;

@@ -26,6 +26,7 @@ export function ProjectDesc(props: ProjectDescProp) {
 
   function handleCheckApply() {
     setIsApply(() => true);
+    onClick();
   }
 
   return (

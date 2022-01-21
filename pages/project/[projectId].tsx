@@ -4,6 +4,7 @@ import { ProjectHeader } from "../../components/organism/projectDetailView/Proje
 import { ProjectMember } from "../../components/organism/projectDetailView/ProjectMember";
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
+import { useAPI } from "../../utils/hook/api";
 import { useUser } from "../../utils/hook/auth";
 import { withAuth } from "../../utils/ssr";
 
@@ -13,21 +14,33 @@ interface ViewProjectProps {
 }
 
 export default function ViewProject(props: ViewProjectProps) {
-  const { projectDetail } = props;
-  const loginUser = useUser();
+  const { projectDetail, projectId } = props;
+  const authedUser = useUser();
 
-  const checkProjectOwner = loginUser?.id === projectDetail.project.user.id;
+  const checkProjectOwner = authedUser?.id === projectDetail.project.user.id;
+
+  const pokeProject = useAPI((api) => api.poke.pokeProject);
 
   // 팀 지원하기 클릭 시, 동작 구현
-  function onApply() {
-    return -1;
+  async function handleApply(projectId: number, userId: number) {
+    try {
+      await pokeProject.request({ projectId: projectId, userId: userId });
+    } catch (e) {
+      throw e;
+    }
   }
 
   return (
     <ProjectDetailTemplate
       header={<ProjectHeader projectDetail={projectDetail} />}
       summary={<ProjectSummary projectDetail={projectDetail} />}
-      desc={<ProjectDesc projectDetail={projectDetail} isOwner={checkProjectOwner} onClick={onApply} />}
+      desc={
+        <ProjectDesc
+          projectDetail={projectDetail}
+          isOwner={checkProjectOwner}
+          onClick={() => handleApply(projectId, authedUser?.id ?? 0)}
+        />
+      }
       member={<ProjectMember projectDetail={projectDetail} />}></ProjectDetailTemplate>
   );
 }

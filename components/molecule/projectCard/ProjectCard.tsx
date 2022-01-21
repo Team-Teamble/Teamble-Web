@@ -53,7 +53,7 @@ export function ProjectCard(props: ProjectCardProps) {
         <StyledLink page={page}>
           <StyledDesc page={page}>
             <h3>{cardInfo.title}</h3>
-            <h4>{cardInfo.intro}</h4>
+            <StyledIntro page={page}>{cardInfo.intro}</StyledIntro>
             <StyledProfile page={page}>
               <ProfileImage profileImgSrc={cardInfo.user.photo} profileSize="extra-small" />
               <span>{cardInfo.user.name}</span>
@@ -106,7 +106,7 @@ const StyledDay = styled.div<{
   border-radius: 0.4rem;
   background-color: ${teambleColors.darkGray};
 
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   color: ${teambleColors.white};
 `;
@@ -117,7 +117,7 @@ const StyledLink = styled.div<{
   display: flex;
   flex-direction: column;
 
-  margin: 3.1em 1.7em 0 1.7em;
+  margin: 2.1em 1.7em 0 1.7em;
 
   cursor: pointer;
 `;
@@ -131,18 +131,9 @@ const StyledDesc = styled.div<{
 
   & > h3 {
     margin: 0;
-    margin-bottom: 0.5rem;
-    font-size: ${(props) => (props.page === "" ? "15px" : "20px")};
+    margin-bottom: 0.7rem;
+    font-size: ${(props) => (props.page === "" ? "14px" : "25px")};
     font-weight: 700;
-  }
-
-  & > h4 {
-    margin: 0;
-    margin-bottom: ${(props) => (props.page === "" ? "1.2rem" : "2rem")};
-
-    font-size: ${(props) => (props.page === "" ? "13px" : "16px")};
-    font-weight: 500;
-    color: ${teambleColors.darkGray};
   }
 `;
 
@@ -191,4 +182,17 @@ const StyledRecruit = styled.div<{
       margin-left: 0.56em;
     }
   }
+`;
+
+const StyledIntro = styled.div<{
+  page: string;
+}>`
+  margin: 0;
+  margin-bottom: ${(props) => (props.page === "" ? "1rem" : "4rem")};
+
+  font-size: ${(props) => (props.page === "" ? "13px" : "18px")};
+  font-weight: 500;
+  color: ${teambleColors.darkGray};
+
+  height: 1.6rem;
 `;

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { TendencyResult } from "../../components/organism/tendency/TendencyResult";
 import { setLayout } from "../../utils/layout";
 import { withAuth } from "../../utils/ssr";
@@ -9,7 +10,19 @@ interface TendencyProps {
 export default function Tendency(props: TendencyProps) {
   const { stateKey } = props;
 
-  return <TendencyResult resultImgSrc={getResultSVGPathByKey(stateKey)} />;
+  return (
+    <>
+      <Head>
+        <title>teamble 협업성향 테스트</title>
+        <meta property="og:url" content="//teamble.vercel.app/tendency" />
+        <meta property="og:title" content="teamble" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="//teamble.vercel.app/teambleThumbnail.png" />
+        <meta property="og:description" content="협업성향 테스트" />
+      </Head>
+      <TendencyResult resultImgSrc={getResultSVGPathByKey(stateKey)} />;
+    </>
+  );
 }
 
 setLayout(Tendency, ({ children }) => <div>{children}</div>);

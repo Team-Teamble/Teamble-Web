@@ -9,19 +9,17 @@ export interface NavTabItemProps {
   href?: string;
 }
 
-export const NavTabItem = forwardRef<HTMLDivElement, NavTabItemProps>(function NavTabItem(props, ref) {
+export const NavTabItem = forwardRef<HTMLAnchorElement, NavTabItemProps>(function NavTabItem(props, ref) {
   const { className = "first", children, isSelected, href } = props;
 
   return (
-    <StyledNavTabItem ref={ref} className={className} isSelected={isSelected}>
-      <StyledItemContent isSelected={isSelected}>
-        <a href={href}>{children}</a>
-      </StyledItemContent>
+    <StyledNavTabItem ref={ref} className={className} isSelected={isSelected} href={href}>
+      <StyledItemContent isSelected={isSelected}>{children}</StyledItemContent>
     </StyledNavTabItem>
   );
 });
 
-const StyledNavTabItem = styled.div<NavTabItemProps>`
+const StyledNavTabItem = styled.a<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;

@@ -51,6 +51,10 @@
 ### 1. Main View - Landing Page
 
 - 랜딩페이지를 통해, **협업 성향 테스트** 버튼을 통해 팀블에서 제공하는 첫번째 핵심 기능인 협업 성향 테스트 페이지로 이동합니다.
+![스크린샷 2022-01-21 오후 8 41 14](https://user-images.githubusercontent.com/73516688/150525741-897f9027-7010-4eaf-96e1-9bd802d31145.png)
+![스크린샷 2022-01-21 오후 8 41 21](https://user-images.githubusercontent.com/73516688/150525754-900ae9c1-d3fb-4cac-8e7f-7aa786817b14.png)
+![스크린샷 2022-01-21 오후 8 41 34](https://user-images.githubusercontent.com/73516688/150525756-15f0fd98-a359-4d5f-b6a5-60342cd17de1.png)
+![스크린샷 2022-01-21 오후 8 41 56](https://user-images.githubusercontent.com/73516688/150525768-4cfa6bdd-7bb0-4b67-ac0b-b9dc1d6c3bea.png)
 
 
 ### 2. 협업 성향 테스트
@@ -61,13 +65,21 @@
 
 - 기존의 줄글로만 작성되어 필터 검색이나, 정확한 정보를 확인하기 어려웠던 문제를 해결하고자, 프로젝트 예상 기간, 모집 포지션별 인원, 목표, 협업 선호 성향과 더불어 프로젝트 분야를 선택하게 합니다.
 
+![localhost_3000_project (1)](https://user-images.githubusercontent.com/73516688/150525878-fa19d01f-eecc-4c60-a5c0-075def090ff0.png)
+
+
 ### 4. 프로젝트 팀 생성
 
 - 예상 기간, 모집 포지션별 인원, 목표, 협업 선호 성향과 더불어 프로젝트 분야를 선택하게 합니다. 또한, 프로젝트 팀에 이미 구성원이 있다면, 하단에 이메일 입력을 통해, 팀원 정보를 입력할 수 있습니다.
 
+![localhost_3000_project (3)](https://user-images.githubusercontent.com/73516688/150525894-5e8338d7-9a40-4690-a9e3-86f1f9231e5f.png)
+
 ### 5. 콕 찌르기
 
 - 콕 찌르기 기능은, Z세대들이 팀블을 통해 부담없이 연락하고, 프로젝트에 지원할 수 있도록 돕습니다. 콕 찌르기를 누르면, 내 마이 프로필 정보가 찌른 상대에게 보내지며 ‘지원’이라는 무거운 과정이 아닌, 부담없이 연락하되 확실히 본인의 관심 의사를 전달할 수 있게 합니다.
+![localhost_3000_project (4)](https://user-images.githubusercontent.com/73516688/150525942-3943abad-6022-4c5b-a827-14d7ee00d32b.png)
+
+![localhost_3000_poke_1](https://user-images.githubusercontent.com/73516688/150525959-ac9ec884-e564-4e0d-b30c-f8d409f43162.png)
 
 <br>
 

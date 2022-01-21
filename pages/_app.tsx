@@ -10,6 +10,7 @@ import { useSetUser } from "../utils/hook/auth";
 import { UnauthorizedError } from "../api/util/error";
 import { getLayout } from "../utils/layout";
 import { installProgressBar } from "../utils/progress";
+import Head from "next/head";
 
 interface MyAppProps {
   _META_PROPS?: MetaProps;
@@ -40,6 +41,14 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
     <RecoilRoot initializeState={initState}>
       <DetectAuth user={_META_PROPS?.access?.user ?? null} accessToken={_META_PROPS?.access?.accessToken ?? null}>
         <SelectedLayout>
+          <Head>
+            <title>teamble</title>
+            <meta property="og:url" content="//teamble.vercel.app" />
+            <meta property="og:title" content="teamble" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="//teamble.vercel.app/teambleThumbnail.png" />
+            <meta property="og:description" content="서로 다른 색의 우리가 만나는 공간, 팀블" />
+          </Head>
           <GlobalStyle />
           <Component {...otherPageProps} />
         </SelectedLayout>

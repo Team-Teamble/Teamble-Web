@@ -4,6 +4,7 @@ import { TendencyTest } from "../../components/organism/tendency/TendencyTest";
 import { setLayout } from "../../utils/layout";
 import { withAuth } from "../../utils/ssr";
 import { tendencyTestData, useTendencyState } from "../../utils/tendency";
+import Head from "next/head";
 
 export default function TendencyCheck() {
   const router = useRouter();
@@ -18,16 +19,28 @@ export default function TendencyCheck() {
   }
 
   if (state === null) {
-    return <TendencyInit onStart={() => moveNextState(0)} />;
+    return (
+      <>
+        <Head>
+          <title>teamble 협업성향 테스트</title>
+        </Head>
+        <TendencyInit onStart={() => moveNextState(0)} />
+      </>
+    );
   }
 
   return (
-    <TendencyTest
-      title={state.title}
-      description={state.question.message}
-      picks={state.question.picks}
-      onChoose={(idx) => moveNextState(idx)}
-    />
+    <>
+      <Head>
+        <title>teamble 협업성향 테스트</title>
+      </Head>
+      <TendencyTest
+        title={state.title}
+        description={state.question.message}
+        picks={state.question.picks}
+        onChoose={(idx) => moveNextState(idx)}
+      />
+    </>
   );
 }
 

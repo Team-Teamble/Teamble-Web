@@ -116,7 +116,7 @@ export default function CreateProject(props: CreateProjectProps) {
     try {
       const data = await createProject.request(requestInfo);
       if (data) {
-        handlePicture(data.project.id);
+        await handlePicture(data.project.id);
       }
       router.push(`/project/${data?.project.id}`);
     } catch (e) {

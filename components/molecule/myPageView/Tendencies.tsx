@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { MyPageTag } from "../../atom/tag/MyPageTag";
 import { ProfileTestButton } from "../../atom/button/ProfileTestButton";
+import Link from "next/link";
 export interface TendenciesProps {
   className?: string;
   selectedTypeId?: number | null;
@@ -62,7 +63,9 @@ export function Tendencies(props: TendenciesProps) {
         <StyledTypeTestWrapper>
           <div>
             <span>아직 테스트를 하지 않으셨나요?</span>
-            <ProfileTestButton />
+            <Link href="/tendency" passHref>
+              <ProfileTestButton href="/tendency" />
+            </Link>
           </div>
         </StyledTypeTestWrapper>
       )}

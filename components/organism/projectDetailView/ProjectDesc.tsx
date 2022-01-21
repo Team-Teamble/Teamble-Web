@@ -11,18 +11,14 @@ export interface ProjectDescProp {
   className?: string;
   projectDetail: ProjectDetail;
   isOwner: boolean;
+  onComplete(): void;
   onClick(): void;
 }
 
 export function ProjectDesc(props: ProjectDescProp) {
-  const { className, projectDetail, isOwner, onClick } = props;
+  const { className, projectDetail, isOwner, onClick, onComplete } = props;
 
   const [isApply, setIsApply] = useState(false);
-
-  function onCloseProject() {
-    // 프로젝트 종료 클릭 시, 메인 화면으로 redirect
-    projectDetail.project.isClosed = true;
-  }
 
   function handleCheckApply() {
     setIsApply(() => true);
@@ -39,7 +35,7 @@ export function ProjectDesc(props: ProjectDescProp) {
         ))}
       </StyledCardWrapper>
       {isOwner ? (
-        <ConfirmButton onClick={onCloseProject}>프로젝트 종료</ConfirmButton>
+        <ConfirmButton onClick={onComplete}>프로젝트 종료</ConfirmButton>
       ) : isApply ? (
         <CustomConfirmBtn>팀 지원완료</CustomConfirmBtn>
       ) : (

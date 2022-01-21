@@ -154,7 +154,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
-  padding-bottom: 16.8rem;
+  padding-bottom: 13.1rem;
 
   & > h2 {
     font-size: 24px;

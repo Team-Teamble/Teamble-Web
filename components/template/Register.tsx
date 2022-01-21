@@ -14,7 +14,7 @@ export function RegisterTemplate(props: RegisterTemplateProps) {
 }
 
 const StyledWrapper = styled.div`
-  padding-top: 17.5em;
+  padding-top: 13.1em;
   display: flex;
   flex-direction: column;
   align-items: center;

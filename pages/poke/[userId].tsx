@@ -86,8 +86,6 @@ export const getServerSideProps = withAuth<PokePageProps>(async (context) => {
     apiService.poke.getPokeProject(userId),
   ]);
 
-  console.log(pokeUserInfo);
-
   return {
     props: {
       userId,

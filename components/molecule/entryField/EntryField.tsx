@@ -13,14 +13,14 @@ export function EntryField(props: EntryFieldProps) {
   return (
     <StyledWrapper className={className}>
       <Link href="/login" passHref>
-        <EntryButton className="login" href="/login">
-          로그인
-        </EntryButton>
+        <a>
+          <EntryButton className="login">로그인</EntryButton>
+        </a>
       </Link>
       <Link href="/register" passHref>
-        <EntryButton className="register" href="/register">
-          회원가입
-        </EntryButton>
+        <a>
+          <EntryButton className="register">회원가입</EntryButton>
+        </a>
       </Link>
     </StyledWrapper>
   );
@@ -29,6 +29,9 @@ export function EntryField(props: EntryFieldProps) {
 const StyledWrapper = styled.div`
   display: flex;
 
+  & > a {
+    text-decoration: none;
+  }
   & > a + a {
     margin-left: 1.6em;
   }

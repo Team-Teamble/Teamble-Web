@@ -13,7 +13,7 @@ interface ProjectCard {
   isClosed: boolean;
   photo: string;
   position: { id: number; name: string; num: string }[];
-  startDate: string;
+  endDate: string;
   title: string;
   user: { id: number; name: string; photo: string };
 }
@@ -28,7 +28,7 @@ export function ProjectCard(props: ProjectCardProps) {
   const page = router.pathname.slice(1);
 
   const ddayStr = (() => {
-    const diff = differenceInDays(parseISO(cardInfo.startDate), new Date());
+    const diff = differenceInDays(parseISO(cardInfo.endDate), new Date());
 
     if (diff === 0) {
       return "D-Day";

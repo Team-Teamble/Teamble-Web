@@ -4,17 +4,15 @@ import AlertIcon from "../../../assets/svg/ic_bell_off.svg";
 
 export interface AlertImageProps {
   className?: string;
-
-  onClick(): void;
 }
 
 export const AlertImage = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(
   props: AlertImageProps,
   ref,
 ) {
-  const { className, onClick } = props;
+  const { className } = props;
   return (
-    <StyledAlertWrapper ref={ref} className={className} onClick={onClick}>
+    <StyledAlertWrapper ref={ref} className={className}>
       <AlertIcon />
     </StyledAlertWrapper>
   );

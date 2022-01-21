@@ -7,18 +7,15 @@ export interface NavTabItemProps {
   children: ReactNode;
   isSelected?: boolean;
   href?: string;
-  onClick(): void;
 }
 
 export const NavTabItem = forwardRef<HTMLDivElement, NavTabItemProps>(function NavTabItem(props, ref) {
-  const { className = "first", children, isSelected, href, onClick } = props;
+  const { className = "first", children, isSelected, href } = props;
 
   return (
-    <StyledNavTabItem ref={ref} className={className} isSelected={isSelected} onClick={onClick}>
+    <StyledNavTabItem ref={ref} className={className} isSelected={isSelected}>
       <StyledItemContent isSelected={isSelected}>
-        <a href={href} onClick={onClick}>
-          {children}
-        </a>
+        <a href={href}>{children}</a>
       </StyledItemContent>
     </StyledNavTabItem>
   );

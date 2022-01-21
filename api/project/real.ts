@@ -14,8 +14,13 @@ export function createProjectAPIReal(session: Session): ProjectAPI {
       return res.data.data;
     },
     async addPictureToProject(projectId, data) {
-      const res = await request.post(`project/photo/${projectId}`, {
-        photo: data.photo,
+      const formData = new FormData();
+      formData.append("photo", data.photo);
+
+      const res = await request.post(`project/photo/${projectId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       return res.data.data;

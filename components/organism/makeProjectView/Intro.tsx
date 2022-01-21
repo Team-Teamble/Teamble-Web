@@ -3,13 +3,11 @@ import styled, { css } from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { ImgWrapper } from "../../atom/image/ImgWrapper";
 import Logo from "../../../assets/svg/ic_logo_placeholder.svg";
-import { useAPI } from "../../../utils/hook/api";
-import { useUser } from "../../../utils/hook/auth";
 
 export interface IntroProps {
   requestInfo: { title: string; intro: string };
-  fileInfo: { photo: FormData | null; url: string };
-  onUpload(name: { photo: FormData | null; url: string }): void;
+  fileInfo: { photo: File | null; url: string };
+  onUpload(name: { photo: File | null; url: string }): void;
   onChange(key: string, payload: number | number[] | number[][] | string): void;
 }
 
@@ -32,24 +30,15 @@ export function Intro(props: IntroProps) {
   function handleImg() {
     fileInput.current?.click();
   }
-  const api = useAPI((api) => api.project.addPictureToProject);
-  const user = useUser();
-  async function handlePhoto(file: FormData) {
-    if (user?.currentProjectId) {
-      await api.request(user.currentProjectId.toString(), { photo: file });
-    }
-  }
+
   function fileLoader(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
-    const formData = new FormData();
-
     if (!files || !files[0] || !files[0].type.match("image.*")) return;
-    formData.append("file", files[0]);
-    handlePhoto(formData);
+
     const reader = new FileReader();
     reader.onload = () => {
       onUpload({
-        photo: formData,
+        photo: files[0],
         url: reader.result as string,
       });
     };

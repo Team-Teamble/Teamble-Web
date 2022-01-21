@@ -3,16 +3,18 @@ import { BadRequestError } from "../api/util/error";
 import { RegisterForm } from "../components/organism/register/RegisterForm";
 import { RegisterTemplate } from "../components/template/Register";
 import { useAPI } from "../utils/hook/api";
+import { useRouter } from "next/router";
 import { useField } from "../utils/hook/field";
 
 export default function Register() {
   const field = useField();
   const register = useAPI((api) => api.auth.register);
   const [error, setError] = useState("");
-
+  const router = useRouter();
   async function handleRegister(name: string, email: string, password: string) {
     try {
       await register.request({ name: name, email: email, password: password });
+      router.push("/login");
     } catch (e) {
       if (e instanceof BadRequestError) {
         setError(e.message);
@@ -31,7 +33,6 @@ export default function Register() {
 
   return (
     <RegisterTemplate
-      header={<div></div>}
       contents={
         <RegisterForm
           disabled={true}

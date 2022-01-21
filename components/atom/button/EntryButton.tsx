@@ -5,18 +5,16 @@ import { teambleColors } from "../../../styles/color";
 export interface EntryButtonProps {
   className?: string;
   children: ReactNode;
-
-  onClick(): void;
 }
 
 export const EntryButton = forwardRef<HTMLAnchorElement, EntryButtonProps>(function EntryButton(
   props: EntryButtonProps,
   ref,
 ) {
-  const { className, children, onClick } = props;
+  const { className, children } = props;
 
   return (
-    <StyledButton ref={ref} className={className} onClick={onClick}>
+    <StyledButton ref={ref} className={className}>
       {children}
     </StyledButton>
   );

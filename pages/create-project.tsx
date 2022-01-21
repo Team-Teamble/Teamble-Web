@@ -58,7 +58,7 @@ export default function CreateProject(props: CreateProjectProps) {
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
   const [membersInfo, setMembersInfo] = useState([{ id: user.id, name: user.name, photo: user.profilePic }]);
   const [memberEmail, setMemberEmail] = useState<string>("");
-  const [fileInfo, setFileInfo] = useState<{ photo: FormData | null; url: string }>({
+  const [fileInfo, setFileInfo] = useState<{ photo: File | null; url: string }>({
     photo: null,
     url: "",
   });
@@ -73,13 +73,11 @@ export default function CreateProject(props: CreateProjectProps) {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
 
-  function onUpload(name: { photo: FormData | null; url: string }) {
+  function onUpload(name: { photo: File | null; url: string }) {
     setFileInfo(name);
   }
 
   function handleDatesChange(data: OnDatesChangeProps) {
-    console.log(data);
-
     if (!data.focusedInput) {
       setDatesInfo({ ...data, focusedInput: START_DATE });
       data.endDate && onUpdate("endDate", formatISO(data.endDate));
@@ -88,8 +86,7 @@ export default function CreateProject(props: CreateProjectProps) {
       data.startDate && onUpdate("startDate", formatISO(data.startDate));
     }
   }
-  console.log("info", requestInfo);
-  console.log("file", fileInfo);
+
   function handleOpen() {
     setIsModalOpened((state) => !state);
   }
@@ -119,7 +116,7 @@ export default function CreateProject(props: CreateProjectProps) {
     try {
       const data = await createProject.request(requestInfo);
       if (data) {
-        handlePicture(data.project.id.toString());
+        handlePicture(data.project.id);
       }
       router.push(`/project/${data?.project.id}`);
     } catch (e) {
@@ -130,10 +127,9 @@ export default function CreateProject(props: CreateProjectProps) {
       }
     }
   }
-  async function handlePicture(id: string) {
+  async function handlePicture(id: number) {
     if (fileInfo.photo) {
       try {
-        console.log("팀 만들기 이미지 업로드", fileInfo.photo);
         await addPicture.request(id, { photo: fileInfo.photo });
       } catch (e) {
         throw e;
@@ -147,9 +143,7 @@ export default function CreateProject(props: CreateProjectProps) {
   useEffect(() => {
     editorRef.current?.setMarkdown(".");
   }, []);
-  useLayoutEffect(() => {
-    document.body.scrollTop - 0;
-  }, []);
+
   return (
     <StyledSearchProject className={className}>
       <StyledLayout>
@@ -288,7 +282,6 @@ export const getServerSideProps = withAuth<CreateProjectProps>(async (context, a
       },
     };
   } else if (auth.user.currentProjectId) {
-    console.log(auth.user.currentProjectId);
     return {
       redirect: {
         destination: `/`,

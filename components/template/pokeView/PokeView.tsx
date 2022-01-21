@@ -16,11 +16,11 @@ export function PokeView(props: PokeViewProps) {
     <StyledWrapper>
       <StyledProjectWrapper>
         <h2>내 프로젝트에 지원한 사람</h2>
-        <StyledProjectPoke>{profileCards}</StyledProjectPoke>
+        <StyledProjectPoke>{projectCards}</StyledProjectPoke>
       </StyledProjectWrapper>
       <StyledUserWrapper>
         <h2>나를 찔러 본 사람</h2>
-        <StyledUserPoke>{projectCards}</StyledUserPoke>
+        <StyledUserPoke>{profileCards}</StyledUserPoke>
       </StyledUserWrapper>
     </StyledWrapper>
   );
@@ -52,11 +52,10 @@ const StyledProjectWrapper = styled.div`
 `;
 
 const StyledProjectPoke = styled.div`
-  display: flex;
-
-  & > div + div {
-    margin-left: 3.6rem;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledUserWrapper = styled.div`
@@ -76,9 +75,8 @@ const StyledUserWrapper = styled.div`
 `;
 
 const StyledUserPoke = styled.div`
-  display: flex;
-
-  & > div + div {
-    margin-left: 3.6rem;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
 `;

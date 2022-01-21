@@ -22,11 +22,9 @@ export function ProjectSummary(props: ProjectSummaryProps) {
         <StyledLeft>모집 포지션</StyledLeft>
         <StyledRight>
           {projectDetail.project.position.map((key) => (
-            <>
-              <div>
-                {key.name} {key.positionNum.name}명
-              </div>
-            </>
+            <div key={key.id}>
+              {key.name} {key.positionNum.name}명
+            </div>
           ))}
         </StyledRight>
       </StyledField>

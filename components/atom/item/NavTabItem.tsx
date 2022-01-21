@@ -9,7 +9,7 @@ export interface NavTabItemProps {
   href?: string;
 }
 
-export const NavTabItem = forwardRef<HTMLAnchorElement, NavTabItemProps>(function NavTabItem(props, ref) {
+export const NavTabItem = forwardRef<HTMLDivElement, NavTabItemProps>(function NavTabItem(props, ref) {
   const { className = "first", children, isSelected, href } = props;
 
   return (
@@ -19,13 +19,12 @@ export const NavTabItem = forwardRef<HTMLAnchorElement, NavTabItemProps>(functio
   );
 });
 
-const StyledNavTabItem = styled.a<NavTabItemProps>`
+const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 3.6rem;
-
   text-decoration: none;
+  height: 100%;
 `;
 
 const StyledItemContent = styled.div<{
@@ -37,7 +36,7 @@ const StyledItemContent = styled.div<{
         border-bottom: 3px solid ${teambleColors.black};
 
         text-decoration: none;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 500;
         color: ${teambleColors.black};
       `;
@@ -46,7 +45,7 @@ const StyledItemContent = styled.div<{
         border: 0;
 
         text-decoration: none;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 500;
         color: ${teambleColors.deepGray};
       `;

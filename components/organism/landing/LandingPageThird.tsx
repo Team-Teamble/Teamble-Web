@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import LandingPage3 from "../../../assets/svg/landing3.svg";
 
 export interface LandingPageProps {
   className?: string;
@@ -11,7 +10,7 @@ export function LandingPageThird(props: LandingPageProps) {
 
   return (
     <StyledWrapper className={className}>
-      <LandingPage3 />
+      <img src="/landing/landing1.svg" alt="landing3" />
     </StyledWrapper>
   );
 }

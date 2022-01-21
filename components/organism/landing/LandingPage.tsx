@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import LandingPage1 from "../../../assets/svg/landing1.svg";
 
 export interface LandingPageProps {
   className?: string;
@@ -11,7 +10,7 @@ export function LandingPage(props: LandingPageProps) {
 
   return (
     <StyledWrapper className={className}>
-      <LandingPage1 />
+      <img src="/landing/landing1.svg" alt="landing1" />
     </StyledWrapper>
   );
 }
@@ -21,7 +20,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  & > svg {
+  & > img {
     width: 100%;
     height: 100%;
     object-fit: contain;

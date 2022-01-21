@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { NavTabItem } from "../../atom/item/NavTabItem";
@@ -16,11 +16,12 @@ export interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   const { className, user, currentPath } = props;
-  const [isProfileOpened, setIsProfileOpened] = useState<boolean>(false);
 
-  function handleOpen() {
-    setIsProfileOpened((state) => !state);
-  }
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleDialogOpen = () => setIsModalOpen(true);
+
+  const handleDialogClose = useCallback(() => setIsModalOpen(false), []);
 
   return (
     <StyledHeader className={className}>
@@ -33,10 +34,14 @@ export function Header(props: HeaderProps) {
           </Link>
           {user !== null ? (
             <ProfileField
-              isOpened={isProfileOpened}
+              isOpened={isModalOpen}
               userName={user.name}
-              profileImage={<ProfileImage profileImgSrc={user.profilePic} profileSize="small" onClick={handleOpen} />}
-              profileDropDown={<ProfileDropDown profileImgSrc={user.profilePic} userInfo={user} />}
+              profileImage={
+                <ProfileImage profileImgSrc={user.profilePic} profileSize="small" onClick={handleDialogOpen} />
+              }
+              profileDropDown={
+                <ProfileDropDown profileImgSrc={user.profilePic} userInfo={user} onClose={handleDialogClose} />
+              }
             />
           ) : (
             <EntryField />

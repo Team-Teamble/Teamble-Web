@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
@@ -11,11 +11,32 @@ export interface ProfileDropDownProps {
   className?: string;
   profileImgSrc: string;
   userInfo: { id: number; name: string };
+  onClose?(): void;
 }
 export function ProfileDropDown(props: ProfileDropDownProps) {
-  const { className, profileImgSrc, userInfo } = props;
-  const ref = useRef(null);
+  const { className, profileImgSrc, userInfo, onClose } = props;
   const logOut = useLogout({ redirect: "/" });
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onOuterClick(e: MouseEvent) {
+      if (!open) {
+        return;
+      }
+      if (e.target instanceof Element) {
+        if (!ref.current?.contains(e.target)) {
+          console.log("contains?");
+          onClose && onClose();
+        }
+      }
+    }
+
+    document.addEventListener("click", onOuterClick);
+
+    return () => {
+      document.removeEventListener("click", onOuterClick);
+    };
+  }, [onClose]);
 
   return (
     <StyledWrapper className={className} ref={ref}>
@@ -25,7 +46,7 @@ export function ProfileDropDown(props: ProfileDropDownProps) {
           <span>{userInfo.name}</span>
           <div>
             <Link href={`/profile/${userInfo.id}`}>
-              <a>프로필 설정</a>
+              <a onClick={onClose}>프로필 설정</a>
             </Link>
             <StyledArrow />
           </div>
@@ -33,9 +54,15 @@ export function ProfileDropDown(props: ProfileDropDownProps) {
       </StyledProfileWrapper>
       <StyledMenuWrapper>
         <Link href={`/poke/${userInfo.id}`}>
-          <a>마이페이지</a>
+          <a onClick={onClose}>마이페이지</a>
         </Link>
-        <span onClick={() => logOut()}>로그아웃</span>
+        <span
+          onClick={() => {
+            logOut();
+            onClose && onClose();
+          }}>
+          로그아웃
+        </span>
       </StyledMenuWrapper>
     </StyledWrapper>
   );

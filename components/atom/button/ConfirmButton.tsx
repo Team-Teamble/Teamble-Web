@@ -25,11 +25,9 @@ export const StyledSearchBtn = styled.button`
   background-color: ${teambleColors.white};
   border: 1px solid ${teambleColors.deepPurple};
   border-radius: 2.85rem;
-
+  height: 54px;
   font-size: 1.8rem;
   color: ${teambleColors.deepPurple};
-
-  padding: 0.8rem 2.7rem;
 
   &:hover {
     background-color: ${teambleColors.deepPurple};

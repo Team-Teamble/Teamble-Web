@@ -33,7 +33,7 @@ const StyledEditBtn = styled.a`
   font-size: 16px;
   color: ${teambleColors.white};
   cursor: pointer;
-
+  text-decoration: none;
   & > svg {
     width: 24px;
     height: 24px;

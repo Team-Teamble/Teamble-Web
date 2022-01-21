@@ -29,7 +29,7 @@ export function Tendencies(props: TendenciesProps) {
   return (
     <StyledTendencies className={className}>
       <StyledTypeWrapper>
-        <StyledTitle>
+        <StyledTitle isEditing={isEditing}>
           <div>{user.name} 님의</div>
           <div>협업 성향은</div>
         </StyledTitle>
@@ -82,7 +82,9 @@ const StyledTypeWrapper = styled.div`
   width: 100%;
   height: 70px;
 `;
-const StyledTitle = styled.div`
+const StyledTitle = styled.div<{
+  isEditing: boolean;
+}>`
   min-width: 124px;
   font-weight: bold;
   font-size: 24px;
@@ -90,19 +92,22 @@ const StyledTitle = styled.div`
   margin-right: 9px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 
   div {
+    width: 100%;
     height: 35px;
     display: flex;
     align-items: flex-end;
+  }
+
+  div:last-child {
+    ${(props) => !props.isEditing && "justify-content: flex-end;"}
   }
 `;
 const StyledType = styled.div`
   font-weight: bold;
   font-size: 24px;
   letter-spacing: -0.02em;
-  margin-left: -10px;
   color: ${teambleColors.purple};
 `;
 const StyledUnderLine = styled.div`

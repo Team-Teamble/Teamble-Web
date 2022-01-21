@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { apiService } from "../../api";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import { PokeView } from "../../components/template/pokeView/PokeView";

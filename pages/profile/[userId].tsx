@@ -16,7 +16,7 @@ import { DocumentEditor } from "../../components/molecule/document/DocumentEdito
 import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
 import { useUser } from "../../utils/hook/auth";
 import { useAPI } from "../../utils/hook/api";
-import { NotFoundError } from "../../api/util/error";
+import { BadRequestError, NotFoundError } from "../../api/util/error";
 import { ConfirmButton, StyledSearchBtn } from "../../components/atom/button/ConfirmButton";
 interface ProfileByIdProps {
   userId: number;
@@ -25,7 +25,7 @@ interface ProfileByIdProps {
 }
 
 export default function ProfileById(props: ProfileByIdProps) {
-  const { userProfileInfo, userProfileMetadata: meta } = props;
+  const { userProfileInfo, userProfileMetadata: meta, userId } = props;
 
   const authedUser = useUser();
   const updateUser = useAPI((api) => api.userProfile.updateProfile);
@@ -73,7 +73,7 @@ export default function ProfileById(props: ProfileByIdProps) {
         }
         setIsEditing(false);
       } catch (e) {
-        if (e instanceof NotFoundError) {
+        if (e instanceof NotFoundError || e instanceof BadRequestError) {
           setError(e.message);
         } else {
           throw e;
@@ -90,7 +90,7 @@ export default function ProfileById(props: ProfileByIdProps) {
 
   return (
     <StyledProfileById>
-      <StyledBg />
+      <StyledBg src="/profile/ic_profile_default.png" alt="default_bg" />
       <StyledMain>
         {!isEditing ? (
           <MyPageMain
@@ -101,15 +101,17 @@ export default function ProfileById(props: ProfileByIdProps) {
             viewer={<DocumentViewer value={userInfo.description} />}
             submit={
               <div>
-                {isPoked ? (
-                  <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
-                    👍🏻 콕 찌르기 완료
-                  </CustomConfirmBtn>
-                ) : (
-                  <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
-                    👈🏻 콕 찌르기
-                  </CustomConfirmBtn>
-                )}
+                {authedUser && authedUser.id !== userId ? (
+                  isPoked ? (
+                    <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
+                      👍🏻 콕 찌르기 완료
+                    </CustomConfirmBtn>
+                  ) : (
+                    <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
+                      👈🏻 콕 찌르기
+                    </CustomConfirmBtn>
+                  )
+                ) : null}
                 <p>{error}</p>
               </div>
             }
@@ -133,10 +135,12 @@ export default function ProfileById(props: ProfileByIdProps) {
             fields={<FieldsEditing field={userInfo.field} metaField={meta.field} onChange={handleUpdate} />}
             editor={<DocumentEditor onChange={(val) => handleUpdate("description", val)} />}
             submit={
-              <div>
-                <button onClick={handleSubmit}>제출</button>
-                <p>{error}</p>
-              </div>
+              <StyledConfirmWrapper>
+                <div>
+                  <span>{error}</span>
+                  <ConfirmButton onClick={handleSubmit}>👍🏻 수정 완료</ConfirmButton>
+                </div>
+              </StyledConfirmWrapper>
             }
           />
         )}
@@ -144,7 +148,25 @@ export default function ProfileById(props: ProfileByIdProps) {
     </StyledProfileById>
   );
 }
+const StyledConfirmWrapper = styled.div`
+  margin-top: 6.3em;
+  display: flex;
+  justify-content: flex-end;
 
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  & > div > span {
+    color: ${teambleColors.red};
+    margin-bottom: 1.3em;
+  }
+  button {
+    font-size: 18px;
+    padding: 0 2em;
+  }
+`;
 export const getServerSideProps = withAuth<ProfileByIdProps>(async (context) => {
   const userIdRaw = context.query.userId;
   const userId = tryGetNumber(userIdRaw);
@@ -237,10 +259,9 @@ const StyledProfileById = styled.div`
   width: 100%;
   flex-grow: 1;
 `;
-const StyledBg = styled.div`
+const StyledBg = styled.img`
   width: 100%;
   height: 36.4em;
-  background-color: ${teambleColors.brightPurple};
 `;
 const StyledMain = styled.main`
   width: 100%;

@@ -26,9 +26,7 @@ export function Header(props: HeaderProps) {
         </StyledTitle>
         <StyledBtns>
           <Link href="/tendency" passHref>
-            <a>
-              <ProfileTestButton />
-            </a>
+            <ProfileTestButton href="/tendency" />
           </Link>
         </StyledBtns>
       </StyledTop>

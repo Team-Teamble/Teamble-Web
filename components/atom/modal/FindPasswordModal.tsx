@@ -14,7 +14,7 @@ export function FindPasswordModal(props: FindPasswordModalProps) {
     <div>
       {open ? (
         <StyledFindPasswordModal>
-          <CloseIcon onClick={onClose} />
+          <StyledClose onClick={onClose} />
           <StyledDesc>
             <div>아래 이메일로 관리자에게 문의 바랍니다.</div>
             <div>napkin-plz@gmail.com</div>
@@ -68,4 +68,8 @@ const StyledDesc = styled.div`
     font-size: 16px;
     color: ${teambleColors.darkGray};
   }
+`;
+const StyledClose = styled(CloseIcon)`
+  width: 1.8em;
+  height: 1.8em;
 `;

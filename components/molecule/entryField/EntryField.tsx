@@ -13,10 +13,14 @@ export function EntryField(props: EntryFieldProps) {
   return (
     <StyledWrapper className={className}>
       <Link href="/login" passHref>
-        <EntryButton className="login">로그인</EntryButton>
+        <EntryButton className="login" href="/login">
+          로그인
+        </EntryButton>
       </Link>
       <Link href="/register" passHref>
-        <EntryButton className="register">회원가입</EntryButton>
+        <EntryButton className="register" href="/register">
+          회원가입
+        </EntryButton>
       </Link>
     </StyledWrapper>
   );

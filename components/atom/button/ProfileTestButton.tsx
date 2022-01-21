@@ -1,21 +1,25 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import Arrow from "../../../assets/svg/ic_expand_right.svg";
 import { teambleColors } from "../../../styles/color";
 
 export interface ProfileTestBtnProps {
   className?: string;
+  href: string;
 }
 
-export function ProfileTestButton(props: ProfileTestBtnProps) {
-  const { className } = props;
+export const ProfileTestButton = forwardRef<HTMLAnchorElement, ProfileTestBtnProps>(function ProfileTestButton(
+  props,
+  ref,
+) {
+  const { className, href } = props;
   return (
-    <StyledEditBtn className={className}>
+    <StyledEditBtn className={className} ref={ref} href={href}>
       <Arrow />
       <span>협업 성향 테스트 하러가기</span>
     </StyledEditBtn>
   );
-}
+});
 
 const StyledEditBtn = styled.a`
   display: flex;

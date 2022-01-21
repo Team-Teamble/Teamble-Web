@@ -12,10 +12,6 @@ export const GlobalStyle = createGlobalStyle`
         
     }
 
-    body::-webkit-scrollbar {
-        display: none; 
-    }
-
 
     * {
         transition: ${createTransitionQuery()};

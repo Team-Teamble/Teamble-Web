@@ -153,7 +153,6 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
   flex-grow: 1;
   padding-bottom: 16.8rem;
 

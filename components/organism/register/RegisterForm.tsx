@@ -136,10 +136,10 @@ export function RegisterForm(props: RegisterFormProps) {
             </StyledSelectWrapper>
           </StyledInnerWrapper>
         </StyledCheckWrapper>
+        {<ErrorMessage>{error}</ErrorMessage>}
         <BasicButton variant="filled" disabled={!(isValid && canPass)} onClick={onClickRegister}>
           회원가입
         </BasicButton>
-        <ErrorMessage>{error}</ErrorMessage>
         <div>
           <span>이미 계정이 있으신가요?</span>
           <Link href="/login"> 로그인</Link>
@@ -213,7 +213,7 @@ const StyledCheckWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin-top: 3.8rem;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1rem;
 
   font-size: 16px;
   font-weight: 400;
@@ -240,6 +240,6 @@ const StyledInnerWrapper = styled.div`
 const ErrorMessage = styled.div`
   color: ${teambleColors.red};
   font-size: 1rem;
-
-  margin-bottom: 2rem;
+  height: 1.25em;
+  margin-bottom: 1rem;
 `;

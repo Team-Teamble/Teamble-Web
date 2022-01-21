@@ -9,7 +9,7 @@ export interface NavTabItemProps {
   href?: string;
 }
 
-export const NavTabItem = forwardRef<HTMLAnchorElement, NavTabItemProps>(function NavTabItem(props, ref) {
+export const NavTabItem = forwardRef<HTMLDivElement, NavTabItemProps>(function NavTabItem(props, ref) {
   const { className = "first", children, isSelected, href } = props;
 
   return (
@@ -19,11 +19,12 @@ export const NavTabItem = forwardRef<HTMLAnchorElement, NavTabItemProps>(functio
   );
 });
 
-const StyledNavTabItem = styled.a<NavTabItemProps>`
+const StyledNavTabItem = styled.div<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 3.6em;
+  text-decoration: none;
+  height: 100%;
 `;
 
 const StyledItemContent = styled.div<{
@@ -34,23 +35,19 @@ const StyledItemContent = styled.div<{
       return css`
         border-bottom: 3px solid ${teambleColors.black};
 
-        & > a {
-          text-decoration: none;
-          font-size: 18px;
-          font-weight: 500;
-          color: ${teambleColors.black};
-        }
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: ${teambleColors.black};
       `;
     } else {
       return css`
         border: 0;
 
-        & > a {
-          text-decoration: none;
-          font-size: 18px;
-          font-weight: 500;
-          color: ${teambleColors.deepGray};
-        }
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: ${teambleColors.deepGray};
       `;
     }
   }}
@@ -58,8 +55,6 @@ const StyledItemContent = styled.div<{
   &:hover {
     border-bottom: 3px solid ${teambleColors.black};
 
-    & > a {
-      color: ${teambleColors.black};
-    }
+    color: ${teambleColors.black};
   }
 `;

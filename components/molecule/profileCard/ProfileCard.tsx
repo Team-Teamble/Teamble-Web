@@ -39,7 +39,7 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(function
           <StyledIntrestTag key={i}>{name}</StyledIntrestTag>
         ))}
       </StyledInterests>
-      <Link href={`/profile/${cardInfo.id}`}>{!isMyPage ? <a href="">프로필 보기</a> : null}</Link>
+      <Link href={`/profile/${cardInfo.id}`}>{!isMyPage ? <button>프로필 보기</button> : null}</Link>
     </StyledWrapper>
   );
 });
@@ -69,7 +69,10 @@ const StyledWrapper = styled.div`
     right: 3.3em;
   }
 
-  & > a {
+  & > button {
+    cursor: pointer;
+    border: 0;
+    outline: none;
     margin-top: 2em;
     text-decoration: none;
     border-radius: 0.36em;

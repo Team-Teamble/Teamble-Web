@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { BadRequestError } from "../api/util/error";
 import { LogInForm } from "../components/organism/loginForm/LogInForm";
 import { LogInTemplate } from "../components/template/login/LogInTemplate";
 import { useLogin } from "../utils/hook/auth";
@@ -10,9 +12,18 @@ export default function Login() {
   const field = useField();
   const login = useLogin({ redirect: "/profile" });
 
+  const [errorMsg, setErrorMsg] = useState<string>("");
   async function handleLogin(email: string, password: string) {
-    await login(email, password);
-    router.push("/");
+    try {
+      await login(email, password);
+      router.push("/");
+    } catch (e) {
+      if (e instanceof BadRequestError) {
+        setErrorMsg(e.message);
+      } else {
+        throw e;
+      }
+    }
   }
 
   return (
@@ -23,6 +34,7 @@ export default function Login() {
           field={field.value}
           onLogin={handleLogin}
           onChange={(name, value) => field.updateField(name, value)}
+          error={errorMsg}
         />
       }
     />

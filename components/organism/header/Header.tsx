@@ -45,21 +45,30 @@ export function Header(props: HeaderProps) {
 
         <StyledNav>
           <Link href="/" passHref>
-            <NavTabItem isSelected={currentPath === "/"}>팀블 소개</NavTabItem>
+            <a>
+              <NavTabItem isSelected={currentPath === "/"}>팀블 소개</NavTabItem>
+            </a>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem isSelected={currentPath === "/project"}>프로젝트 찾기</NavTabItem>
+            <a>
+              <NavTabItem isSelected={currentPath === "/project"}>프로젝트 찾기</NavTabItem>
+            </a>
           </Link>
           <Link href="/profile" passHref>
-            <NavTabItem isSelected={currentPath?.startsWith("/profile")}>팀원 찾기</NavTabItem>
+            <a>
+              <NavTabItem isSelected={currentPath?.startsWith("/profile")}>팀원 찾기</NavTabItem>
+            </a>
           </Link>
           <Link
             href={user && user.currentProjectId ? `/project/${user.currentProjectId}` : "/create-project"}
             passHref
             scroll={true}>
-            <NavTabItem isSelected={currentPath?.startsWith("/create-project") || currentPath?.startsWith("/project/")}>
-              {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
-            </NavTabItem>
+            <a>
+              <NavTabItem
+                isSelected={currentPath?.startsWith("/create-project") || currentPath?.startsWith("/project/")}>
+                {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
+              </NavTabItem>
+            </a>
           </Link>
         </StyledNav>
       </StyledWrapper>
@@ -91,7 +100,11 @@ const StyledNav = styled.nav`
   height: 3.6em;
   display: flex;
 
-  & > div + div {
+  & > a {
+    text-decoration: none;
+  }
+
+  & > a + a {
     margin-left: 6.5em;
   }
 `;

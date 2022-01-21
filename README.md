@@ -61,6 +61,11 @@
 
 - 팀블에서 제공하는 협업 성향 테스트는 DISC 성격 유형 검사 기반으로 제작되었으며, 3단계 해당하는 테스트를 거치게 되면 8가지 종류의 결과값 중, 유저에게 해당하는 결과를 보여줍니다.
 
+![localhost_3000_project (5)](https://user-images.githubusercontent.com/73516688/150539986-2f6269f5-a09f-48e9-8b52-d8c16c1ba300.png)
+![localhost_3000_project (6)](https://user-images.githubusercontent.com/73516688/150539999-d0694b31-60df-4d02-9cbf-0d33215db213.png)
+![localhost_3000_project (7)](https://user-images.githubusercontent.com/73516688/150540003-e69c3991-a48f-43b1-bd03-3425ad70dfe6.png)
+
+
 ### 3. 프로젝트 팀 찾기
 
 - 기존의 줄글로만 작성되어 필터 검색이나, 정확한 정보를 확인하기 어려웠던 문제를 해결하고자, 프로젝트 예상 기간, 모집 포지션별 인원, 목표, 협업 선호 성향과 더불어 프로젝트 분야를 선택하게 합니다.

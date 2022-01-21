@@ -12,10 +12,11 @@ export interface LogInFormProps {
   field: FieldToLogin;
   onChange: LoginFieldChanger;
   onLogin?(email: string, password: string): void;
+  error: string;
 }
 
 export function LogInForm(props: LogInFormProps) {
-  const { className, field, onLogin, onChange } = props;
+  const { className, field, onLogin, onChange, error } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDialogOpen = () => setIsModalOpen(true);
@@ -54,6 +55,7 @@ export function LogInForm(props: LogInFormProps) {
         <button onClick={handleDialogOpen}>비밀번호 찾기</button>
       </div>
       <FindPasswordModal open={isModalOpen} onClose={handleDialogClose}></FindPasswordModal>
+      <ErrorMessage>{error}</ErrorMessage>
       <BasicButton variant="filled" disabled={false} onClick={onProcessLogin}>
         로그인
       </BasicButton>
@@ -91,10 +93,17 @@ const StyledWrapper = styled.div`
       font-size: 16px;
       font-weight: 500;
       color: ${teambleColors.darkGray};
-      margin: 1.5em 0 3.9em auto;
+      margin: 1.5em 0 2.5em auto;
     }
   }
   & > button {
     margin-bottom: 1em;
   }
+`;
+const ErrorMessage = styled.div`
+  color: ${teambleColors.red};
+  font-size: 1rem;
+  height: 1.25em;
+  margin-bottom: 1rem;
+  align-self: flex-start;
 `;

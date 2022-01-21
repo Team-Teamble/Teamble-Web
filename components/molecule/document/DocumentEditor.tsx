@@ -51,6 +51,9 @@ export const DocumentEditor = forwardRef(function DocumentEditor(props: Document
 
   function handleLoad(e: Editor) {
     editorRef.current.editor = e;
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   return (

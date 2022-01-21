@@ -32,7 +32,6 @@ export function LogInForm(props: LogInFormProps) {
 
   function onProcessLogin(e: FormEvent) {
     e.preventDefault();
-    console.log("gogo");
 
     if (onLogin) {
       onLogin(field.email, field.password);

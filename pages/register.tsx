@@ -11,6 +11,7 @@ export default function Register() {
   const register = useAPI((api) => api.auth.register);
   const [error, setError] = useState("");
   const router = useRouter();
+
   async function handleRegister(name: string, email: string, password: string) {
     try {
       await register.request({ name: name, email: email, password: password });

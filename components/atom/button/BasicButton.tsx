@@ -5,14 +5,15 @@ import { teambleColors } from "../../../styles/color";
 
 export interface BasicButtonProps {
   className?: string;
+  type?: "button" | "submit";
   children: ReactNode;
   variant?: "filled" | "outlined";
   disabled?: boolean;
-  onClick(): void;
+  onClick?(): void;
 }
 
 export function BasicButton(props: BasicButtonProps) {
-  const { className, children, variant = "filled", disabled = false, onClick } = props;
+  const { className, children, type = "button", variant = "filled", disabled = false, onClick } = props;
 
   let backgroundColor = teambleColors.darkPurple;
   let foregroundColor = teambleColors.white;
@@ -32,6 +33,7 @@ export function BasicButton(props: BasicButtonProps) {
 
   return (
     <StyledButton
+      type={type}
       className={className}
       backgroundColor={backgroundColor}
       backgroundColorHover={backgroundColorHover}

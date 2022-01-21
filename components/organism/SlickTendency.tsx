@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { useMemo } from "react";
 import styled from "styled-components";
 import Slider, { Settings } from "react-slick";
+import { Characters } from "../../assets/character";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,7 +25,7 @@ interface sliderProps {
   cssEase?: string;
 }
 
-export function Slick({ children, className, autoplay = true, speed = 300, loop = true, cssEase }: sliderProps) {
+export function SlickTendency({ className, autoplay = true, speed = 300, loop = true, cssEase }: sliderProps) {
   const settings = useMemo<Settings>(
     () => ({
       dots: false,
@@ -40,7 +40,12 @@ export function Slick({ children, className, autoplay = true, speed = 300, loop 
   );
   return (
     <SlideWrapper className={className}>
-      <Slider {...settings}>{children}</Slider>
+      <Slider {...settings}>
+        <div>ldfkaljl;d</div>
+        <div>ldfkaljl;d</div>
+
+        <div>ldfkaljl;d</div>
+      </Slider>
     </SlideWrapper>
   );
 }

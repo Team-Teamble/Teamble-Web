@@ -133,7 +133,6 @@ const StyledIntrestTag = styled.div`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 72px;
   height: 31px;
   border: 1px solid ${teambleColors.deepPurple};
   border-radius: 1.83em;
@@ -141,4 +140,5 @@ const StyledIntrestTag = styled.div`
   font-weight: 500;
   color: ${teambleColors.black};
   box-sizing: border-box;
+  padding: 0.3rem 0.7rem;
 `;

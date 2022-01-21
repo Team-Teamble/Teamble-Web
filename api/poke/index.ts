@@ -1,6 +1,6 @@
 export interface PokeAPI {
-  pokeUser(): Promise<PokeUser>;
-  pokeProject(): Promise<PokeProject>;
+  pokeUser(data: PokingUser): Promise<PokeUser>;
+  pokeProject(data: PokingProject): Promise<PokeProject>;
   getPokeUser(userId: number): Promise<GetPokeUser>;
   getPokeProject(userId: number): Promise<GetPokeProject>;
   deletePokeUser(data: UserPokeDelete): Promise<DeletePokeUser>;
@@ -162,4 +162,14 @@ export interface UserPokeDelete {
 export interface ProjectPokeDelete {
   projectId: string;
   pokingUserId: string;
+}
+
+export interface PokingUser {
+  userPokingId: number; // 콕 찌르는 유저 id
+  userPokedId: number; // 콕 찔린 유저 id
+}
+
+export interface PokingProject {
+  projectId: number;
+  userId: number;
 }

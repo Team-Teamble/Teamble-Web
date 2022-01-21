@@ -22,9 +22,9 @@ export function Footer(props: FooterProps) {
           <StyledSplit />
           <a href="">협업 성향 테스트</a>
           <StyledSplit />
-          <a href="">개인정보취급방침</a>
+          <a href="">개인정보취급방침</a>
           <StyledSplit />
-          <a href="">이용약관</a>
+          <a href="">이용약관</a>
         </StyledNav>
       </StyledFooterTop>
       <StyledFooterBottom>
@@ -37,7 +37,7 @@ export function Footer(props: FooterProps) {
             <span className="part">PM</span> <span>심유나, 손예현</span>
             <span className="part">DESIGNER</span> <span>노유정, 원종화</span>
             <span className="part">WEB DEVELOPER</span> <span>박건영, 김연이, 정세연</span>
-            <span className="part">SERVER DEVELOPER</span> <span>박현지, 문규원</span>
+            <span className="part">SERVER DEVELOPER</span> <span>박현지, 문규원</span>
           </div>
         </StyledBottomLeft>
         <StyledBottomRight>

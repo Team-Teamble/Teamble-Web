@@ -23,7 +23,9 @@ const StyledNavTabItem = styled.a<NavTabItemProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  height: 3.6em;
+  height: 3.6rem;
+
+  text-decoration: none;
 `;
 
 const StyledItemContent = styled.div<{
@@ -34,23 +36,19 @@ const StyledItemContent = styled.div<{
       return css`
         border-bottom: 3px solid ${teambleColors.black};
 
-        & > a {
-          text-decoration: none;
-          font-size: 18px;
-          font-weight: 500;
-          color: ${teambleColors.black};
-        }
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: ${teambleColors.black};
       `;
     } else {
       return css`
         border: 0;
 
-        & > a {
-          text-decoration: none;
-          font-size: 18px;
-          font-weight: 500;
-          color: ${teambleColors.deepGray};
-        }
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: ${teambleColors.deepGray};
       `;
     }
   }}
@@ -58,8 +56,6 @@ const StyledItemContent = styled.div<{
   &:hover {
     border-bottom: 3px solid ${teambleColors.black};
 
-    & > a {
-      color: ${teambleColors.black};
-    }
+    color: ${teambleColors.black};
   }
 `;

@@ -1,9 +1,11 @@
+import { useRouter } from "next/router";
 import { apiService } from "../../api";
 import { ProjectDesc } from "../../components/organism/projectDetailView/ProjectDesc";
 import { ProjectHeader } from "../../components/organism/projectDetailView/ProjectHeader";
 import { ProjectMember } from "../../components/organism/projectDetailView/ProjectMember";
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
+import { useAPI } from "../../utils/hook/api";
 import { useUser } from "../../utils/hook/auth";
 import { withAuth } from "../../utils/ssr";
 
@@ -13,21 +15,45 @@ interface ViewProjectProps {
 }
 
 export default function ViewProject(props: ViewProjectProps) {
-  const { projectDetail } = props;
-  const loginUser = useUser();
+  const { projectDetail, projectId } = props;
+  const authedUser = useUser();
+  const router = useRouter();
 
-  const checkProjectOwner = loginUser?.id === projectDetail.project.user.id;
+  const checkProjectOwner = authedUser?.id === projectDetail.project.user.id;
+
+  const pokeProject = useAPI((api) => api.poke.pokeProject);
+  const completeProject = useAPI((api) => api.project.markCompleteProject);
 
   // 팀 지원하기 클릭 시, 동작 구현
-  function onApply() {
-    return -1;
+  async function handleApply(projectId: number, userId: number) {
+    try {
+      await pokeProject.request({ projectId: projectId, userId: userId });
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async function handleCompleteProject(projectId: number) {
+    router.push(`/project`);
+    try {
+      await completeProject.request(projectId);
+    } catch (e) {
+      throw e;
+    }
   }
 
   return (
     <ProjectDetailTemplate
       header={<ProjectHeader projectDetail={projectDetail} />}
       summary={<ProjectSummary projectDetail={projectDetail} />}
-      desc={<ProjectDesc projectDetail={projectDetail} isOwner={checkProjectOwner} onClick={onApply} />}
+      desc={
+        <ProjectDesc
+          projectDetail={projectDetail}
+          isOwner={checkProjectOwner}
+          onClick={() => handleApply(projectId, authedUser?.id ?? 0)}
+          onComplete={() => handleCompleteProject(projectId)}
+        />
+      }
       member={<ProjectMember projectDetail={projectDetail} />}></ProjectDetailTemplate>
   );
 }

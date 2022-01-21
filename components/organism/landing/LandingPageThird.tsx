@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import landingPage3 from "../../../assets/svg/landing3.png";
+import LandingPage3 from "../../../assets/svg/landing3.svg";
 
 export interface LandingPageProps {
   className?: string;
@@ -9,14 +9,20 @@ export interface LandingPageProps {
 export function LandingPageThird(props: LandingPageProps) {
   const { className } = props;
 
-  return <StyledWrapper className={className}></StyledWrapper>;
+  return (
+    <StyledWrapper className={className}>
+      <LandingPage3 />
+    </StyledWrapper>
+  );
 }
-
 const StyledWrapper = styled.div`
-  background: url(${landingPage3.src});
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;

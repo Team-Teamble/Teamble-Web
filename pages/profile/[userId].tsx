@@ -17,6 +17,7 @@ import { ProfileEditButton } from "../../components/atom/button/ProfileEditButto
 import { useUser } from "../../utils/hook/auth";
 import { useAPI } from "../../utils/hook/api";
 import { NotFoundError } from "../../api/util/error";
+import { ConfirmButton, StyledSearchBtn } from "../../components/atom/button/ConfirmButton";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -33,6 +34,9 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
   const [error, setError] = useState("");
+  const [isPoked, setIsPoked] = useState(false);
+
+  const pokeUser = useAPI((api) => api.poke.pokeUser);
 
   function onEdit() {
     setIsEditing((state) => !state);
@@ -40,6 +44,15 @@ export default function ProfileById(props: ProfileByIdProps) {
   const handleUpdate: HandleUpdate = (category, payload) => {
     setUserInfo({ ...userInfo, [category]: payload });
   };
+
+  async function handlePokingUser(userPokingId: number, userPokedId: number) {
+    setIsPoked(() => true);
+    try {
+      await pokeUser.request({ userPokingId: userPokingId, userPokedId: userPokedId });
+    } catch (e) {
+      throw e;
+    }
+  }
 
   async function handleSubmit() {
     if (authedUser && userInfo.type) {
@@ -86,6 +99,20 @@ export default function ProfileById(props: ProfileByIdProps) {
             tendencies={<Tendencies user={userInfo} metaType={meta.type} isEditing={false} />}
             fields={<Fields field={userInfo.field} />}
             viewer={<DocumentViewer value={userInfo.description} />}
+            submit={
+              <div>
+                {isPoked ? (
+                  <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
+                    👍🏻 콕 찌르기 완료
+                  </CustomConfirmBtn>
+                ) : (
+                  <CustomConfirmBtn onClick={() => handlePokingUser(authedUser?.id ?? 0, userInfo.id)}>
+                    👈🏻 콕 찌르기
+                  </CustomConfirmBtn>
+                )}
+                <p>{error}</p>
+              </div>
+            }
           />
         ) : (
           <MyPageMainEditing
@@ -221,4 +248,10 @@ const StyledMain = styled.main`
   padding-bottom: 13.7em;
   display: flex;
   justify-content: center;
+`;
+
+const CustomConfirmBtn = styled(StyledSearchBtn)`
+  margin-top: 1rem;
+  font-size: 15px;
+  padding: 0.7rem 2rem;
 `;

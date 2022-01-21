@@ -11,21 +11,18 @@ export interface ProjectDescProp {
   className?: string;
   projectDetail: ProjectDetail;
   isOwner: boolean;
+  onComplete(): void;
   onClick(): void;
 }
 
 export function ProjectDesc(props: ProjectDescProp) {
-  const { className, projectDetail, isOwner, onClick } = props;
+  const { className, projectDetail, isOwner, onClick, onComplete } = props;
 
   const [isApply, setIsApply] = useState(false);
 
-  function onCloseProject() {
-    // 프로젝트 종료 클릭 시, 메인 화면으로 redirect
-    projectDetail.project.isClosed = true;
-  }
-
   function handleCheckApply() {
     setIsApply(() => true);
+    onClick();
   }
 
   return (
@@ -38,7 +35,7 @@ export function ProjectDesc(props: ProjectDescProp) {
         ))}
       </StyledCardWrapper>
       {isOwner ? (
-        <ConfirmButton onClick={onCloseProject}>프로젝트 종료</ConfirmButton>
+        <ConfirmButton onClick={onComplete}>프로젝트 종료</ConfirmButton>
       ) : isApply ? (
         <CustomConfirmBtn>팀 지원완료</CustomConfirmBtn>
       ) : (
@@ -59,14 +56,6 @@ const StyledWrapper = styled.div`
     margin-bottom: 4.25rem;
   }
 
-  & > textarea {
-    resize: none;
-    width: 62rem;
-    height: 39.5rem;
-    border: 3px solid ${teambleColors.gray};
-    font-size: 20px;
-  }
-
   & > div {
     width: 62rem;
     display: flex;
@@ -77,7 +66,12 @@ const StyledWrapper = styled.div`
     margin-top: 5.8rem;
   }
 `;
-const StyledCardWrapper = styled.div``;
+const StyledCardWrapper = styled.div`
+  display: flex;
+  & > div + div {
+    margin-left: 1rem;
+  }
+`;
 const CustomConfirmBtn = styled(StyledSearchBtn)`
   background-color: ${teambleColors.deepPurple};
   border: 0;

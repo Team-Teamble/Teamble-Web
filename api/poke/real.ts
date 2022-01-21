@@ -3,12 +3,12 @@ import { Session } from "../util/axios";
 
 export function createPokeAPI(session: Session): PokeAPI {
   return {
-    async pokeUser() {
-      const res = await session.request.post("user/poke-user");
+    async pokeUser(data) {
+      const res = await session.request.post("user/poke-user", data);
       return res.data.data;
     },
-    async pokeProject() {
-      const res = await session.request.post("user/poke-project");
+    async pokeProject(data) {
+      const res = await session.request.post("user/poke-project", data);
       return res.data.data;
     },
     async getPokeUser(userId) {

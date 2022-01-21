@@ -69,41 +69,41 @@ export const ActionButton = styled.a<{ filled?: boolean }>`
   text-decoration: none;
 
   padding: 0.3rem 2.5rem;
-  height: 2.7rem;
+  height: 2.3rem;
 
   border-radius: 2.85rem;
 
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 
   ${(props) => (props.filled ? filledColorSet : outlinedColorSet)}
 `;
 
 const filledColorSet = css`
   background-color: ${teambleColors.darkPurple};
-  border: 1px solid ${teambleColors.darkPurple};
+  border: 2px solid ${teambleColors.darkPurple};
   color: ${teambleColors.white};
 
   &:hover {
     background-color: ${teambleColors.purple};
-    border: 1px solid ${teambleColors.purple};
+    border: 2px solid ${teambleColors.purple};
     color: ${teambleColors.white};
   }
 `;
 
 const outlinedColorSet = css`
   background-color: ${teambleColors.white};
-  border: 1px solid ${teambleColors.deepPurple};
+  border: 2px solid ${teambleColors.deepPurple};
   color: ${teambleColors.deepPurple};
 
   &:hover {
     background-color: ${teambleColors.deepPurple};
-    border: 1px solid ${teambleColors.deepPurple};
+    border: 2px solid ${teambleColors.deepPurple};
     color: ${teambleColors.white};
   }
 `;
 
 export const Information = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: ${teambleColors.darkGray};
 `;
 

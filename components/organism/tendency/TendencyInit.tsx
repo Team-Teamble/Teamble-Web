@@ -17,9 +17,9 @@ export function TendencyInit(props: TendencyInitProps) {
         </a>
       </Link>
       <Description>
-        사이드프로젝트 팀에서
+        나는 협업할 때 어떤 유형일까?
         <br />
-        나의 협업성향은 무엇일까?
+        나의 협업 유형 컬러를 알아보자!
       </Description>
       <StartButton onClick={() => onStart && onStart()} variant="outlined">
         팀블유형 테스트 시작하기

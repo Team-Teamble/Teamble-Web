@@ -90,8 +90,14 @@ const StyledWrapper = styled.div<{
   height: ${(props) => (props.page === "" ? "31em" : "47em")};
   border: 1px solid ${teambleColors.gray};
   box-sizing: border-box;
-  box-shadow: 4px 4px 7px 0px #0000000a;
   margin-bottom: 7.5em;
+
+  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.5s;
+
+  &:hover {
+    box-shadow: 8px 6px 7px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const StyledDay = styled.div<{

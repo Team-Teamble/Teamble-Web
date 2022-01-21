@@ -33,7 +33,10 @@ export default function Login() {
         <LogInForm
           field={field.value}
           onLogin={handleLogin}
-          onChange={(name, value) => field.updateField(name, value)}
+          onChange={(name, value) => {
+            field.updateField(name, value);
+            setErrorMsg("");
+          }}
           error={errorMsg}
         />
       }

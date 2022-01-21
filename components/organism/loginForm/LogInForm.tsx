@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import { FieldToLogin, LoginFieldChanger } from "../../../utils/hook/field";
@@ -30,14 +30,17 @@ export function LogInForm(props: LogInFormProps) {
     };
   }
 
-  function onProcessLogin() {
+  function onProcessLogin(e: FormEvent) {
+    e.preventDefault();
+    console.log("gogo");
+
     if (onLogin) {
       onLogin(field.email, field.password);
     }
   }
 
   return (
-    <StyledWrapper className={className}>
+    <StyledWrapper className={className} onSubmit={onProcessLogin}>
       <h2>로그인</h2>
       <div>
         <Input
@@ -52,11 +55,13 @@ export function LogInForm(props: LogInFormProps) {
           value={field.password}
           onChange={onChangeField("password")}
         />
-        <button onClick={handleDialogOpen}>비밀번호 찾기</button>
+        <button onClick={handleDialogOpen} type="button">
+          비밀번호 찾기
+        </button>
       </div>
       <FindPasswordModal open={isModalOpen} onClose={handleDialogClose}></FindPasswordModal>
       <ErrorMessage>{error}</ErrorMessage>
-      <BasicButton variant="filled" disabled={false} onClick={onProcessLogin}>
+      <BasicButton type="submit" variant="filled" disabled={false}>
         로그인
       </BasicButton>
       <BasicLink href="/register" variant="outlined">
@@ -66,7 +71,7 @@ export function LogInForm(props: LogInFormProps) {
   );
 }
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,6 +99,11 @@ const StyledWrapper = styled.div`
       font-weight: 500;
       color: ${teambleColors.darkGray};
       margin: 1.5em 0 2.5em auto;
+      cursor: pointer;
+
+      &:hover {
+        color: ${teambleColors.black};
+      }
     }
   }
   & > button {

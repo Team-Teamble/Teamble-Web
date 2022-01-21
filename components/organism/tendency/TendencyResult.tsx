@@ -46,6 +46,7 @@ const StyledTendencyResult = styled.div`
 
 const OutSVG = styled.img`
   width: 100%;
+  min-height: 100vh;
 `;
 
 const ResultActionBox = styled.div`

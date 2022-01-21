@@ -5,16 +5,18 @@ import { teambleColors } from "../../../styles/color";
 
 export interface ProfileTestBtnProps {
   className?: string;
-  href: string;
+  href?: string;
+  onClick?(): void;
 }
 
 export const ProfileTestButton = forwardRef<HTMLAnchorElement, ProfileTestBtnProps>(function ProfileTestButton(
   props,
   ref,
 ) {
-  const { className, href } = props;
+  const { className, href = "", onClick } = props;
+
   return (
-    <StyledEditBtn className={className} ref={ref} href={href}>
+    <StyledEditBtn className={className} ref={ref} href={href} onClick={onClick}>
       <Arrow />
       <span>협업 성향 테스트 하러가기</span>
     </StyledEditBtn>

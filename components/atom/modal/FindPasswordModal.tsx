@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
 import CloseIcon from "../../../assets/svg/ic_close_.svg";
@@ -10,10 +10,33 @@ export interface FindPasswordModalProps {
 
 export function FindPasswordModal(props: FindPasswordModalProps) {
   const { open, onClose } = props;
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onOuterClick(e: MouseEvent) {
+      if (!open) {
+        return;
+      }
+      if (e.target instanceof Element) {
+        if (!ref.current?.contains(e.target)) {
+          console.log("contains?");
+          onClose && onClose();
+        }
+      }
+    }
+
+    document.addEventListener("click", onOuterClick);
+
+    return () => {
+      document.removeEventListener("click", onOuterClick);
+    };
+  }, [open, onClose]);
+
   return (
     <div>
       {open ? (
-        <StyledFindPasswordModal>
+        <StyledFindPasswordModal ref={ref}>
           <StyledClose onClick={onClose} />
           <StyledDesc>
             <div>아래 이메일로 관리자에게 문의 바랍니다.</div>

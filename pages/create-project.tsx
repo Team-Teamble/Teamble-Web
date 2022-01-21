@@ -133,7 +133,7 @@ export default function CreateProject(props: CreateProjectProps) {
   async function handlePicture(id: string) {
     if (fileInfo.photo) {
       try {
-        // console.log("real", fileInfo.photo.va);
+        console.log("팀 만들기 이미지 업로드", fileInfo.photo);
         await addPicture.request(id, { photo: fileInfo.photo });
       } catch (e) {
         throw e;

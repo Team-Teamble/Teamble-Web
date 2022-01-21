@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { apiService } from "../../api";
 import { ProjectDesc } from "../../components/organism/projectDetailView/ProjectDesc";
 import { ProjectHeader } from "../../components/organism/projectDetailView/ProjectHeader";
@@ -16,15 +17,26 @@ interface ViewProjectProps {
 export default function ViewProject(props: ViewProjectProps) {
   const { projectDetail, projectId } = props;
   const authedUser = useUser();
+  const router = useRouter();
 
   const checkProjectOwner = authedUser?.id === projectDetail.project.user.id;
 
   const pokeProject = useAPI((api) => api.poke.pokeProject);
+  const completeProject = useAPI((api) => api.project.markCompleteProject);
 
   // 팀 지원하기 클릭 시, 동작 구현
   async function handleApply(projectId: number, userId: number) {
     try {
       await pokeProject.request({ projectId: projectId, userId: userId });
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async function handleCompleteProject(projectId: number) {
+    router.push(`/project`);
+    try {
+      await completeProject.request(projectId);
     } catch (e) {
       throw e;
     }
@@ -39,6 +51,7 @@ export default function ViewProject(props: ViewProjectProps) {
           projectDetail={projectDetail}
           isOwner={checkProjectOwner}
           onClick={() => handleApply(projectId, authedUser?.id ?? 0)}
+          onComplete={() => handleCompleteProject(projectId)}
         />
       }
       member={<ProjectMember projectDetail={projectDetail} />}></ProjectDetailTemplate>

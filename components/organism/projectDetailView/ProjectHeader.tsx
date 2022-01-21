@@ -12,6 +12,8 @@ export interface ProjectHeaderProps {
 
 export function ProjectHeader(props: ProjectHeaderProps) {
   const { className, projectDetail } = props;
+
+  console.log(projectDetail.project.photo);
   return (
     <StyledWrapper className={className}>
       <StyledLeft>
@@ -60,6 +62,7 @@ const StyledRight = styled.div`
 const StyledTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-right: 1.2rem;
 `;
 
 const StyledTitle = styled.span`
@@ -67,12 +70,14 @@ const StyledTitle = styled.span`
   font-weight: 400;
   color: ${teambleColors.deepGray};
   margin-bottom: 4.4rem;
+  word-break: keep-all;
 `;
 
 const StyledIntro = styled.span`
   font-size: 40px;
   font-weight: 700;
   color: ${teambleColors.darkGray};
+  word-break: keep-all;
 `;
 
 const StyledUser = styled.div`

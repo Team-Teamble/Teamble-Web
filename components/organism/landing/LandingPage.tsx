@@ -1,6 +1,6 @@
 import React, { Children, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
-import landingPage1 from "../../../assets/svg/landing1.png";
+import LandingPage1 from "../../../assets/svg/landing1.svg";
 
 export interface LandingPageProps {
   className?: string;
@@ -9,14 +9,21 @@ export interface LandingPageProps {
 export function LandingPage(props: LandingPageProps) {
   const { className } = props;
 
-  return <StyledWrapper className={className}></StyledWrapper>;
+  return (
+    <StyledWrapper className={className}>
+      <LandingPage1 />
+    </StyledWrapper>
+  );
 }
 
 const StyledWrapper = styled.div`
-  background: url(${landingPage1.src});
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;

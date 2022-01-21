@@ -11,14 +11,15 @@ export interface SearchProjectProps {
   projectCards: ReactNode;
   title: string;
   onReset(): void;
+  onClick(): void;
 }
 
 export function SearchProject(props: SearchProjectProps) {
-  const { period, position, goal, tag, field, projectCards, onReset, title } = props;
+  const { period, position, goal, tag, field, projectCards, onReset, title, onClick } = props;
 
   return (
     <StyledSearchProject>
-      <FilterLayout title={title} onReset={onReset}>
+      <FilterLayout title={title} onReset={onReset} onClick={onClick}>
         <StyledTagWrapper>
           {period && (
             <StyledEachWrapper>

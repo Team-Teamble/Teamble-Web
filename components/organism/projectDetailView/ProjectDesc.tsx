@@ -64,6 +64,9 @@ const StyledWrapper = styled.div`
   & > button {
     cursor: pointer;
     margin-top: 5.8rem;
+    width: 10em;
+    height: 3em;
+    font-size: 18px;
   }
 `;
 const StyledCardWrapper = styled.div`

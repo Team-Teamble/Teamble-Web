@@ -6,6 +6,7 @@ import { SearchProject as Main } from "../../components/template/searchProjectVi
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProjectCard } from "../../components/molecule/projectCard/ProjectCard";
+import { useAPI } from "../../utils/hook/api";
 
 export interface SearchProjectProps {
   searchProject: ProjectInfo;
@@ -19,19 +20,31 @@ export default function SearchProject(props: SearchProjectProps) {
     goalId: 1, // 선택한 목표 id
     tagId: [1], // 선택한 협업 성향 id
     fieldId: [1], // 선택한 관심 프로젝트 id
-    count: 1, // 한 번(한 페이지)에 받을 프로젝트 개수
+    count: 50, // 한 번(한 페이지)에 받을 프로젝트 개수
     page: 1, // 받을 페이지 번호 (1부터 시작)
   };
   const {
     searchProject,
     projectMetadata: { project: meta },
   } = props;
+
+  const search = useAPI((api) => api.project.searchProject);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>(searchProject);
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
 
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
+
+  async function handleSearch() {
+    try {
+      const filtered = await search.request(requestInfo);
+      console.log(filtered);
+      filtered ? setProjectInfo(filtered) : setProjectInfo({ projectCard: [] });
+    } catch {
+      alert("error");
+    }
+  }
 
   function onReset(category?: string, payload?: number[]) {
     if (category && payload) {
@@ -45,6 +58,7 @@ export default function SearchProject(props: SearchProjectProps) {
     <StyledSearchProject>
       <StyledMain>
         <Main
+          onClick={handleSearch}
           title="사이드 프로젝트 찾기"
           period={<Single meta={meta.period} onChange={onUpdate} category="periodId" info={requestInfo.periodId} />}
           position={

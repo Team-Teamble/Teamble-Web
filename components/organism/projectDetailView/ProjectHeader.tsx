@@ -86,7 +86,7 @@ const StyledUser = styled.div`
   color: ${teambleColors.deepGray};
 
   & > span {
-    margin-left: 0.2rem;
+    margin-left: 1rem;
   }
 `;
 

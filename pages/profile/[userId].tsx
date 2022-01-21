@@ -72,6 +72,7 @@ export default function ProfileById(props: ProfileByIdProps) {
           setUserInfo(updated.user);
         }
         setIsEditing(false);
+        setError("");
       } catch (e) {
         if (e instanceof NotFoundError || e instanceof BadRequestError) {
           setError(e.message);
@@ -112,7 +113,7 @@ export default function ProfileById(props: ProfileByIdProps) {
                     </CustomConfirmBtn>
                   )
                 ) : null}
-                <p>{error}</p>
+                {error && <p>{error}</p>}
               </div>
             }
           />

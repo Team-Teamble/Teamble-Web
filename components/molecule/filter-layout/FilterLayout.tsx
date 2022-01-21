@@ -7,14 +7,12 @@ export interface FilterLayoutProps {
   title: string;
   children?: ReactNode;
   onReset(): void;
+  onClick(): void;
 }
 
 export function FilterLayout(props: FilterLayoutProps) {
-  const { title, children, onReset } = props;
+  const { title, children, onReset, onClick } = props;
 
-  function onClick() {
-    //
-  }
   return (
     <StyledFilterLayout>
       <StyledTopWrapper>

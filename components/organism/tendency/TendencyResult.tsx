@@ -48,7 +48,7 @@ const OutSVG = styled.img`
   width: 100%;
   min-height: 100vh;
 
-  @media screen and (max-width: 767px) {
+  @media (max-width: 376px) {
     width: 100%;
     min-height: 100%;
   }
@@ -65,7 +65,7 @@ const ResultActionBox = styled.div`
     margin-right: 1rem;
   }
 
-  @media screen and (max-width: 767px) {
+  @media (max-width: 376px) {
   }
 `;
 

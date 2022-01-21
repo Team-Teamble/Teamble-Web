@@ -48,8 +48,6 @@ const StyledTendenctInit = styled.div`
 
   padding-top: 6rem;
   min-height: 100vh;
-
-  border: 1px solid red;
 `;
 
 const Logo = styled(TeambleLogo)`

@@ -10,7 +10,7 @@ export function LandingPageThird(props: LandingPageProps) {
 
   return (
     <StyledWrapper className={className}>
-      <img src="/landing/landing1.svg" alt="landing3" />
+      <img src="/landing/landing3.svg" alt="landing3" />
     </StyledWrapper>
   );
 }

@@ -5,6 +5,7 @@ import { teambleColors } from "../../../styles/color";
 import { ProfileBoxDropDown } from "../../molecule/drop-down/ProfileBoxDropDown";
 
 interface UserInfo {
+  name: string;
   photo: string;
   position: { id: number; name: string }[];
   email: string;
@@ -30,7 +31,7 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
-      <StyledName>정세연</StyledName>
+      <StyledName>{user.name}</StyledName>
       <ProfileBoxDropDown onChange={onUpdate} userPosition={user.position} metaPosition={metaPosition} />
       <StyledEmailNPhone>
         <div>{user.email}</div>

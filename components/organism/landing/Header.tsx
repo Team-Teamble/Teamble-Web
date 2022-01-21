@@ -56,7 +56,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: calc(100vh - 5rem);
+
+  min-height: calc(100vh - 103px);
+  box-sizing: border-box;
 `;
 
 const StyledTop = styled.div`
@@ -115,4 +117,5 @@ const StyledBottom = styled.div`
 const StyledSlider = styled.div`
   width: 100%;
   margin-top: 2rem;
+  overflow-x: hidden;
 `;

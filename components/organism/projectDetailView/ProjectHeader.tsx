@@ -13,7 +13,6 @@ export interface ProjectHeaderProps {
 export function ProjectHeader(props: ProjectHeaderProps) {
   const { className, projectDetail } = props;
 
-  console.log(projectDetail.project.photo);
   return (
     <StyledWrapper className={className}>
       <StyledLeft>

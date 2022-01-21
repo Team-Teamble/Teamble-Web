@@ -7,7 +7,7 @@ export interface EntryButtonProps {
   children: ReactNode;
 }
 
-export const EntryButton = forwardRef<HTMLAnchorElement, EntryButtonProps>(function EntryButton(
+export const EntryButton = forwardRef<HTMLDivElement, EntryButtonProps>(function EntryButton(
   props: EntryButtonProps,
   ref,
 ) {
@@ -20,7 +20,7 @@ export const EntryButton = forwardRef<HTMLAnchorElement, EntryButtonProps>(funct
   );
 });
 
-const StyledButton = styled.a`
+const StyledButton = styled.div`
   cursor: pointer;
 
   border: 0;

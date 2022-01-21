@@ -52,7 +52,6 @@ export function DocumentViewer(props: DocumentViewerProps) {
 }
 
 const StyledViewerWrapper = styled.div`
-  height: 29.6rem;
   margin-top: 2.3rem;
   border: 2px solid ${teambleColors.gray};
 

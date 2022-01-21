@@ -17,17 +17,6 @@ export function ProfileDropDown(props: ProfileDropDownProps) {
   const ref = useRef(null);
   const logOut = useLogout({ redirect: "/" });
 
-  // function handleOpenEvent(e: MouseEvent) {
-  //   if(e.target){
-  //     if(e.target.contains(ref.current))
-  //   }
-  // }
-  // useEffect(() => {
-  //   window.addEventListener("click", handleOpenEvent, { capture: true });
-  //   return () => {
-  //     window.removeEventListener("click", handleOpenEvent);
-  //   };
-  // }, []);
   return (
     <StyledWrapper className={className} ref={ref}>
       <StyledProfileWrapper>
@@ -82,6 +71,7 @@ const StyledInfoWrapper = styled.div`
   margin-left: 0.55rem;
   width: 100%;
   max-width: 13em;
+  min-width: 10em;
   height: 30px;
   justify-content: space-between;
   font-weight: 500;

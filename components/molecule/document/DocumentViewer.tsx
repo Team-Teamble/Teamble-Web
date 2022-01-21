@@ -53,6 +53,7 @@ export function DocumentViewer(props: DocumentViewerProps) {
 
 const StyledViewerWrapper = styled.div`
   margin-top: 2.3rem;
+  min-height: 30rem;
   border: 2px solid ${teambleColors.gray};
 
   p {

@@ -5,6 +5,7 @@ import { setLayout } from "../../utils/layout";
 import { withAuth } from "../../utils/ssr";
 import { tendencyTestData, useTendencyState } from "../../utils/tendency";
 import Head from "next/head";
+import { ReactNode } from "react";
 
 export default function TendencyCheck() {
   const router = useRouter();
@@ -20,27 +21,21 @@ export default function TendencyCheck() {
 
   if (state === null) {
     return (
-      <>
-        <Head>
-          <title>teamble 협업성향 테스트</title>
-        </Head>
+      <HeadTemplate>
         <TendencyInit onStart={() => moveNextState(0)} />
-      </>
+      </HeadTemplate>
     );
   }
 
   return (
-    <>
-      <Head>
-        <title>teamble 협업성향 테스트</title>
-      </Head>
+    <HeadTemplate>
       <TendencyTest
         title={state.title}
         description={state.question.message}
         picks={state.question.picks}
         onChoose={(idx) => moveNextState(idx)}
       />
-    </>
+    </HeadTemplate>
   );
 }
 
@@ -51,3 +46,14 @@ export const getServerSideProps = withAuth(async () => {
     props: {},
   };
 });
+
+function HeadTemplate({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <Head>
+        <title>teamble 협업성향 테스트</title>
+      </Head>
+      {children}
+    </>
+  );
+}

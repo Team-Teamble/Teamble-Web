@@ -47,6 +47,11 @@ const StyledTendencyResult = styled.div`
 const OutSVG = styled.img`
   width: 100%;
   min-height: 100vh;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    min-height: 100%;
+  }
 `;
 
 const ResultActionBox = styled.div`
@@ -58,6 +63,9 @@ const ResultActionBox = styled.div`
 
   & > *:not(:last-child) {
     margin-right: 1rem;
+  }
+
+  @media screen and (max-width: 767px) {
   }
 `;
 
@@ -77,6 +85,12 @@ export const ActionButton = styled.a<{ filled?: boolean }>`
   font-size: 1.2rem;
 
   ${(props) => (props.filled ? filledColorSet : outlinedColorSet)}
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.3rem;
+    height: 1.3rem;
+    padding: 0.1rem 1rem;
+  }
 `;
 
 const filledColorSet = css`
@@ -106,8 +120,16 @@ const outlinedColorSet = css`
 export const Information = styled.p`
   font-size: 1.1rem;
   color: ${teambleColors.darkGray};
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.4rem;
+  }
 `;
 
 export const Logo = styled(TeambleLogo)`
   margin-top: 2rem;
+
+  @media screen and (max-width: 767px) {
+    transform: scale(0.3);
+  }
 `;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apiService } from "../../api";
 import { teambleColors } from "../../styles/color";
@@ -35,8 +35,11 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [activeType, setActiveType] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [isPoked, setIsPoked] = useState(false);
-
   const pokeUser = useAPI((api) => api.poke.pokeUser);
+
+  useEffect(() => {
+    setUserInfo(userProfileInfo);
+  }, [userProfileInfo]);
 
   function onEdit() {
     setIsEditing((state) => !state);

@@ -1,25 +1,26 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { AlertImage } from "../../atom/image/AlertImage";
-import { ProfileImage } from "../../atom/image/ProfileImage";
 import { NavProfileName } from "../../atom/item/NavProfileName";
 
 export interface ProfileFieldProps {
   className?: string;
-  profileImgSrc: string;
   userName: string;
-
-  onClick(): void;
+  profileImage: ReactNode;
+  profileDropDown: ReactNode;
+  isOpened: boolean;
 }
 
 export function ProfileField(props: ProfileFieldProps) {
-  const { className, profileImgSrc, userName, onClick } = props;
+  const { className, userName, profileImage, profileDropDown, isOpened } = props;
+
   return (
     <StyledWrapper className={className}>
-      <AlertImage onClick={onClick} />
+      <AlertImage />
       <StyledProfileWrapper>
-        <ProfileImage profileImgSrc={profileImgSrc} profileSize="small" onClick={onClick} />
-        <NavProfileName onClick={onClick}>{userName}</NavProfileName>
+        {profileImage}
+        <NavProfileName>{userName}</NavProfileName>
+        {isOpened && profileDropDown}
       </StyledProfileWrapper>
     </StyledWrapper>
   );
@@ -29,6 +30,7 @@ const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 40px;
+  position: relative;
 
   & > a {
     padding-top: 0.18rem;

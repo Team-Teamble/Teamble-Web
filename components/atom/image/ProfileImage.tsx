@@ -1,8 +1,6 @@
 import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
-
 import DefaultProfile from "../../../assets/svg/ic_profile.svg";
-
 export interface ProfileProps {
   className?: string;
   profileImgSrc: string | undefined;
@@ -17,7 +15,7 @@ export const ProfileImage = forwardRef<HTMLImageElement, ProfileProps>(function 
     if (profileImgSrc === "" || profileImgSrc === undefined) {
       return <StyledDefault />;
     } else {
-      return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} />;
+      return <StyledProfileImg src={profileImgSrc} profileSize={profileSize} onClick={onClick} tabIndex={-1} />;
     }
   }
   return (
@@ -31,6 +29,7 @@ const StyledImgWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const StyledProfileImg = styled.img<{

@@ -18,17 +18,13 @@ export function createUserProfileReal(session: Session): UserProfileAPI {
       return res.data.data;
     },
     async updateProfilePicture(userId: number, data: UpdateProfilePictureInput) {
-      const res = await session.request.post(
-        `user/profile/photo/${userId}`,
-        {
-          photo: data.photo,
+      const formData = new FormData();
+      formData.append("photo", data.photo);
+      const res = await session.request.post(`user/profile/photo/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
+      });
 
       return res.data.data;
     },

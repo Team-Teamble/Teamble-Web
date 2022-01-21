@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { NavTabItem } from "../../atom/item/NavTabItem";
@@ -6,7 +6,8 @@ import { EntryField } from "../../molecule/entryField/EntryField";
 import { ProfileField } from "../../molecule/navProfileField/ProfileField";
 import Logo from "../../../assets/svg/logo_img.svg";
 import { teambleColors } from "../../../styles/color";
-
+import { ProfileImage } from "../../atom/image/ProfileImage";
+import { ProfileDropDown } from "../../molecule/profileDropDown/ProfileDropDown";
 export interface HeaderProps {
   className?: string;
   user: { id: number; name: string; profilePic: string; currentProjectId: number | null } | null;
@@ -15,9 +16,10 @@ export interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   const { className, user, currentPath } = props;
+  const [isProfileOpened, setIsProfileOpened] = useState<boolean>(false);
 
-  function handleClick() {
-    //
+  function handleOpen() {
+    setIsProfileOpened((state) => !state);
   }
 
   return (
@@ -30,35 +32,32 @@ export function Header(props: HeaderProps) {
             </a>
           </Link>
           {user !== null ? (
-            <ProfileField userName={user.name} profileImgSrc={user.profilePic} onClick={handleClick} />
+            <ProfileField
+              isOpened={isProfileOpened}
+              userName={user.name}
+              profileImage={<ProfileImage profileImgSrc={user.profilePic} profileSize="small" onClick={handleOpen} />}
+              profileDropDown={<ProfileDropDown profileImgSrc={user.profilePic} userInfo={user} />}
+            />
           ) : (
-            <EntryField onClick={handleClick} />
+            <EntryField />
           )}
         </StyledHeaderDesc>
 
         <StyledNav>
           <Link href="/" passHref>
-            <NavTabItem isSelected={currentPath === "/"} onClick={handleClick}>
-              팀블 소개
-            </NavTabItem>
+            <NavTabItem isSelected={currentPath === "/"}>팀블 소개</NavTabItem>
           </Link>
           <Link href="/project" passHref>
-            <NavTabItem isSelected={currentPath === "/project"} onClick={handleClick}>
-              프로젝트 찾기
-            </NavTabItem>
+            <NavTabItem isSelected={currentPath === "/project"}>프로젝트 찾기</NavTabItem>
           </Link>
           <Link href="/profile" passHref>
-            <NavTabItem isSelected={currentPath?.startsWith("/profile")} onClick={handleClick}>
-              팀원 찾기
-            </NavTabItem>
+            <NavTabItem isSelected={currentPath?.startsWith("/profile")}>팀원 찾기</NavTabItem>
           </Link>
           <Link
             href={user && user.currentProjectId ? `/project/${user.currentProjectId}` : "/create-project"}
             passHref
             scroll={true}>
-            <NavTabItem
-              isSelected={currentPath?.startsWith("/create-project") || currentPath?.startsWith("/project/")}
-              onClick={handleClick}>
+            <NavTabItem isSelected={currentPath?.startsWith("/create-project") || currentPath?.startsWith("/project/")}>
               {user && user.currentProjectId ? "프로젝트 보기" : "프로젝트팀 만들기"}
             </NavTabItem>
           </Link>

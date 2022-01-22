@@ -1,7 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { AlertImage } from "../../atom/image/AlertImage";
+import { useUser } from "../../../utils/hook/auth";
+import { AlertLink } from "../../atom/image/AlertImage";
 import { NavProfileName } from "../../atom/item/NavProfileName";
+import AlertOn from "../../../assets/svg/ic_bell_on.svg";
+import AlertOff from "../../../assets/svg/ic_bell_off.svg";
+import Link from "next/link";
 
 export interface ProfileFieldProps {
   className?: string;
@@ -14,9 +18,13 @@ export interface ProfileFieldProps {
 export function ProfileField(props: ProfileFieldProps) {
   const { className, userName, profileImage, profileDropDown, isOpened } = props;
 
+  const csrUser = useUser();
+
   return (
     <StyledWrapper className={className}>
-      <AlertImage />
+      <Link href={`/poke/${csrUser?.id}`} passHref>
+        <AlertLink>{csrUser?.isAlarmAvailable ? <AlertOn /> : <AlertOff />}</AlertLink>
+      </Link>
       <StyledProfileWrapper>
         {profileImage}
         <NavProfileName>{userName}</NavProfileName>

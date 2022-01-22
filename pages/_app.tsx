@@ -81,6 +81,7 @@ function DetectAuth(props: DetectAuthProps) {
           name: user.name,
           profilePic: user.photo,
           currentProjectId: user.projectId,
+          isAlarmAvailable: !user.isChecked,
         });
       } catch (e) {
         if (e instanceof UnauthorizedError) {

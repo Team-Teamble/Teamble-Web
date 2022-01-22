@@ -8,6 +8,7 @@ import Logo from "../../../assets/svg/logo_img.svg";
 import { teambleColors } from "../../../styles/color";
 import { ProfileImage } from "../../atom/image/ProfileImage";
 import { ProfileDropDown } from "../../molecule/profileDropDown/ProfileDropDown";
+import { useUser } from "../../../utils/hook/auth";
 export interface HeaderProps {
   className?: string;
   user: { id: number; name: string; profilePic: string; currentProjectId: number | null } | null;
@@ -16,7 +17,6 @@ export interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   const { className, user, currentPath } = props;
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDialogOpen = () => setIsModalOpen(true);

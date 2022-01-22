@@ -1,19 +1,21 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, ReactNode } from "react";
 import styled from "styled-components";
-import AlertIcon from "../../../assets/svg/ic_bell_off.svg";
 
 export interface AlertImageProps {
   className?: string;
+  children: ReactNode;
+  href?: string;
+  onClick?(): void;
 }
 
-export const AlertImage = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(
+export const AlertLink = forwardRef<HTMLAnchorElement, AlertImageProps>(function AlertImage(
   props: AlertImageProps,
   ref,
 ) {
-  const { className } = props;
+  const { className, children, href, onClick } = props;
   return (
-    <StyledAlertWrapper ref={ref} className={className}>
-      <AlertIcon />
+    <StyledAlertWrapper ref={ref} className={className} href={href} onClick={onClick}>
+      {children}
     </StyledAlertWrapper>
   );
 });

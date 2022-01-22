@@ -14,7 +14,7 @@ export function TendencyResult(props: TendencyResultProps) {
   const { resultImgSrc } = props;
 
   const [isMobile, setIsMobile] = useState(false);
-  const [isOpened, setIsOpened] = useState<boolean>(true);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const handleOpen = () => setIsOpened((state) => !state);
 

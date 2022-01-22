@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "../../../assets/svg/logo_img.svg";
 import Insta from "../../../assets/svg/ic_insta.svg";
 import { teambleColors } from "../../../styles/color";
+import Link from "next/link";
 
 export interface FooterProps {
   className?: string;
@@ -42,7 +43,11 @@ export function Footer(props: FooterProps) {
         </StyledBottomLeft>
         <StyledBottomRight>
           <span>Follow Us</span>
-          <Insta />
+          <Link href={"https://instagram.com/teamble_official?r=nametag"}>
+            <a target={"_blank"}>
+              <Insta />
+            </a>
+          </Link>
         </StyledBottomRight>
       </StyledFooterBottom>
     </StyledFooter>

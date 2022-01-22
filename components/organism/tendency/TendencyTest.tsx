@@ -48,8 +48,10 @@ export function TendencyTest(props: TendencyTestProps) {
 const StyledTendencyTest = styled.div`
   display: flex;
   padding: 5rem;
-
   justify-content: center;
+
+  width: calc(100% - 50rem);
+  margin: 0 auto;
 
   & * {
     box-sizing: border-box;
@@ -99,7 +101,7 @@ const Description = styled.h2`
   margin-bottom: 3.7rem;
   word-break: keep-all;
 
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 2.5rem;
   font-weight: 700;
 
@@ -128,11 +130,11 @@ const ButtonGroup = styled.div<{ cols: number }>`
 `;
 
 const Button = styled.a`
-  height: 10rem;
+  height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1rem;
   line-height: 1.7rem;
   text-align: center;
   width: 100%;
@@ -166,7 +168,7 @@ const Logo = styled(TeambleLogo)<{
 }>`
   margin: 0 auto;
   margin-top: 4rem;
-  transform: scale(1.3);
+  transform: scale(1);
 
   @media screen and (max-width: 767px) {
     transform: scale(0.5);

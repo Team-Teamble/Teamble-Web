@@ -43,7 +43,26 @@ export const getServerSideProps = withAuth<TendencyProps>(async (context) => {
   };
 });
 
-const possibleKeys = ["C", "CS", "D", "DC", "DI", "I", "IS", "S", "SC"];
+const possibleKeys = [
+  "C",
+  "CS",
+  "D",
+  "DC",
+  "DI",
+  "I",
+  "IS",
+  "S",
+  "SC",
+  "C_Mobile",
+  "CS_Mobile",
+  "D_Mobile",
+  "DC_Mobile",
+  "DI_Mobile",
+  "I_Mobile",
+  "IS_Mobile",
+  "S_Mobile",
+  "SC_Mobile",
+];
 
 function getResultSVGPathByKey(key: string) {
   return `/tendency/result/${key}.svg`;

@@ -3,6 +3,7 @@ import copy from "copy-to-clipboard";
 import { teambleColors } from "../../../styles/color";
 import TeambleLogo from "../../../assets/svg/logo_img.svg";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface TendencyResultProps {
   resultImgSrc: string;
@@ -11,14 +12,23 @@ interface TendencyResultProps {
 export function TendencyResult(props: TendencyResultProps) {
   const { resultImgSrc } = props;
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 1023) {
+      setIsMobile(true);
+    }
+  }, []);
+
   function copyResultURL() {
     copy(location.href);
     alert("주소가 복사되었습니다!");
   }
 
+  console.log(resultImgSrc);
   return (
     <StyledTendencyResult>
-      <OutSVG src={resultImgSrc} />
+      <OutSVG src={isMobile ? resultImgSrc.slice(0, -4) + "_Mobile.svg" : resultImgSrc} />
       <ResultActionBox>
         <ActionButton onClick={copyResultURL}>내 결과 공유하기</ActionButton>
         <Link href="/tendency" passHref>
@@ -42,6 +52,12 @@ const StyledTendencyResult = styled.div`
   justify-content: center;
 
   padding-bottom: 3rem;
+
+  @media (max-width: 376px) {
+    max-width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
 `;
 
 const OutSVG = styled.img`
@@ -66,6 +82,9 @@ const ResultActionBox = styled.div`
   }
 
   @media (max-width: 376px) {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
   }
 `;
 
@@ -87,9 +106,9 @@ export const ActionButton = styled.a<{ filled?: boolean }>`
   ${(props) => (props.filled ? filledColorSet : outlinedColorSet)}
 
   @media screen and (max-width: 767px) {
-    font-size: 0.3rem;
+    font-size: 0.8rem;
     height: 1.3rem;
-    padding: 0.1rem 1rem;
+    padding: 0.3rem 1rem;
   }
 `;
 

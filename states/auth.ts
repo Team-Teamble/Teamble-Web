@@ -6,6 +6,7 @@ export interface UserInfo {
   name: string;
   profilePic: string;
   currentProjectId: number | null;
+  isAlarmAvailable?: boolean;
 }
 
 export const authUserAtom = atom<UserInfo | null>({

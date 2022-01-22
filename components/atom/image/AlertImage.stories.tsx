@@ -1,13 +1,13 @@
 import { Meta, Story } from "@storybook/react/types-6-0";
-import { AlertImage, AlertImageProps } from "./AlertImage";
+import { AlertLink, AlertImageProps } from "./AlertImage";
 
 export default {
   title: "atom/image",
-  component: AlertImage,
+  component: AlertLink,
 } as Meta;
 
 const Template: Story<AlertImageProps> = (args) => {
-  return <AlertImage {...args} />;
+  return <AlertLink {...args} />;
 };
 
 export const Alertbell = Template.bind({});

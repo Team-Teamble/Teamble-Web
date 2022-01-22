@@ -78,7 +78,7 @@ export default function CreateProject(props: CreateProjectProps) {
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
-  console.log(requestInfo.position);
+
   function onUpload(name: { photo: File | null; url: string }) {
     setFileInfo(name);
   }
@@ -110,6 +110,9 @@ export default function CreateProject(props: CreateProjectProps) {
     try {
       const newMemberInfo = await addMember.request({ email: memberEmail });
       if (newMemberInfo) {
+        if (requestInfo.memberId.includes(newMemberInfo.member.id)) {
+          throw "Duplicate";
+        }
         setMembersInfo([...membersInfo, newMemberInfo.member]);
         setRequestInfo(initial);
         setAddMemberErr("");
@@ -118,6 +121,8 @@ export default function CreateProject(props: CreateProjectProps) {
     } catch (e) {
       if (e instanceof NotFoundError || e instanceof BadRequestError) {
         setAddMemberErr(e.message);
+      } else if (e === "Duplicate") {
+        setAddMemberErr("이미 추가된 팀 구성원입니다.");
       } else {
         throw e;
       }

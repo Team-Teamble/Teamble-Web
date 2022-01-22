@@ -4,6 +4,7 @@ import { teambleColors } from "../../../styles/color";
 import TeambleLogo from "../../../assets/svg/logo_img.svg";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ClipModal } from "../../molecule/modal/CllpModal";
 
 interface TendencyResultProps {
   resultImgSrc: string;
@@ -13,6 +14,9 @@ export function TendencyResult(props: TendencyResultProps) {
   const { resultImgSrc } = props;
 
   const [isMobile, setIsMobile] = useState(false);
+  const [isOpened, setIsOpened] = useState<boolean>(true);
+
+  const handleOpen = () => setIsOpened((state) => !state);
 
   useEffect(() => {
     if (window.innerWidth <= 1023) {
@@ -22,10 +26,9 @@ export function TendencyResult(props: TendencyResultProps) {
 
   function copyResultURL() {
     copy(location.href);
-    alert("주소가 복사되었습니다!");
+    handleOpen();
   }
 
-  console.log(resultImgSrc);
   return (
     <StyledTendencyResult>
       <OutSVG src={isMobile ? resultImgSrc.slice(0, -4) + "_Mobile.svg" : resultImgSrc} />
@@ -34,6 +37,7 @@ export function TendencyResult(props: TendencyResultProps) {
         <Link href="/tendency" passHref>
           <ActionButton filled>나도 테스트하기</ActionButton>
         </Link>
+        {isOpened && <ClipModal onClick={handleOpen} isMobile={isMobile} />}
       </ResultActionBox>
       <Information>나와 잘 맞는 협업 프로젝트와 팀원을 찾고 싶다면?</Information>
       <Link href="/">
@@ -73,6 +77,7 @@ const OutSVG = styled.img`
 const ResultActionBox = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
 
   font-size: 20vh;
   margin-bottom: 3rem;

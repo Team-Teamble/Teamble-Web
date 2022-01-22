@@ -117,8 +117,10 @@ const ButtonGroup = styled.div<{ cols: number }>`
   row-gap: 2rem;
 
   @media screen and (max-width: 767px) {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+
     width: 100%;
 
     margin-top: ${(props) => (props.cols === 1 ? "10rem" : "0")};

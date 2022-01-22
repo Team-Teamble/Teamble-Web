@@ -77,13 +77,8 @@ const ResultActionBox = styled.div`
   font-size: 20vh;
   margin-bottom: 3rem;
 
-  & > *:not(:last-child) {
-    margin-right: 1rem;
-  }
-
   @media (max-width: 376px) {
     display: flex;
-    flex-direction: column;
   }
 `;
 
@@ -97,14 +92,15 @@ export const ActionButton = styled.a<{ filled?: boolean }>`
 
   padding: 0.3rem 2.5rem;
   height: 2.3rem;
+  align-items: center;
 
   border-radius: 2.85rem;
 
   font-size: 1.2rem;
 
   ${(props) => (props.filled ? filledColorSet : outlinedColorSet)}
-
-  @media screen and (max-width: 767px) {
+  margin-right: 1em;
+  @media (max-width: 767px) {
     font-size: 0.8rem;
     height: 1.3rem;
     padding: 0.3rem 1rem;

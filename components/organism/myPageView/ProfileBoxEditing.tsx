@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import Profile from "../../../assets/svg/Profile";
 import { teambleColors } from "../../../styles/color";
@@ -23,14 +23,32 @@ export interface ProfileBoxEditingProps {
   user: UserInfo;
   className?: string;
   onChange<K extends keyof UserInfo>(category: K, payload: UserInfo[K]): void;
+  onClick(file: File): void;
 }
 
 export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
-  const { user, onChange: onUpdate, className, metaPosition } = props;
+  const { user, onChange: onUpdate, className, metaPosition, onClick: uploadImg } = props;
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  function handleImg() {
+    fileInput.current?.click();
+  }
+
+  function fileLoader(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (!files || !files[0] || !files[0].type.match("image.*")) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      uploadImg(files[0]);
+    };
+    reader.readAsDataURL(files[0]);
+  }
 
   return (
     <StyledProfileBox className={className}>
       {user.photo ? <img src={user.photo} alt="user-profile-photo" /> : <Profile />}
+      <StyledPhotoChange onClick={handleImg}>사진 등록</StyledPhotoChange>
       <StyledName>{user.name}</StyledName>
       <ProfileBoxDropDown onChange={onUpdate} userPosition={user.position} metaPosition={metaPosition} />
       <StyledEmailNPhone>
@@ -68,6 +86,7 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
             onChange={(e: { target: { value: string } }) => onUpdate("area", e.target.value)}
           />
         </div>
+        <input type="file" accept="image/*" ref={fileInput} onChange={fileLoader} />
       </StyledSubInfo>
     </StyledProfileBox>
   );
@@ -89,13 +108,23 @@ const StyledProfileBox = styled.div`
     border-radius: 50%;
   }
 `;
+const StyledPhotoChange = styled.div`
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #${teambleColors.deepGray};
+  margin-top: 13px;
+  cursor: pointer;
+`;
 const StyledName = styled.div`
   font-size: 30px;
   font-weight: bold;
   line-height: 43px;
   text-align: center;
   letter-spacing: -0.02em;
-  margin-top: 27px;
+  margin-top: 8px;
   margin-bottom: 5px;
   color: ${teambleColors.black};
 `;
@@ -136,6 +165,10 @@ const StyledSectionLine = styled.div`
 
 const StyledSubInfo = styled.div`
   margin-top: 89px;
+
+  & > input {
+    display: none;
+  }
 
   div,
   span {

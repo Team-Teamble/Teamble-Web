@@ -25,6 +25,7 @@ interface ProfileByIdProps {
 }
 
 export default function ProfileById(props: ProfileByIdProps) {
+  const updatePicture = useAPI((api) => api.userProfile.updateProfilePicture);
   const { userProfileInfo, userProfileMetadata: meta, userId } = props;
 
   const authedUser = useUser();
@@ -47,6 +48,17 @@ export default function ProfileById(props: ProfileByIdProps) {
   const handleUpdate: HandleUpdate = (category, payload) => {
     setUserInfo({ ...userInfo, [category]: payload });
   };
+
+  async function handleUpdatePicture(file: File) {
+    try {
+      const data = await updatePicture.request(userId, { photo: file });
+      if (data) {
+        handleUpdate("photo", data.userPhoto);
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
 
   async function handlePokingUser(userPokingId: number, userPokedId: number) {
     setIsPoked(() => true);
@@ -124,7 +136,12 @@ export default function ProfileById(props: ProfileByIdProps) {
           <MyPageMainEditing
             introInput={<IntroInput intro={userInfo.intro} onChange={handleUpdate} />}
             profileBoxEditing={
-              <ProfileBoxEditing user={userInfo} onChange={handleUpdate} metaPosition={meta.position} />
+              <ProfileBoxEditing
+                user={userInfo}
+                onChange={handleUpdate}
+                metaPosition={meta.position}
+                onClick={handleUpdatePicture}
+              />
             }
             tendencies={
               <Tendencies

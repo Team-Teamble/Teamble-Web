@@ -84,7 +84,6 @@ const ResultActionBox = styled.div`
   @media (max-width: 376px) {
     display: flex;
     flex-direction: column;
-    background-color: red;
   }
 `;
 

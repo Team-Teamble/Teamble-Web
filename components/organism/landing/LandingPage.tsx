@@ -10,7 +10,7 @@ export function LandingPage(props: LandingPageProps) {
 
   return (
     <StyledWrapper className={className}>
-      <img src="/landing/landing1.svg" alt="landing1" />
+      <img src="/landing/landingAll.svg" alt="landing1" />
     </StyledWrapper>
   );
 }
@@ -23,6 +23,5 @@ const StyledWrapper = styled.div`
   & > img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
   }
 `;

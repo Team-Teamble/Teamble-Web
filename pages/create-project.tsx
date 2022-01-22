@@ -44,9 +44,9 @@ export default function CreateProject(props: CreateProjectProps) {
     // 첫 번째 number: 프로젝트 모집 포지션 id
     // 두 번째 number: 프로젝트 모집 포지션 인원 id
     position: [
-      [1, 1],
-      [2, 1],
-      [3, 1],
+      [meta.position[0].id, 1],
+      [meta.position[1].id, 1],
+      [meta.position[2].id, 1],
     ], // 프로젝트 모집 포지션
     goalId: NaN, // 프로젝트 목표 id
     tagId: [], // 프로젝트 선호 협업 성향 id
@@ -110,13 +110,19 @@ export default function CreateProject(props: CreateProjectProps) {
     try {
       const newMemberInfo = await addMember.request({ email: memberEmail });
       if (newMemberInfo) {
+        if (requestInfo.memberId.includes(newMemberInfo.member.id)) {
+          throw "Duplicate";
+        }
         setMembersInfo([...membersInfo, newMemberInfo.member]);
+        setRequestInfo(initial);
         setAddMemberErr("");
         onUpdate("memberId", [...requestInfo.memberId, newMemberInfo.member.id]);
       }
     } catch (e) {
       if (e instanceof NotFoundError || e instanceof BadRequestError) {
         setAddMemberErr(e.message);
+      } else if (e === "Duplicate") {
+        setAddMemberErr("이미 추가된 팀 구성원입니다.");
       } else {
         throw e;
       }

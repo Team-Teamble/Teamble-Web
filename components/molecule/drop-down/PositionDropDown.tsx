@@ -14,7 +14,7 @@ export function PositionDropDown(props: PositionDropDownProps) {
   const {
     className,
     requestInfo: position,
-    meta: { id, name, positionNum },
+    meta: { name, positionNum },
     onClick: onUpdate,
     index,
   } = props;
@@ -24,7 +24,7 @@ export function PositionDropDown(props: PositionDropDownProps) {
 
   function handleSelect(selectedId: number): void {
     const newOption = [...position];
-    newOption[index] = [id, selectedId];
+    newOption[index][1] = selectedId;
     onUpdate("position", newOption);
   }
 

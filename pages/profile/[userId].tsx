@@ -37,7 +37,7 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [error, setError] = useState("");
   const [isPoked, setIsPoked] = useState(false);
   const pokeUser = useAPI((api) => api.poke.pokeUser);
-
+  console.log(userInfo);
   useEffect(() => {
     setUserInfo(userProfileInfo);
   }, [userProfileInfo]);
@@ -79,7 +79,7 @@ export default function ProfileById(props: ProfileByIdProps) {
           intro: userInfo.intro,
           major: userInfo.major,
           phone: userInfo.phone,
-          positionId: userInfo.field.map((v) => v.id),
+          positionId: userInfo.position.map((v) => v.id),
           typeId: userInfo.type.id,
           university: userInfo.university,
         });

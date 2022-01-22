@@ -29,6 +29,7 @@ export function ProfileBoxDropDown(props: ProfileBoxDropDownProps) {
     if (index == -1) {
       newOption.length >= 2 ? newOption.splice(index, 1, payload) : newOption.push(payload);
     }
+    console.log(newOption);
     setCurrentOption(newOption);
     onUpdate("position", newOption);
   }

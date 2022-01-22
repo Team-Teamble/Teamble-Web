@@ -56,7 +56,9 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
         <StyledPhoneInput
           placeholder="전화번호를 입력해주세요"
           value={user.phone ? user.phone : ""}
-          onChange={(e) => onUpdate("phone", e.target.value)}
+          onChange={(e) => {
+            e.target.value.length < 20 && onUpdate("phone", e.target.value);
+          }}
           isEmpty={user.phone ? user.phone : ""}
         />
       </StyledEmailNPhone>
@@ -67,7 +69,9 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
           <StyledEditInput
             value={user.university ? user.university : ""}
             isEmpty={user.university ? user.university : ""}
-            onChange={(e: { target: { value: string } }) => onUpdate("university", e.target.value)}
+            onChange={(e: { target: { value: string } }) => {
+              e.target.value.length < 10 && onUpdate("university", e.target.value);
+            }}
           />
         </div>
         <div>
@@ -75,7 +79,9 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
           <StyledEditInput
             value={user.major ? user.major : ""}
             isEmpty={user.major ? user.major : ""}
-            onChange={(e: { target: { value: string } }) => onUpdate("major", e.target.value)}
+            onChange={(e: { target: { value: string } }) => {
+              e.target.value.length < 10 && onUpdate("major", e.target.value);
+            }}
           />
         </div>
         <div>
@@ -83,7 +89,9 @@ export function ProfileBoxEditing(props: ProfileBoxEditingProps) {
           <StyledEditInput
             value={user.area ? user.area : ""}
             isEmpty={user.area ? user.area : ""}
-            onChange={(e: { target: { value: string } }) => onUpdate("area", e.target.value)}
+            onChange={(e: { target: { value: string } }) => {
+              e.target.value.length < 10 && onUpdate("area", e.target.value);
+            }}
           />
         </div>
         <input type="file" accept="image/*" ref={fileInput} onChange={fileLoader} />

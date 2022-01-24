@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import TeambleLogo from "../../../assets/svg/logo_img.svg";
@@ -24,23 +23,39 @@ export function TendencyInit(props: TendencyInitProps) {
         <br />
         나의 협업성향은 무엇일까?
       </Description>
-      <StyledSlider>
-        <Characters.Character1 />
-        <Characters.Character2 />
-        <Characters.Character3 />
-        <Characters.Character4 />
-        <Characters.Character5 />
-        <Characters.Character6 />
-        <Characters.Character8 />
-        <Characters.Character7 />
-      </StyledSlider>
+      <AniWrapper>
+        <StyledSlider1>
+          <Characters.Character1 />
+          <Characters.Character2 />
+          <Characters.Character3 />
+          <Characters.Character4 />
+          <Characters.Character5 />
+          <Characters.Character6 />
+          <Characters.Character8 />
+          <Characters.Character7 />
+        </StyledSlider1>
+        <StyledSlider2>
+          <Characters.Character1 />
+          <Characters.Character2 />
+          <Characters.Character3 />
+          <Characters.Character4 />
+          <Characters.Character5 />
+          <Characters.Character6 />
+          <Characters.Character8 />
+          <Characters.Character7 />
+        </StyledSlider2>
+      </AniWrapper>
+
       <StartButton onClick={() => onStart && onStart()} variant="outlined">
         팀블유형 테스트 시작하기
       </StartButton>
     </StyledTendenctInit>
   );
 }
-
+const AniWrapper = styled.div`
+  display: flex;
+  position: relative;
+`;
 const StyledTendenctInit = styled.div`
   display: flex;
   flex-direction: column;
@@ -96,7 +111,7 @@ const StartButton = styled(BasicButton)`
   }
 `;
 
-const StyledSlider = styled.div`
+const StyledSlider1 = styled.div`
   display: flex;
   width: 100%;
   background-color: transparent;
@@ -113,4 +128,46 @@ const StyledSlider = styled.div`
       margin-top: 1.1rem;
     }
   }
+
+  @keyframes slider {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  animation: slider 16s linear infinite;
+`;
+const StyledSlider2 = styled.div`
+  display: flex;
+  width: 100%;
+  position: absolute;
+  left: 100%;
+  background-color: transparent;
+
+  & > svg {
+    margin-left: 0.7rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Mobile */
+    height: 10rem;
+
+    & > svg:nth-child(7) {
+      margin-top: 1.1rem;
+    }
+  }
+
+  @keyframes slider {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  animation: slider 16s linear infinite;
 `;

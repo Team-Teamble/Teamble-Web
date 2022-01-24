@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { teambleColors } from "../../../styles/color";
-import { useAPI } from "../../../utils/hook/api";
 
 export interface PokeViewProps {
   className?: string;
@@ -13,7 +12,7 @@ export function PokeView(props: PokeViewProps) {
   const { className, profileCards, projectCards } = props;
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <StyledProjectWrapper>
         <h2>내 프로젝트에 지원한 사람</h2>
         <StyledProjectPoke>{projectCards}</StyledProjectPoke>
@@ -33,6 +32,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
   margin: 0 auto;
   width: calc(100% - 52rem);
+  max-width: 120em;
   height: 100%;
 `;
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { withAuth } from "../../utils/ssr";
 import { apiService } from "../../api";
 import styled from "styled-components";
@@ -8,9 +8,9 @@ import { FilterGroupDropDown as Group } from "../../components/molecule/drop-dow
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import Link from "next/link";
 import { useAPI } from "../../utils/hook/api";
+import useInfinityScroll from "../../utils/hook/useInfinityScroll";
 
 export interface SearchMemberProps {
-  searchMember: MemberInfo;
   memberMetadata: MemberMeta;
 }
 
@@ -19,34 +19,58 @@ export default function SearchMember(props: SearchMemberProps) {
     positionId: 1,
     tagId: [1],
     fieldId: [1],
-    count: 50,
+    count: 6,
     page: 1,
   };
   const search = useAPI((api) => api.member.searchMembers);
-  const { searchMember, memberMetadata: meta } = props;
-  const [memberInfo, setMemberInfo] = useState<MemberInfo>(searchMember);
+  const { memberMetadata: meta } = props;
+  const [memberInfo, setMemberInfo] = useState<MemberInfo>({ memberCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(requsetInitial);
+  const [isMoreData, setIsMoreData] = useState<boolean>(true);
+  const observerRef = useRef(null);
+  const isIntersected = useInfinityScroll(observerRef);
+
+  useEffect(() => {
+    if (isIntersected && isMoreData) {
+      (async () => {
+        try {
+          const data = await search.request(requestInfo);
+
+          if (data && data.memberCard.length > 0) {
+            setMemberInfo({ memberCard: [...memberInfo.memberCard, ...data.memberCard] });
+            setRequestInfo({ ...requestInfo, page: requestInfo.page + 1 });
+          } else {
+            setIsMoreData(false);
+          }
+        } catch (e) {
+          throw e;
+        }
+      })();
+    }
+  }, [isIntersected, isMoreData]);
 
   const onUpdate = (key: string, payload: number | number[]) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
   };
 
-  function onReset(category?: string, payload?: number[]) {
+  const onReset = (category?: string, payload?: number[]) => {
     if (category && payload) {
       setRequestInfo({ ...requestInfo, [category]: [...payload] });
       return;
     }
     setRequestInfo(requsetInitial);
-  }
+  };
 
-  async function handleSearch() {
+  const handleSearch = async () => {
     try {
-      const filtered = await search.request(requestInfo);
+      const filtered = await search.request({ ...requestInfo, page: 1 });
       filtered ? setMemberInfo(filtered) : setMemberInfo({ memberCard: [] });
+      setIsMoreData(true);
+      setRequestInfo({ ...requestInfo, page: 2 });
     } catch {
       alert("err");
     }
-  }
+  };
 
   return (
     <StyledSearchProject>
@@ -78,6 +102,7 @@ export default function SearchMember(props: SearchMemberProps) {
             </Link>
           ))}
         />
+        <div ref={observerRef} />
       </StyledMain>
     </StyledSearchProject>
   );
@@ -92,7 +117,8 @@ const StyledMain = styled.div`
   box-sizing: border-box;
   padding-top: 10.2em;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ResetA = styled.a`
@@ -101,20 +127,10 @@ const ResetA = styled.a`
 `;
 
 export const getServerSideProps = withAuth<SearchMemberProps>(async () => {
-  const [searchMember, memberMetadata] = await Promise.all([
-    apiService.member.searchMembers({
-      positionId: 1,
-      tagId: [1],
-      fieldId: [1],
-      count: 100,
-      page: 1,
-    }),
-    apiService.member.getFilterMetadata(),
-  ]);
+  const [memberMetadata] = await Promise.all([apiService.member.getFilterMetadata()]);
 
   return {
     props: {
-      searchMember: searchMember,
       memberMetadata: memberMetadata.member,
     },
   };

@@ -20,7 +20,6 @@ export function FindPasswordModal(props: FindPasswordModalProps) {
       }
       if (e.target instanceof Element) {
         if (!ref.current?.contains(e.target)) {
-          console.log("contains?");
           onClose && onClose();
         }
       }

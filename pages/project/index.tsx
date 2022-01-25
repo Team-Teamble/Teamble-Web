@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { withAuth } from "../../utils/ssr";
 import { apiService } from "../../api";
 import styled from "styled-components";
@@ -7,9 +7,9 @@ import { SingleDropDown as Single } from "../../components/molecule/drop-down/Si
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProjectCard } from "../../components/molecule/projectCard/ProjectCard";
 import { useAPI } from "../../utils/hook/api";
+import useInfinityScroll from "../../utils/hook/useInfinityScroll";
 
 export interface SearchProjectProps {
-  searchProject: ProjectInfo;
   projectMetadata: ProjectMeta;
 }
 
@@ -20,17 +20,37 @@ export default function SearchProject(props: SearchProjectProps) {
     goalId: 1, // 선택한 목표 id
     tagId: [1], // 선택한 협업 성향 id
     fieldId: [1], // 선택한 관심 프로젝트 id
-    count: 50, // 한 번(한 페이지)에 받을 프로젝트 개수
+    count: 6, // 한 번(한 페이지)에 받을 프로젝트 개수
     page: 1, // 받을 페이지 번호 (1부터 시작)
   };
   const {
-    searchProject,
     projectMetadata: { project: meta },
   } = props;
-
   const search = useAPI((api) => api.project.searchProject);
-  const [projectInfo, setProjectInfo] = useState<ProjectInfo>(searchProject);
+  const [projectInfo, setProjectInfo] = useState<ProjectInfo>({ projectCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
+  const [isMoreData, setIsMoreData] = useState<boolean>(true);
+  const observerRef = useRef(null);
+  const isIntersected = useInfinityScroll(observerRef);
+
+  useEffect(() => {
+    if (isIntersected && isMoreData) {
+      (async () => {
+        try {
+          const data = await search.request(requestInfo);
+
+          if (data && data.projectCard.length > 0) {
+            setProjectInfo({ projectCard: [...projectInfo.projectCard, ...data.projectCard] });
+            setRequestInfo({ ...requestInfo, page: requestInfo.page + 1 });
+          } else {
+            setIsMoreData(false);
+          }
+        } catch (e) {
+          throw e;
+        }
+      })();
+    }
+  }, [isIntersected, isMoreData, setIsMoreData]);
 
   const onUpdate: HandleRequestUpdate = (key, payload) => {
     setRequestInfo({ ...requestInfo, [key]: payload });
@@ -38,9 +58,10 @@ export default function SearchProject(props: SearchProjectProps) {
 
   async function handleSearch() {
     try {
-      const filtered = await search.request(requestInfo);
-      console.log(filtered);
+      const filtered = await search.request({ ...requestInfo, page: 1 });
       filtered ? setProjectInfo(filtered) : setProjectInfo({ projectCard: [] });
+      setIsMoreData(true);
+      setRequestInfo({ ...requestInfo, page: 2 });
     } catch {
       alert("error");
     }
@@ -82,6 +103,7 @@ export default function SearchProject(props: SearchProjectProps) {
             <ProjectCard key={each.id} cardInfo={each} />
           ))}
         />
+        <div ref={observerRef} />
       </StyledMain>
     </StyledSearchProject>
   );
@@ -96,25 +118,14 @@ const StyledMain = styled.div`
   box-sizing: border-box;
   padding-top: 10.2em;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 export const getServerSideProps = withAuth<SearchProjectProps>(async () => {
-  const [searchProject, projectMetadata] = await Promise.all([
-    apiService.project.searchProject({
-      periodId: 1, // 선택한 기간 id
-      positionId: 1, // 선택한 협업 포지션 id
-      goalId: 1, // 선택한 목표 id
-      tagId: [1], // 선택한 협업 성향 id
-      fieldId: [1], // 선택한 관심 프로젝트 id
-      count: 50, // 한 번(한 페이지)에 받을 프로젝트 개수
-      page: 1,
-    }),
-    apiService.project.getSearchMetadata(),
-  ]);
+  const [projectMetadata] = await Promise.all([apiService.project.getSearchMetadata()]);
 
   return {
     props: {
-      searchProject: searchProject,
       projectMetadata: projectMetadata,
     },
   };

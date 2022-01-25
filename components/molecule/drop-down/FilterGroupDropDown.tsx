@@ -74,10 +74,8 @@ export function FilterGroupDropDown(props: FilterGroupDropDownProps) {
 
   function handleDelete(selectedId: number) {
     const newOption = currentOption.filter(({ id }) => id !== selectedId);
-    onUpdate(
-      category,
-      newOption.map(({ id }) => id),
-    );
+    const payload = newOption.length === 0 ? [1] : newOption.map(({ id }) => id);
+    onUpdate(category, payload);
   }
 
   return (

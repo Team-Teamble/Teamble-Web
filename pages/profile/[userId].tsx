@@ -37,7 +37,7 @@ export default function ProfileById(props: ProfileByIdProps) {
   const [error, setError] = useState("");
   const [isPoked, setIsPoked] = useState(false);
   const pokeUser = useAPI((api) => api.poke.pokeUser);
-  console.log(userInfo);
+
   useEffect(() => {
     setUserInfo(userProfileInfo);
   }, [userProfileInfo]);

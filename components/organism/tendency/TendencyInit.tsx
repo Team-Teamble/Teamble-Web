@@ -55,6 +55,7 @@ export function TendencyInit(props: TendencyInitProps) {
 const AniWrapper = styled.div`
   display: flex;
   position: relative;
+  width: 100vw;
 `;
 const StyledTendenctInit = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ const StyledTendenctInit = styled.div`
     align-items: center;
     width: 100%;
     margin: 0 auto;
+    overflow: hidden;
   }
 `;
 

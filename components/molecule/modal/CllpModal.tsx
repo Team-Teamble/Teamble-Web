@@ -25,10 +25,10 @@ export function ClipModal(props: CilpModalProps) {
 }
 
 const StyledClipModal = styled.div`
-  position: absolute;
-  top: -500%;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 `;
 const StyledModal = styled.div<{
   isMobile: boolean;

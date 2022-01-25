@@ -44,8 +44,8 @@ export function SingleDropDown(props: SingleDropDownProps) {
     setIsSelected(currentOption.id !== meta[0].id);
   }, [currentOption, meta]);
 
-  function handleOpen() {
-    setIsOpened((state) => !state);
+  function handleOpen(e: React.FocusEvent<HTMLDivElement>) {
+    if (e.currentTarget === e.target) setIsOpened((state) => !state);
   }
 
   function handleSelect(id: number) {
@@ -53,8 +53,8 @@ export function SingleDropDown(props: SingleDropDownProps) {
   }
 
   return (
-    <StyledMyPageDropDown className={className} onFocus={handleOpen} onBlur={handleOpen} tabIndex={-1}>
-      <FoldButton isOpened={isOpened} isSelected={isSelected} isTagBox={false}>
+    <StyledMyPageDropDown className={className}>
+      <FoldButton isOpened={isOpened} isSelected={isSelected} isTagBox={false} onClick={handleOpen}>
         {currentOption.name}
       </FoldButton>
       {isOpened && <Options options={meta} onClick={handleSelect} isFilter={true} />}

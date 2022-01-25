@@ -6,7 +6,7 @@ import { teambleColors } from "../../../styles/color";
 export interface FoldButtonProps {
   className?: string;
   children: ReactNode;
-  onClick?(): void;
+  onClick?(e: React.FocusEvent<HTMLDivElement>): void;
   isOpened: boolean;
   isSelected: boolean;
   isTagBox: boolean;
@@ -19,8 +19,10 @@ export function FoldButton(props: FoldButtonProps) {
       isTagBox={isTagBox}
       isOpened={isOpened}
       isSelected={isSelected}
-      onClick={onClick}
-      className={className}>
+      className={className}
+      onFocus={onClick}
+      onBlur={onClick}
+      tabIndex={-1}>
       {children}
       <Arrow />
     </StyledWrapper>

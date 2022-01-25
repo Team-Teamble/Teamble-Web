@@ -77,7 +77,6 @@ const OutSVG = styled.img`
 const ResultActionBox = styled.div`
   display: flex;
   justify-content: center;
-  position: relative;
 
   font-size: 20vh;
   margin-bottom: 3rem;

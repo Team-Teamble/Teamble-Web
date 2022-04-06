@@ -6,8 +6,8 @@ import { SearchProject as Main } from "../../components/template/searchProjectVi
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProjectCard } from "../../components/molecule/projectCard/ProjectCard";
-import { useAPI } from "../../utils/hook/api";
 import useInfinityScroll from "../../utils/hook/useInfinityScroll";
+import { useAPINew } from "../../api/hook";
 
 export interface SearchProjectProps {
   projectMetadata: ProjectMeta;
@@ -26,7 +26,7 @@ export default function SearchProject(props: SearchProjectProps) {
   const {
     projectMetadata: { project: meta },
   } = props;
-  const search = useAPI((api) => api.project.searchProject);
+  const search = useAPINew((api) => api.project.searchProject);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({ projectCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
   const [isMoreData, setIsMoreData] = useState<boolean>(true);

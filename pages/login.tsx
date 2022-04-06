@@ -41,9 +41,3 @@ export default function Login() {
     />
   );
 }
-
-export const getServerSideProps = withAuth(async () => {
-  return {
-    props: {},
-  };
-});

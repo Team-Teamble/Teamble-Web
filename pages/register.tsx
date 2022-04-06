@@ -47,9 +47,3 @@ export default function Register() {
     />
   );
 }
-
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};

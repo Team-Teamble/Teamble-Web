@@ -11,6 +11,8 @@ import { UnauthorizedError } from "../api/util/error";
 import { getLayout } from "../utils/layout";
 import { installProgressBar } from "../utils/progress";
 import Head from "next/head";
+import { APIProvider } from "../api/hook";
+import { useRouter } from "next/router";
 
 interface MyAppProps {
   _META_PROPS?: MetaProps;
@@ -21,6 +23,8 @@ installProgressBar();
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
   const { _META_PROPS, ...otherPageProps } = pageProps as MyAppProps;
+
+  const router = useRouter();
 
   useEffect(() => {
     if (_META_PROPS?._IS_META) {
@@ -36,23 +40,26 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
   }
 
   const SelectedLayout = getLayout(Component) ?? AppLayout;
-
   return (
     <RecoilRoot initializeState={initState}>
-      <DetectAuth user={_META_PROPS?.access?.user ?? null} accessToken={_META_PROPS?.access?.accessToken ?? null}>
-        <SelectedLayout>
-          <Head>
-            <title>teamble</title>
-            <meta property="og:url" content="//teamble.vercel.app" />
-            <meta property="og:title" content="teamble" />
-            <meta property="og:type" content="website" />
-            <meta property="og:image" content="//teamble.vercel.app/teambleThumbnail.png" />
-            <meta property="og:description" content="서로 다른 색의 우리가 만나는 공간, 팀블" />
-          </Head>
-          <GlobalStyle />
-          <Component {...otherPageProps} />
-        </SelectedLayout>
-      </DetectAuth>
+      <APIProvider
+        endpoint={process.env.NEXT_PUBLIC_API_ENDPOINT ?? ""}
+        onUnauthorizedError={() => router.replace("/login")}>
+        <DetectAuth user={_META_PROPS?.access?.user ?? null} accessToken={_META_PROPS?.access?.accessToken ?? null}>
+          <SelectedLayout>
+            <Head>
+              <title>teamble</title>
+              <meta property="og:url" content="//teamble.vercel.app" />
+              <meta property="og:title" content="teamble" />
+              <meta property="og:type" content="website" />
+              <meta property="og:image" content="//teamble.vercel.app/teambleThumbnail.png" />
+              <meta property="og:description" content="서로 다른 색의 우리가 만나는 공간, 팀블" />
+            </Head>
+            <GlobalStyle />
+            <Component {...otherPageProps} />
+          </SelectedLayout>
+        </DetectAuth>
+      </APIProvider>
     </RecoilRoot>
   );
 }

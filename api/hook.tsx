@@ -27,7 +27,15 @@ interface APIProviderProps {
 export function APIProvider(props: APIProviderProps) {
   const { children, endpoint } = props;
 
-  const [apiService, setApiService] = useState(() => createAPIService({ axios: axios.create() }));
+  const [apiService, setApiService] = useState(() =>
+    createAPIService({
+      axios: withErrorReplacer(
+        axios.create({
+          baseURL: endpoint,
+        }),
+      ),
+    }),
+  );
 
   function setAccessToken(accessToken: string) {
     localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken);
@@ -101,5 +109,39 @@ export function useAPIAuth() {
   return {
     setAccessToken: ctx.setAccessToken,
     clearAccessToken: ctx.clearAccessToken,
+  };
+}
+
+interface APIHookResult<Req extends unknown[], Res> {
+  request(...args: Req): Promise<Res | null>;
+  data: Res | null;
+  loading: boolean;
+}
+
+export function useAPINew<Req extends unknown[], Res>(
+  fn: (api: APIService) => (...args: Req) => Promise<Res>,
+): APIHookResult<Req, Res> {
+  const apiService = useAPIService();
+
+  const [data, setData] = useState<Res | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const apiRequest = fn(apiService);
+
+  async function request(...args: Req): Promise<Res | null> {
+    setLoading(true);
+    try {
+      const res = await apiRequest(...args);
+      setData(res);
+      return res;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return {
+    request,
+    data,
+    loading,
   };
 }

@@ -4,6 +4,9 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiService, setAccessToken } from "../../api";
 import { authUserAtom, UserInfo } from "../../states/auth";
 
+const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
+const USER_STORAGE_KEY = "user";
+
 const localAPISession = axios.create({
   baseURL: "/api/",
 });
@@ -11,6 +14,8 @@ const localAPISession = axios.create({
 function useAuthStore() {
   async function store(accessToken: string, user: UserInfo) {
     await localAPISession.post("auth/store", { accessToken, user });
+    localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken);
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
   }
 
   return store;

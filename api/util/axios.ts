@@ -8,7 +8,7 @@ export interface Session {
 
 export type AxiosSession = AxiosInstance;
 
-export function createAxiosSession(context: APIContext, endpoint: string): Session {
+export function createAxiosSession(context: APIContext, endpoint: string): AxiosSession {
   const request = axios.create({
     baseURL: endpoint,
   });
@@ -58,9 +58,7 @@ export function createAxiosSession(context: APIContext, endpoint: string): Sessi
     },
   });
 
-  return {
-    request: proxyRequest,
-  };
+  return proxyRequest;
 }
 
 const requestCalls = ["get", "post", "put", "delete", "patch", "head", "option"];
@@ -75,4 +73,27 @@ function isPromise(obj: unknown): obj is Promise<unknown> {
   }
 
   return false;
+}
+
+export function withErrorReplacer(axiosCli: AxiosInstance) {
+  axiosCli.interceptors.response.use(
+    (config) => config,
+    (e) => {
+      if (axios.isAxiosError(e)) {
+        const message = e.response?.data?.message ?? "";
+        if (e.response?.status === 401) {
+          throw new UnauthorizedError(message);
+        } else if (e.response?.status === 400) {
+          throw new BadRequestError(message);
+        } else if (e.response?.status === 404) {
+          throw new NotFoundError(message);
+        } else {
+          console.error(e);
+          throw new UnknownAPIError(e.response?.status ?? -1);
+        }
+      }
+      throw e;
+    },
+  );
+  return axiosCli;
 }

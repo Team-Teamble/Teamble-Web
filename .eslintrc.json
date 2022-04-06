@@ -1,6 +1,12 @@
 {
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
   "rules": {
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      {
+        "allow": ["arrowFunctions"]
+      }
+    ]
   }
 }

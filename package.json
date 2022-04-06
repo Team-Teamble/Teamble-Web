@@ -17,6 +17,7 @@
     "@toast-ui/editor": "^3.1.2",
     "@toast-ui/react-editor": "^3.1.2",
     "@types/react-slick": "^0.23.8",
+    "await-to-js": "^3.0.0",
     "axios": "^0.24.0",
     "cookies": "^0.8.0",
     "copy-to-clipboard": "^3.3.1",

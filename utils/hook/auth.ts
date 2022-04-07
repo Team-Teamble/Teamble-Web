@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiService, setAccessToken } from "../../api";
 import { authUserAtom, UserInfo } from "../../states/auth";
+import { useAPIAuth } from "./api";
 
 const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
 const USER_STORAGE_KEY = "user";
@@ -33,8 +34,12 @@ export function useLogin({ redirect }: { redirect?: string }) {
   const authStore = useAuthStore();
   const setUser = useSetRecoilState(authUserAtom);
 
+  const apiAuth = useAPIAuth();
+
   async function request(username: string, password: string) {
     const res = await apiService.auth.login({ email: username, password });
+
+    apiAuth.setAccessToken(res.accesstoken);
 
     const user = {
       id: res.user.id,
@@ -60,7 +65,10 @@ export function useLogout({ redirect }: { redirect?: string }) {
   const destroy = useAuthDestroy();
   const setUser = useSetRecoilState(authUserAtom);
 
+  const apiAuth = useAPIAuth();
+
   async function request() {
+    apiAuth.clearAccessToken();
     setUser(null);
     await destroy();
     if (redirect) {

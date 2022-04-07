@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { APIService, createAPIService } from ".";
-import { withErrorReplacer } from "./util/axios";
+import { APIService, createAPIService } from "../../api";
+import { withErrorReplacer } from "../../api/util/axios";
 
 const emptyFunc = () => {};
 const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
@@ -118,7 +118,7 @@ interface APIHookResult<Req extends unknown[], Res> {
   loading: boolean;
 }
 
-export function useAPINew<Req extends unknown[], Res>(
+export function useAPILegacy<Req extends unknown[], Res>(
   fn: (api: APIService) => (...args: Req) => Promise<Res>,
 ): APIHookResult<Req, Res> {
   const apiService = useAPIService();

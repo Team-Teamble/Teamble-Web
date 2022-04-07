@@ -5,7 +5,7 @@ import { ProjectHeader } from "../../components/organism/projectDetailView/Proje
 import { ProjectMember } from "../../components/organism/projectDetailView/ProjectMember";
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
-import { useAPI } from "../../utils/hook/api";
+import { useAPILegacy } from "../../utils/hook/api";
 import { useUser } from "../../utils/hook/auth";
 import { withAuth } from "../../utils/ssr";
 
@@ -21,8 +21,8 @@ export default function ViewProject(props: ViewProjectProps) {
 
   const checkProjectOwner = authedUser?.id === projectDetail.project.user.id;
 
-  const pokeProject = useAPI((api) => api.poke.pokeProject);
-  const completeProject = useAPI((api) => api.project.markCompleteProject);
+  const pokeProject = useAPILegacy((api) => api.poke.pokeProject);
+  const completeProject = useAPILegacy((api) => api.project.markCompleteProject);
 
   // 팀 지원하기 클릭 시, 동작 구현
   async function handleApply(projectId: number, userId: number) {

@@ -7,9 +7,8 @@ import { SingleDropDown as Single } from "../../components/molecule/drop-down/Si
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import Link from "next/link";
-import { useAPI } from "../../utils/hook/api";
 import useInfinityScroll from "../../utils/hook/useInfinityScroll";
-import { useAPINew } from "../../api/hook";
+import { useAPILegacy } from "../../utils/hook/api";
 
 export interface SearchMemberProps {
   memberMetadata: MemberMeta;
@@ -23,7 +22,7 @@ export default function SearchMember(props: SearchMemberProps) {
     count: 6,
     page: 1,
   };
-  const search = useAPINew((api) => api.member.searchMembers);
+  const search = useAPILegacy((api) => api.member.searchMembers);
   const { memberMetadata: meta } = props;
   const [memberInfo, setMemberInfo] = useState<MemberInfo>({ memberCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(requsetInitial);

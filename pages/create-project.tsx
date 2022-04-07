@@ -19,7 +19,7 @@ import { formatISO } from "date-fns";
 import { ConfirmButton } from "../components/atom/button/ConfirmButton";
 import { teambleColors } from "../styles/color";
 import { AddMemberModal } from "../components/molecule/modal/AddMemberModal";
-import { useAPI } from "../utils/hook/api";
+import { useAPILegacy } from "../utils/hook/api";
 import { useRouter } from "next/router";
 import { BadRequestError, NotFoundError } from "../api/util/error";
 export interface CreateProjectProps {
@@ -29,9 +29,9 @@ export interface CreateProjectProps {
 }
 
 export default function CreateProject(props: CreateProjectProps) {
-  const addMember = useAPI((api) => api.project.addMemberToProject);
-  const createProject = useAPI((api) => api.project.createProject);
-  const addPicture = useAPI((api) => api.project.addPictureToProject);
+  const addMember = useAPILegacy((api) => api.project.addMemberToProject);
+  const createProject = useAPILegacy((api) => api.project.createProject);
+  const addPicture = useAPILegacy((api) => api.project.addPictureToProject);
 
   const { createProjectMetadata: meta, className, user } = props;
   const editorRef = useRef<DocumentEditorRef>(null);

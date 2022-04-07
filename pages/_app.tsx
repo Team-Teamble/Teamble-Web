@@ -11,7 +11,7 @@ import { UnauthorizedError } from "../api/util/error";
 import { getLayout } from "../utils/layout";
 import { installProgressBar } from "../utils/progress";
 import Head from "next/head";
-import { APIProvider } from "../api/hook";
+import { APIProvider } from "../utils/hook/api";
 import { useRouter } from "next/router";
 
 interface MyAppProps {

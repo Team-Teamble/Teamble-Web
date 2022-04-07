@@ -2,7 +2,7 @@ import { useState } from "react";
 import { apiService } from "../../api";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import { PokeView } from "../../components/template/pokeView/PokeView";
-import { useAPI } from "../../utils/hook/api";
+import { useAPILegacy } from "../../utils/hook/api";
 import { withAuth } from "../../utils/ssr";
 
 interface PokePageProps {
@@ -17,8 +17,8 @@ export default function PokePage(props: PokePageProps) {
   const [pokeUserList, setPokeUserList] = useState<PokeUserInfo>(pokeUserInfo);
   const [pokeProjectList, setPokeProjectList] = useState<PokeProjectInfo>(pokeProjectInfo);
 
-  const deleteUserPoke = useAPI((api) => api.poke.deletePokeUser);
-  const deleteProjectPoke = useAPI((api) => api.poke.deletePokeProject);
+  const deleteUserPoke = useAPILegacy((api) => api.poke.deletePokeUser);
+  const deleteProjectPoke = useAPILegacy((api) => api.poke.deletePokeProject);
 
   async function onDeleteUser(userId: number, pokingUserId: number) {
     const data = await deleteUserPoke.request({ userId: userId.toString(), pokingUserId: pokingUserId.toString() });

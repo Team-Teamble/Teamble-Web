@@ -15,9 +15,9 @@ import { DocumentViewer } from "../../components/molecule/document/DocumentViewe
 import { DocumentEditor } from "../../components/molecule/document/DocumentEditor";
 import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
 import { useUser } from "../../utils/hook/auth";
-import { useAPI } from "../../utils/hook/api";
 import { BadRequestError, NotFoundError } from "../../api/util/error";
 import { ConfirmButton, StyledSearchBtn } from "../../components/atom/button/ConfirmButton";
+import { useAPILegacy } from "../../utils/hook/api";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
@@ -25,18 +25,18 @@ interface ProfileByIdProps {
 }
 
 export default function ProfileById(props: ProfileByIdProps) {
-  const updatePicture = useAPI((api) => api.userProfile.updateProfilePicture);
+  const updatePicture = useAPILegacy((api) => api.userProfile.updateProfilePicture);
   const { userProfileInfo, userProfileMetadata: meta, userId } = props;
 
   const authedUser = useUser();
-  const updateUser = useAPI((api) => api.userProfile.updateProfile);
+  const updateUser = useAPILegacy((api) => api.userProfile.updateProfile);
 
   const [userInfo, setUserInfo] = useState<UserProfileInfo>(userProfileInfo);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [isPoked, setIsPoked] = useState(false);
-  const pokeUser = useAPI((api) => api.poke.pokeUser);
+  const pokeUser = useAPILegacy((api) => api.poke.pokeUser);
 
   useEffect(() => {
     setUserInfo(userProfileInfo);

@@ -1,20 +1,40 @@
 import { useRouter } from "next/router";
-import { apiService } from "../../api";
+import { useQuery } from "react-query";
+import { NotFoundError } from "../../api/util/error";
 import { ProjectDesc } from "../../components/organism/projectDetailView/ProjectDesc";
 import { ProjectHeader } from "../../components/organism/projectDetailView/ProjectHeader";
 import { ProjectMember } from "../../components/organism/projectDetailView/ProjectMember";
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
-import { useAPILegacy } from "../../utils/hook/api";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
 import { useUser } from "../../utils/hook/user";
-import { withAuth } from "../../utils/ssr";
 
 interface ViewProjectProps {
   projectId: number;
   projectDetail: ProjectDetail;
 }
 
-export default function ViewProject(props: ViewProjectProps) {
+export default function ViewProjectWrapper() {
+  const router = useRouter();
+  const { projectId: projectIdRaw } = router.query;
+
+  const projectId = tryGetNumber(projectIdRaw);
+
+  const getProjectDetail = useAPI((api) => api.project.getProjectDetail);
+  const projectDetail = useQuery(["getProjectDetail", projectId], () => getProjectDetail.request(projectId ?? -1));
+
+  if (projectDetail.isLoading || !projectDetail.data) {
+    return <div>Loading...</div>;
+  }
+
+  if (projectId === null || projectDetail.error instanceof NotFoundError) {
+    return <div>404</div>;
+  }
+
+  return <ViewProject projectId={projectId} projectDetail={projectDetail.data} />;
+}
+
+export function ViewProject(props: ViewProjectProps) {
   const { projectDetail, projectId } = props;
   const authedUser = useUser();
   const router = useRouter();
@@ -57,26 +77,6 @@ export default function ViewProject(props: ViewProjectProps) {
       member={<ProjectMember projectDetail={projectDetail} />}></ProjectDetailTemplate>
   );
 }
-
-export const getServerSideProps = withAuth<ViewProjectProps>(async (context) => {
-  const projectIdRaw = context.query.projectId;
-  const projectId = tryGetNumber(projectIdRaw);
-
-  if (projectId === null) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const [projectDetail] = await Promise.all([apiService.project.getProjectDetail(projectId)]);
-
-  return {
-    props: {
-      projectId: projectId,
-      projectDetail: projectDetail,
-    },
-  };
-});
 
 function tryGetNumber(val: string | string[] | undefined): number | null {
   if (val !== undefined && !isNaN(+val)) {

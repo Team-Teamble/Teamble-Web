@@ -1,9 +1,9 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { apiService } from "../../api";
+import { useQuery } from "react-query";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import { PokeView } from "../../components/template/pokeView/PokeView";
-import { useAPILegacy } from "../../utils/hook/api";
-import { withAuth } from "../../utils/ssr";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
 
 interface PokePageProps {
   userId: number;
@@ -11,7 +11,36 @@ interface PokePageProps {
   pokeProjectInfo: PokeProjectInfo;
 }
 
-export default function PokePage(props: PokePageProps) {
+export default function PokePageWrapper() {
+  const router = useRouter();
+  const { userId: userIdRaw } = router.query;
+
+  const userId = tryGetNumber(userIdRaw);
+
+  const getPokeUser = useAPI((api) => api.poke.getPokeUser);
+  const getPokeProject = useAPI((api) => api.poke.getPokeProject);
+
+  const pokeUser = useQuery(["poke.getPokeUser", userId], () => getPokeUser.request(userId ?? -1), {
+    enabled: userId !== null,
+    retry: 0,
+  });
+  const pokeProject = useQuery(["poke.getPokeProject", userId], () => getPokeProject.request(userId ?? -1), {
+    enabled: userId !== null,
+    retry: 0,
+  });
+
+  if (userId === null || pokeProject.isLoading || !pokeProject.data || pokeUser.isLoading || !pokeUser.data) {
+    return <div>Loading</div>;
+  }
+
+  if (pokeProject.isError) {
+    return <div>Error</div>;
+  }
+
+  return <PokePage userId={userId} pokeProjectInfo={pokeProject.data} pokeUserInfo={pokeUser.data} />;
+}
+
+export function PokePage(props: PokePageProps) {
   const { userId, pokeUserInfo, pokeProjectInfo } = props;
 
   const [pokeUserList, setPokeUserList] = useState<PokeUserInfo>(pokeUserInfo);
@@ -70,30 +99,6 @@ export default function PokePage(props: PokePageProps) {
       }></PokeView>
   );
 }
-
-export const getServerSideProps = withAuth<PokePageProps>(async (context) => {
-  const userIdRaw = context.query.userId;
-  const userId = tryGetNumber(userIdRaw);
-
-  if (userId === null) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const [pokeUserInfo, pokeProjectInfo] = await Promise.all([
-    apiService.poke.getPokeUser(userId),
-    apiService.poke.getPokeProject(userId),
-  ]);
-
-  return {
-    props: {
-      userId,
-      pokeUserInfo: pokeUserInfo,
-      pokeProjectInfo: pokeProjectInfo,
-    },
-  };
-});
 
 function tryGetNumber(val: string | string[] | undefined): number | null {
   if (val !== undefined && !isNaN(+val)) {

@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { withAuth } from "../utils/ssr";
-import { apiService } from "../api";
 import styled from "styled-components";
 import { Intro } from "../components/organism/makeProjectView/Intro";
 import { Period } from "../components/organism/makeProjectView/Period";

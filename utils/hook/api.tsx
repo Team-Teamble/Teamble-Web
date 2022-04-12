@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { APIService, createAPIService } from "../../api";
 import { withErrorReplacer } from "../../api/util/axios";
 import { UnauthorizedError } from "../../api/util/error";
@@ -128,56 +128,58 @@ export function useAPIAuth() {
 }
 
 export function useAPI<Req extends unknown[], Res>(fn: (api: APIService) => (...args: Req) => Promise<Res>) {
-  const { apiService, isLoaded: isAuthLoaded } = useAPIService();
+  const { apiService, isLoaded } = useAPIService();
   const router = useRouter();
 
-  const ref = useRef<{ resolve: (res: Res) => void; reject: (e: unknown) => void; request: Req } | null>(null);
+  const ref = useRef<{ resolve: (res: Res) => void; reject: (e: unknown) => void; request: Req }[]>([]);
 
   async function request(...args: Req): Promise<Res> {
     return new Promise((resolve, reject) => {
-      if (isAuthLoaded) {
+      if (isLoaded) {
         f(...args)
           .then(resolve)
           .catch(reject);
       } else {
-        ref.current = {
+        ref.current.push({
           resolve,
           reject,
           request: args,
-        };
+        });
       }
     });
   }
 
-  async function f(...args: Req): Promise<Res> {
-    const target = fn(apiService);
-    try {
-      const res = await target(...args);
-      return res;
-    } catch (err) {
-      if (err instanceof UnauthorizedError) {
-        console.log("REDIRECT!");
-        router.push("/login");
+  const f = useCallback(
+    async function f(...args: Req): Promise<Res> {
+      const target = fn(apiService);
+      try {
+        const res = await target(...args);
+        return res;
+      } catch (err) {
+        if (err instanceof UnauthorizedError) {
+          router.push("/login");
+        }
+        throw err;
       }
-      throw err;
-    }
-  }
+    },
+    [apiService, fn, router],
+  );
 
   useEffect(() => {
-    if (isAuthLoaded) {
-      if (ref.current !== null) {
-        const { request, resolve, reject } = ref.current;
-        ref.current = null;
+    if (isLoaded) {
+      ref.current.forEach((el) => {
+        const { request, resolve, reject } = el;
         f(...request)
           .then(resolve)
           .catch(reject);
-      }
+      });
+      ref.current = [];
     }
-  }, [isAuthLoaded]);
+  }, [isLoaded, f]);
 
   return {
     request,
-    isReady: isAuthLoaded,
+    isReady: isLoaded,
   };
 }
 

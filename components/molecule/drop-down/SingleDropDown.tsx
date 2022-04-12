@@ -27,21 +27,21 @@ export function SingleDropDown(props: SingleDropDownProps) {
   const [isSelected, setIsSelected] = useState(false);
   const [currentOption, setCurrentOption] = useState<{ id: number; name: string }>(meta[0]);
 
-  const changeToOption = useCallback(() => {
-    return meta[0].id === info
-      ? meta[0]
-      : meta.filter(({ id }) => {
-          if (info === id) return true;
-          return false;
-        })[0];
-  }, [info, meta]);
-
   useEffect(() => {
+    const changeToOption = () => {
+      return meta[0].id === info
+        ? meta[0]
+        : meta.filter(({ id }) => {
+            if (info === id) return true;
+            return false;
+          })[0];
+    };
+
     setCurrentOption(changeToOption());
-  }, [info, changeToOption]);
+  }, [info]);
 
   useEffect(() => {
-    setIsSelected(currentOption.id !== meta[0].id);
+    setIsSelected(currentOption?.id !== meta[0].id);
   }, [currentOption, meta]);
 
   function handleOpen(e: React.FocusEvent<HTMLDivElement>) {
@@ -55,7 +55,7 @@ export function SingleDropDown(props: SingleDropDownProps) {
   return (
     <StyledMyPageDropDown className={className}>
       <FoldButton isOpened={isOpened} isSelected={isSelected} isTagBox={false} onClick={handleOpen}>
-        {currentOption.name}
+        {currentOption?.name}
       </FoldButton>
       {isOpened && <Options options={meta} onClick={handleSelect} isFilter={true} />}
     </StyledMyPageDropDown>

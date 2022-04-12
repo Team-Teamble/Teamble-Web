@@ -7,13 +7,25 @@ import { SingleDropDown as Single } from "../../components/molecule/drop-down/Si
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProjectCard } from "../../components/molecule/projectCard/ProjectCard";
 import useInfinityScroll from "../../utils/hook/useInfinityScroll";
-import { useAPILegacy } from "../../utils/hook/api";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
+import { useQuery } from "react-query";
 
 export interface SearchProjectProps {
   projectMetadata: ProjectMeta;
 }
 
-export default function SearchProject(props: SearchProjectProps) {
+export default function SearchProjectWrapper() {
+  const meta = useAPI((api) => api.project.getProjectMetadata);
+  const { isLoading, data } = useQuery("getProjectMetadata", () => meta.request());
+
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
+  return <SearchProject projectMetadata={data} />;
+}
+
+export function SearchProject(props: SearchProjectProps) {
   const initial = {
     periodId: 1, // 선택한 기간 id
     positionId: 1, // 선택한 협업 포지션 id
@@ -74,7 +86,6 @@ export default function SearchProject(props: SearchProjectProps) {
     }
     setRequestInfo(initial);
   }
-
   return (
     <StyledSearchProject>
       <StyledMain>
@@ -121,15 +132,6 @@ const StyledMain = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const getServerSideProps = withAuth<SearchProjectProps>(async () => {
-  const [projectMetadata] = await Promise.all([apiService.project.getSearchMetadata()]);
-
-  return {
-    props: {
-      projectMetadata: projectMetadata,
-    },
-  };
-});
 
 interface HandleRequestUpdate {
   <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;

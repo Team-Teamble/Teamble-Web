@@ -1,9 +1,7 @@
 import { AppProps } from "next/app";
-import { ReactElement, useEffect } from "react";
-import { setAccessToken } from "../api";
+import { ReactElement } from "react";
 import { GlobalStyle } from "../styles/globalStyle";
 import { AppLayout } from "../components/organism/appLayout/AppLayout";
-import { MetaProps } from "../utils/ssr";
 import { getLayout } from "../utils/layout";
 import { installProgressBar } from "../utils/progress";
 import Head from "next/head";
@@ -12,28 +10,12 @@ import { useRouter } from "next/router";
 import { AuthUserProvider } from "../utils/hook/user";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-interface MyAppProps {
-  _META_PROPS?: MetaProps;
-  [key: string]: unknown;
-}
-
 installProgressBar();
 
 const queryClieint = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  const { _META_PROPS, ...otherPageProps } = pageProps as MyAppProps;
-
   const router = useRouter();
-
-  useEffect(() => {
-    if (_META_PROPS?._IS_META) {
-      const { access } = _META_PROPS;
-      if (access) {
-        setAccessToken(access.accessToken);
-      }
-    }
-  }, [_META_PROPS]);
 
   const SelectedLayout = getLayout(Component) ?? AppLayout;
   return (
@@ -52,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
               <meta property="og:description" content="서로 다른 색의 우리가 만나는 공간, 팀블" />
             </Head>
             <GlobalStyle />
-            <Component {...otherPageProps} />
+            <Component {...pageProps} />
           </SelectedLayout>
         </AuthUserProvider>
       </APIProvider>

@@ -42,12 +42,6 @@ export default function TendencyCheck() {
 
 setLayout(TendencyCheck, ({ children }) => <div>{children}</div>);
 
-export const getServerSideProps = withAuth(async () => {
-  return {
-    props: {},
-  };
-});
-
 function HeadTemplate({ children }: { children: ReactNode }) {
   return (
     <>

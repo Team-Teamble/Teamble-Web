@@ -1,4 +1,3 @@
-import { atom } from "recoil";
 import { z } from "zod";
 
 export interface UserInfo {
@@ -8,11 +7,6 @@ export interface UserInfo {
   currentProjectId: number | null;
   isAlarmAvailable?: boolean;
 }
-
-export const authUserAtom = atom<UserInfo | null>({
-  key: "authUser",
-  default: null,
-});
 
 export const userInfoChecker = z.object({
   id: z.number(),

@@ -14,10 +14,10 @@ import { FieldsEditing } from "../../components/molecule/myPageView/FieldsEditin
 import { DocumentViewer } from "../../components/molecule/document/DocumentViewer";
 import { DocumentEditor } from "../../components/molecule/document/DocumentEditor";
 import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
-import { useUser } from "../../utils/hook/auth";
 import { BadRequestError, NotFoundError } from "../../api/util/error";
 import { ConfirmButton, StyledSearchBtn } from "../../components/atom/button/ConfirmButton";
 import { useAPILegacy } from "../../utils/hook/api";
+import { useUser } from "../../utils/hook/user";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;

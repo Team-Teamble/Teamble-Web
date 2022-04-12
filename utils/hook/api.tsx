@@ -1,19 +1,25 @@
 import axios from "axios";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { APIService, createAPIService } from "../../api";
 import { withErrorReplacer } from "../../api/util/axios";
+import { UnauthorizedError } from "../../api/util/error";
 
 const emptyFunc = () => {};
 const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
 
 interface APIContextValue {
-  api: APIService;
+  api: Readonly<APIService>;
+  isLoaded: boolean;
+  isAuthed: boolean;
   setAccessToken(accessToken: string): void;
   clearAccessToken(): void;
 }
 
 const APIContext = createContext<APIContextValue>({
   api: createAPIService({ axios: axios.create() }),
+  isLoaded: false,
+  isAuthed: false,
   clearAccessToken: emptyFunc,
   setAccessToken: emptyFunc,
 });
@@ -27,7 +33,9 @@ interface APIProviderProps {
 export function APIProvider(props: APIProviderProps) {
   const { children, endpoint } = props;
 
-  const [apiService, setApiService] = useState(() =>
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isAuthed, setIsAuthed] = useState(false);
+  const [apiService, setApiService] = useState<APIService>(() =>
     createAPIService({
       axios: withErrorReplacer(
         axios.create({
@@ -51,6 +59,8 @@ export function APIProvider(props: APIProviderProps) {
         ),
       }),
     );
+
+    setIsAuthed(true);
   }
 
   function clearAccessToken() {
@@ -64,6 +74,7 @@ export function APIProvider(props: APIProviderProps) {
         ),
       }),
     );
+    setIsAuthed(false);
   }
 
   function loadAccessToken() {
@@ -81,15 +92,19 @@ export function APIProvider(props: APIProviderProps) {
           ),
         }),
       );
+      setIsAuthed(true);
     }
   }
 
   useEffect(() => {
     loadAccessToken();
+    setIsLoaded(true);
   }, []);
 
   const contextValue: APIContextValue = {
     api: apiService,
+    isLoaded: isLoaded,
+    isAuthed,
     setAccessToken,
     clearAccessToken,
   };
@@ -97,10 +112,10 @@ export function APIProvider(props: APIProviderProps) {
   return <APIContext.Provider value={contextValue}>{children}</APIContext.Provider>;
 }
 
-export function useAPIService(): Readonly<APIService> {
-  const { api } = useContext(APIContext);
+export function useAPIService() {
+  const { api, isLoaded, isAuthed } = useContext(APIContext);
 
-  return api;
+  return { apiService: api, isLoaded, isAuthed };
 }
 
 export function useAPIAuth() {
@@ -112,16 +127,72 @@ export function useAPIAuth() {
   };
 }
 
+export function useAPI<Req extends unknown[], Res>(fn: (api: APIService) => (...args: Req) => Promise<Res>) {
+  const { apiService, isLoaded: isAuthLoaded } = useAPIService();
+  const router = useRouter();
+
+  const ref = useRef<{ resolve: (res: Res) => void; reject: (e: unknown) => void; request: Req } | null>(null);
+
+  async function request(...args: Req): Promise<Res> {
+    return new Promise((resolve, reject) => {
+      if (isAuthLoaded) {
+        f(...args)
+          .then(resolve)
+          .catch(reject);
+      } else {
+        ref.current = {
+          resolve,
+          reject,
+          request: args,
+        };
+      }
+    });
+  }
+
+  async function f(...args: Req): Promise<Res> {
+    const target = fn(apiService);
+    try {
+      const res = await target(...args);
+      return res;
+    } catch (err) {
+      if (err instanceof UnauthorizedError) {
+        console.log("REDIRECT!");
+        router.push("/login");
+      }
+      throw err;
+    }
+  }
+
+  useEffect(() => {
+    if (isAuthLoaded) {
+      if (ref.current !== null) {
+        const { request, resolve, reject } = ref.current;
+        ref.current = null;
+        f(...request)
+          .then(resolve)
+          .catch(reject);
+      }
+    }
+  }, [isAuthLoaded]);
+
+  return {
+    request,
+    isReady: isAuthLoaded,
+  };
+}
+
 interface APIHookResult<Req extends unknown[], Res> {
   request(...args: Req): Promise<Res | null>;
   data: Res | null;
   loading: boolean;
 }
 
+/** @deprecated */
 export function useAPILegacy<Req extends unknown[], Res>(
   fn: (api: APIService) => (...args: Req) => Promise<Res>,
 ): APIHookResult<Req, Res> {
-  const apiService = useAPIService();
+  const { apiService } = useAPIService();
+  const router = useRouter();
 
   const [data, setData] = useState<Res | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -134,6 +205,12 @@ export function useAPILegacy<Req extends unknown[], Res>(
       const res = await apiRequest(...args);
       setData(res);
       return res;
+    } catch (err) {
+      if (err instanceof UnauthorizedError) {
+        router.push("/login");
+        return null;
+      }
+      throw err;
     } finally {
       setLoading(false);
     }

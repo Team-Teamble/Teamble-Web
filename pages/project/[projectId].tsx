@@ -6,7 +6,7 @@ import { ProjectMember } from "../../components/organism/projectDetailView/Proje
 import { ProjectSummary } from "../../components/organism/projectDetailView/ProjectSummary";
 import { ProjectDetailTemplate } from "../../components/template/projectDetail/ProjectDetailTemplate";
 import { useAPILegacy } from "../../utils/hook/api";
-import { useUser } from "../../utils/hook/auth";
+import { useUser } from "../../utils/hook/user";
 import { withAuth } from "../../utils/ssr";
 
 interface ViewProjectProps {

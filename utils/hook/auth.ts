@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import { apiService, setAccessToken } from "../../api";
-import { authUserAtom, UserInfo } from "../../states/auth";
+import { UserInfo } from "../../states/auth";
 import { useAPIAuth } from "./api";
 
 const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
@@ -32,7 +31,6 @@ function useAuthDestroy() {
 export function useLogin({ redirect }: { redirect?: string }) {
   const router = useRouter();
   const authStore = useAuthStore();
-  const setUser = useSetRecoilState(authUserAtom);
 
   const apiAuth = useAPIAuth();
 
@@ -51,7 +49,6 @@ export function useLogin({ redirect }: { redirect?: string }) {
     authStore(res.accesstoken, user);
 
     setAccessToken(res.accesstoken);
-    setUser(user);
     if (redirect) {
       router.push(redirect);
     }
@@ -63,13 +60,11 @@ export function useLogin({ redirect }: { redirect?: string }) {
 export function useLogout({ redirect }: { redirect?: string }) {
   const router = useRouter();
   const destroy = useAuthDestroy();
-  const setUser = useSetRecoilState(authUserAtom);
 
   const apiAuth = useAPIAuth();
 
   async function request() {
     apiAuth.clearAccessToken();
-    setUser(null);
     await destroy();
     if (redirect) {
       destroy();
@@ -77,13 +72,4 @@ export function useLogout({ redirect }: { redirect?: string }) {
     }
   }
   return request;
-}
-
-export function useUser(): UserInfo | null {
-  const userInfo = useRecoilValue(authUserAtom);
-  return userInfo;
-}
-
-export function useSetUser() {
-  return useSetRecoilState(authUserAtom);
 }

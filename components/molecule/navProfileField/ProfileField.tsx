@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { useUser } from "../../../utils/hook/auth";
 import { AlertLink } from "../../atom/image/AlertImage";
 import { NavProfileName } from "../../atom/item/NavProfileName";
 import AlertOn from "../../../assets/svg/ic_bell_on.svg";
 import AlertOff from "../../../assets/svg/ic_bell_off.svg";
 import Link from "next/link";
+import { useUser } from "../../../utils/hook/user";
 
 export interface ProfileFieldProps {
   className?: string;

@@ -40,6 +40,8 @@ export function AuthUserProvider(props: AuthUserProviderProps) {
             throw e;
           }
         }
+      } else {
+        setUserInfo(null);
       }
     })();
   }, [isAuthed, apiService.auth]);

@@ -9,7 +9,6 @@ import { ProjectAPI } from "./project";
 import { createProjectAPIReal } from "./project/real";
 import { UserProfileAPI } from "./userProfile";
 import { createUserProfileReal } from "./userProfile/real";
-import { createAxiosSession, Session } from "./util/axios";
 import { PokeAPI } from "./poke";
 import { createPokeAPI } from "./poke/real";
 import { AxiosInstance } from "axios";
@@ -46,19 +45,5 @@ export function createAPIService(config: { axios: AxiosInstance }): APIService {
     project,
     userProfile,
     poke,
-  };
-}
-
-export const apiService = createAPIService({
-  axios: createAxiosSession(apiContext, process.env.NEXT_PUBLIC_API_ENDPOINT || ""),
-});
-
-export interface APIContext {
-  service: APIService;
-}
-
-export function createAPIContext(config: { session: Session }): APIContext {
-  return {
-    service: createAPIService({ axios: config.session.request }),
   };
 }

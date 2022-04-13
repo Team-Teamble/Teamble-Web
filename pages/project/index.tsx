@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { withAuth } from "../../utils/ssr";
-import { apiService } from "../../api";
 import styled from "styled-components";
 import { SearchProject as Main } from "../../components/template/searchProjectView/SearchProject";
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";

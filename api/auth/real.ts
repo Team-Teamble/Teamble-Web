@@ -8,7 +8,6 @@ export function createAuthAPIReal(session: Session): AuthAPI {
         email: data.email,
         password: data.password,
       });
-      console.log(res.data.data);
       return res.data.data;
     },
     async verify(): Promise<VerifyOutput> {

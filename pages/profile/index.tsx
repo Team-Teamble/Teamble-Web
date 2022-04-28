@@ -1,20 +1,31 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { withAuth } from "../../utils/ssr";
-import { apiService } from "../../api";
+import { useEffect, useRef, useState } from "react";
+
 import styled from "styled-components";
 import { SearchProject as Main } from "../../components/template/searchProjectView/SearchProject";
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProfileCard } from "../../components/molecule/profileCard/ProfileCard";
 import Link from "next/link";
-import { useAPI } from "../../utils/hook/api";
 import useInfinityScroll from "../../utils/hook/useInfinityScroll";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
+import { useQuery } from "react-query";
 
 export interface SearchMemberProps {
   memberMetadata: MemberMeta;
 }
 
-export default function SearchMember(props: SearchMemberProps) {
+export default function SearchMemberWrapper() {
+  const getFilterMetadata = useAPI((api) => api.member.getFilterMetadata);
+  const { isLoading, data } = useQuery("member.getFilterMetadata", () => getFilterMetadata.request());
+
+  if (isLoading || !data) {
+    return <div>Loading</div>;
+  }
+
+  return <SearchMember memberMetadata={data.member} />;
+}
+
+export function SearchMember(props: SearchMemberProps) {
   const requsetInitial = {
     positionId: 1,
     tagId: [1],
@@ -22,7 +33,7 @@ export default function SearchMember(props: SearchMemberProps) {
     count: 6,
     page: 1,
   };
-  const search = useAPI((api) => api.member.searchMembers);
+  const search = useAPILegacy((api) => api.member.searchMembers);
   const { memberMetadata: meta } = props;
   const [memberInfo, setMemberInfo] = useState<MemberInfo>({ memberCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(requsetInitial);
@@ -126,19 +137,6 @@ const ResetA = styled.a`
   outline: none;
 `;
 
-export const getServerSideProps = withAuth<SearchMemberProps>(async () => {
-  const [memberMetadata] = await Promise.all([apiService.member.getFilterMetadata()]);
-
-  return {
-    props: {
-      memberMetadata: memberMetadata.member,
-    },
-  };
-});
-
-interface HandleRequestUpdate {
-  <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;
-}
 interface MemberInfo {
   // 팀원들
   memberCard: {

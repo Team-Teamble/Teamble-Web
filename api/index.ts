@@ -9,9 +9,9 @@ import { ProjectAPI } from "./project";
 import { createProjectAPIReal } from "./project/real";
 import { UserProfileAPI } from "./userProfile";
 import { createUserProfileReal } from "./userProfile/real";
-import { createAxiosSession } from "./util/axios";
 import { PokeAPI } from "./poke";
 import { createPokeAPI } from "./poke/real";
+import { AxiosInstance } from "axios";
 
 export interface APIService {
   auth: AuthAPI;
@@ -26,17 +26,17 @@ export function setAccessToken(token: string | null) {
   apiContext.accessToken = token;
 }
 
-export function createAPIService(config: { endpoint: string }): APIService {
-  const axios = createAxiosSession(apiContext, config.endpoint);
+export function createAPIService(config: { axios: AxiosInstance }): APIService {
+  const axiosClient = {
+    request: config.axios,
+  };
 
-  const auth = createAuthAPIReal(axios);
-
-  const poke = createPokeAPI(axios);
-
-  const landing = createLandingAPIReal(axios);
-  const member = createMemberAPIReal(axios);
-  const project = createProjectAPIReal(axios);
-  const userProfile = createUserProfileReal(axios);
+  const auth = createAuthAPIReal(axiosClient);
+  const poke = createPokeAPI(axiosClient);
+  const landing = createLandingAPIReal(axiosClient);
+  const member = createMemberAPIReal(axiosClient);
+  const project = createProjectAPIReal(axiosClient);
+  const userProfile = createUserProfileReal(axiosClient);
 
   return {
     auth,
@@ -47,5 +47,3 @@ export function createAPIService(config: { endpoint: string }): APIService {
     poke,
   };
 }
-
-export const apiService = createAPIService({ endpoint: process.env.NEXT_PUBLIC_API_ENDPOINT || "" });

@@ -1,47 +1,17 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { apiService, setAccessToken } from "../../api";
-import { authUserAtom, UserInfo } from "../../states/auth";
-
-const localAPISession = axios.create({
-  baseURL: "/api/",
-});
-
-function useAuthStore() {
-  async function store(accessToken: string, user: UserInfo) {
-    await localAPISession.post("auth/store", { accessToken, user });
-  }
-
-  return store;
-}
-
-function useAuthDestroy() {
-  async function destroy() {
-    await localAPISession.post("auth/destroy");
-  }
-  return destroy;
-}
+import { useAPI, useAPIAuth } from "./api";
 
 export function useLogin({ redirect }: { redirect?: string }) {
   const router = useRouter();
-  const authStore = useAuthStore();
-  const setUser = useSetRecoilState(authUserAtom);
+
+  const apiAuth = useAPIAuth();
+  const login = useAPI((api) => api.auth.login);
 
   async function request(username: string, password: string) {
-    const res = await apiService.auth.login({ email: username, password });
+    const res = await login.request({ email: username, password });
 
-    const user = {
-      id: res.user.id,
-      name: res.user.name,
-      profilePic: res.user.photo,
-      currentProjectId: res.user.projectId,
-    };
+    apiAuth.setAccessToken(res.accesstoken);
 
-    authStore(res.accesstoken, user);
-
-    setAccessToken(res.accesstoken);
-    setUser(user);
     if (redirect) {
       router.push(redirect);
     }
@@ -52,25 +22,14 @@ export function useLogin({ redirect }: { redirect?: string }) {
 
 export function useLogout({ redirect }: { redirect?: string }) {
   const router = useRouter();
-  const destroy = useAuthDestroy();
-  const setUser = useSetRecoilState(authUserAtom);
+
+  const apiAuth = useAPIAuth();
 
   async function request() {
-    setUser(null);
-    await destroy();
+    apiAuth.clearAccessToken();
     if (redirect) {
-      destroy();
       router.push(redirect);
     }
   }
   return request;
-}
-
-export function useUser(): UserInfo | null {
-  const userInfo = useRecoilValue(authUserAtom);
-  return userInfo;
-}
-
-export function useSetUser() {
-  return useSetRecoilState(authUserAtom);
 }

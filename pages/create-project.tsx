@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { withAuth } from "../utils/ssr";
-import { apiService } from "../api";
 import styled from "styled-components";
 import { Intro } from "../components/organism/makeProjectView/Intro";
 import { Period } from "../components/organism/makeProjectView/Period";
@@ -19,19 +17,33 @@ import { formatISO } from "date-fns";
 import { ConfirmButton } from "../components/atom/button/ConfirmButton";
 import { teambleColors } from "../styles/color";
 import { AddMemberModal } from "../components/molecule/modal/AddMemberModal";
-import { useAPI } from "../utils/hook/api";
+import { useAPI, useAPILegacy } from "../utils/hook/api";
 import { useRouter } from "next/router";
 import { BadRequestError, NotFoundError } from "../api/util/error";
+import { useUser } from "../utils/hook/user";
+import { useQuery } from "react-query";
 export interface CreateProjectProps {
   className?: string;
   createProjectMetadata: CreateProjectMeta;
   user: UserInfo;
 }
 
-export default function CreateProject(props: CreateProjectProps) {
-  const addMember = useAPI((api) => api.project.addMemberToProject);
-  const createProject = useAPI((api) => api.project.createProject);
-  const addPicture = useAPI((api) => api.project.addPictureToProject);
+export default function CreateProjectWrapper() {
+  const user = useUser();
+  const getProjectMeta = useAPI((api) => api.project.getProjectMetadata);
+  const { isLoading, data } = useQuery("getProjectMetadata", () => getProjectMeta.request());
+
+  if (isLoading || !data || !user) {
+    return <div>Loading...</div>;
+  }
+
+  return <CreateProject user={user} createProjectMetadata={data.project} />;
+}
+
+export function CreateProject(props: CreateProjectProps) {
+  const addMember = useAPILegacy((api) => api.project.addMemberToProject);
+  const createProject = useAPILegacy((api) => api.project.createProject);
+  const addPicture = useAPILegacy((api) => api.project.addPictureToProject);
 
   const { createProjectMetadata: meta, className, user } = props;
   const editorRef = useRef<DocumentEditorRef>(null);
@@ -310,32 +322,6 @@ const StyledCreateButton = styled(ConfirmButton)`
   letter-spacing: -0.02em;
   color: ${teambleColors.deepPurple};
 `;
-export const getServerSideProps = withAuth<CreateProjectProps>(async (context, auth) => {
-  const { project } = await apiService.project.getProjectMetadata();
-
-  if (!auth.user) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  } else if (auth.user.currentProjectId) {
-    return {
-      redirect: {
-        destination: `/`,
-        permanent: false,
-      },
-    };
-  } else {
-    return {
-      props: {
-        user: auth.user,
-        createProjectMetadata: project,
-      },
-    };
-  }
-});
 
 interface HandleRequestUpdate {
   <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;

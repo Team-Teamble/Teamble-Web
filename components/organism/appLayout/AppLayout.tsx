@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Header } from "../header/Header";
 import { Footer } from "../footer/Footer";
-import { useUser } from "../../../utils/hook/auth";
 import { useRouter } from "next/router";
+import { useUser } from "../../../utils/hook/user";
 
 export interface AppLayoutProps {
   children?: ReactNode;

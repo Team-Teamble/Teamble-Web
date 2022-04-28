@@ -4,7 +4,6 @@ import { LogInForm } from "../components/organism/loginForm/LogInForm";
 import { LogInTemplate } from "../components/template/login/LogInTemplate";
 import { useLogin } from "../utils/hook/auth";
 import { useField } from "../utils/hook/field";
-import { withAuth } from "../utils/ssr";
 
 export default function Login() {
   const field = useField();
@@ -41,9 +40,3 @@ export default function Login() {
     />
   );
 }
-
-export const getServerSideProps = withAuth(async () => {
-  return {
-    props: {},
-  };
-});

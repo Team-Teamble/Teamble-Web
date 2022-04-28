@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { apiService } from "../../api";
 import { teambleColors } from "../../styles/color";
-import { withAuth } from "../../utils/ssr";
 import { MyPageMain } from "../../components/template/myPageView/MyPageMain";
 import { MyPageMainEditing } from "../../components/template/myPageView/MyPageViewEditing";
 import { ProfileBox } from "../../components/organism/myPageView/ProfileBox";
@@ -14,29 +12,56 @@ import { FieldsEditing } from "../../components/molecule/myPageView/FieldsEditin
 import { DocumentViewer } from "../../components/molecule/document/DocumentViewer";
 import { DocumentEditor } from "../../components/molecule/document/DocumentEditor";
 import { ProfileEditButton } from "../../components/atom/button/ProfileEditButton";
-import { useUser } from "../../utils/hook/auth";
-import { useAPI } from "../../utils/hook/api";
 import { BadRequestError, NotFoundError } from "../../api/util/error";
 import { ConfirmButton, StyledSearchBtn } from "../../components/atom/button/ConfirmButton";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
+import { useUser } from "../../utils/hook/user";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 interface ProfileByIdProps {
   userId: number;
   userProfileInfo: UserProfileInfo;
   userProfileMetadata: UserProfileMeta;
 }
 
-export default function ProfileById(props: ProfileByIdProps) {
-  const updatePicture = useAPI((api) => api.userProfile.updateProfilePicture);
+export default function ProfileByIdWrapper() {
+  const router = useRouter();
+  const { userId: userIdRaw } = router.query;
+  const userId = tryGetNumber(userIdRaw);
+
+  const getMetadata = useAPI((api) => api.userProfile.getMetadata);
+  const getProfileById = useAPI((api) => api.userProfile.getProfileById);
+
+  const metadata = useQuery("userProfile.getMetadata", () => getMetadata.request());
+  const profile = useQuery(["userProfile.getProfileById", userId], () => getProfileById.request(userId ?? -1), {
+    enabled: userId !== null,
+    retry: 0,
+  });
+
+  if (userId === null || profile.isError) {
+    return <div>404</div>;
+  }
+
+  if (metadata.isLoading || !metadata.data || profile.isLoading || !profile.data) {
+    return <div>Loading</div>;
+  }
+
+  return <ProfileById userId={userId} userProfileMetadata={metadata.data.user} userProfileInfo={profile.data.user} />;
+}
+
+export function ProfileById(props: ProfileByIdProps) {
+  const updatePicture = useAPILegacy((api) => api.userProfile.updateProfilePicture);
   const { userProfileInfo, userProfileMetadata: meta, userId } = props;
 
   const authedUser = useUser();
-  const updateUser = useAPI((api) => api.userProfile.updateProfile);
+  const updateUser = useAPILegacy((api) => api.userProfile.updateProfile);
 
   const [userInfo, setUserInfo] = useState<UserProfileInfo>(userProfileInfo);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [activeType, setActiveType] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [isPoked, setIsPoked] = useState(false);
-  const pokeUser = useAPI((api) => api.poke.pokeUser);
+  const pokeUser = useAPILegacy((api) => api.poke.pokeUser);
 
   useEffect(() => {
     setUserInfo(userProfileInfo);
@@ -188,29 +213,6 @@ const StyledConfirmWrapper = styled.div`
     padding: 0 2em;
   }
 `;
-export const getServerSideProps = withAuth<ProfileByIdProps>(async (context) => {
-  const userIdRaw = context.query.userId;
-  const userId = tryGetNumber(userIdRaw);
-
-  if (userId === null) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const [userProfileInfo, userProfileMetadata] = await Promise.all([
-    apiService.userProfile.getProfileById(userId),
-    apiService.userProfile.getMetadata(),
-  ]);
-
-  return {
-    props: {
-      userId,
-      userProfileInfo: userProfileInfo.user,
-      userProfileMetadata: userProfileMetadata.user,
-    },
-  };
-});
 
 function tryGetNumber(val: string | string[] | undefined): number | null {
   if (val !== undefined && !isNaN(+val)) {

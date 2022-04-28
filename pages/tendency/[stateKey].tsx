@@ -1,14 +1,16 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { TendencyResult } from "../../components/organism/tendency/TendencyResult";
 import { setLayout } from "../../utils/layout";
-import { withAuth } from "../../utils/ssr";
 
-interface TendencyProps {
-  stateKey: string;
-}
+export default function Tendency() {
+  const router = useRouter();
 
-export default function Tendency(props: TendencyProps) {
-  const { stateKey } = props;
+  const { stateKey } = router.query;
+
+  if (typeof stateKey !== "string" || !possibleKeys.includes(stateKey)) {
+    return <div>404</div>;
+  }
 
   return (
     <>
@@ -26,22 +28,6 @@ export default function Tendency(props: TendencyProps) {
 }
 
 setLayout(Tendency, ({ children }) => <div>{children}</div>);
-
-export const getServerSideProps = withAuth<TendencyProps>(async (context) => {
-  const stateKey = context.query.stateKey;
-
-  if (typeof stateKey !== "string" || !possibleKeys.includes(stateKey)) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      stateKey: stateKey,
-    },
-  };
-});
 
 const possibleKeys = [
   "C",

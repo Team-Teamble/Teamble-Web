@@ -1,19 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import { withAuth } from "../../utils/ssr";
-import { apiService } from "../../api";
 import styled from "styled-components";
 import { SearchProject as Main } from "../../components/template/searchProjectView/SearchProject";
 import { SingleDropDown as Single } from "../../components/molecule/drop-down/SingleDropDown";
 import { FilterGroupDropDown as Group } from "../../components/molecule/drop-down/FilterGroupDropDown";
 import { ProjectCard } from "../../components/molecule/projectCard/ProjectCard";
-import { useAPI } from "../../utils/hook/api";
 import useInfinityScroll from "../../utils/hook/useInfinityScroll";
+import { useAPI, useAPILegacy } from "../../utils/hook/api";
+import { useQuery } from "react-query";
 
 export interface SearchProjectProps {
   projectMetadata: ProjectMeta;
 }
 
-export default function SearchProject(props: SearchProjectProps) {
+export default function SearchProjectWrapper() {
+  const meta = useAPI((api) => api.project.getProjectMetadata);
+  const { isLoading, data } = useQuery("getProjectMetadata", () => meta.request());
+
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
+
+  return <SearchProject projectMetadata={data} />;
+}
+
+export function SearchProject(props: SearchProjectProps) {
   const initial = {
     periodId: 1, // 선택한 기간 id
     positionId: 1, // 선택한 협업 포지션 id
@@ -26,7 +36,7 @@ export default function SearchProject(props: SearchProjectProps) {
   const {
     projectMetadata: { project: meta },
   } = props;
-  const search = useAPI((api) => api.project.searchProject);
+  const search = useAPILegacy((api) => api.project.searchProject);
   const [projectInfo, setProjectInfo] = useState<ProjectInfo>({ projectCard: [] });
   const [requestInfo, setRequestInfo] = useState<RequestInfo>(initial);
   const [isMoreData, setIsMoreData] = useState<boolean>(true);
@@ -74,7 +84,6 @@ export default function SearchProject(props: SearchProjectProps) {
     }
     setRequestInfo(initial);
   }
-
   return (
     <StyledSearchProject>
       <StyledMain>
@@ -121,15 +130,6 @@ const StyledMain = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const getServerSideProps = withAuth<SearchProjectProps>(async () => {
-  const [projectMetadata] = await Promise.all([apiService.project.getSearchMetadata()]);
-
-  return {
-    props: {
-      projectMetadata: projectMetadata,
-    },
-  };
-});
 
 interface HandleRequestUpdate {
   <K extends keyof RequestInfo>(category: K, payload: RequestInfo[K]): void;

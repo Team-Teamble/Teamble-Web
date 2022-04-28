@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import { APIContext } from "../context";
 import { BadRequestError, NotFoundError, UnauthorizedError, UnknownAPIError } from "./error";
 
 export interface Session {
@@ -8,71 +7,25 @@ export interface Session {
 
 export type AxiosSession = AxiosInstance;
 
-export function createAxiosSession(context: APIContext, endpoint: string): Session {
-  const request = axios.create({
-    baseURL: endpoint,
-  });
-
-  context.addListener((ctx) => {
-    if (ctx.accessToken !== null) {
-      request.defaults.headers.common["X-Authorization-Token"] = ctx.accessToken;
-    } else {
-      delete request.defaults.headers.common["X-Authorization-Token"];
-    }
-  });
-
-  const proxyRequest = new Proxy(request, {
-    get(obj, prop) {
-      const target = obj[prop as keyof AxiosSession];
-
-      if (requestCalls.includes(prop as string)) {
-        const fn = target as (...args: unknown[]) => unknown;
-
-        return (...args: unknown[]) => {
-          const out = fn(...args);
-
-          if (isPromise(out)) {
-            return out.catch((e) => {
-              if (axios.isAxiosError(e)) {
-                const message = e.response?.data?.message ?? "";
-                if (e.response?.status === 401) {
-                  throw new UnauthorizedError(message);
-                } else if (e.response?.status === 400) {
-                  throw new BadRequestError(message);
-                } else if (e.response?.status === 404) {
-                  throw new NotFoundError(message);
-                } else {
-                  console.error(e);
-                  throw new UnknownAPIError(e.response?.status ?? -1);
-                }
-              }
-              throw e;
-            });
-          } else {
-            return out;
-          }
-        };
+export function withErrorReplacer(axiosCli: AxiosInstance) {
+  axiosCli.interceptors.response.use(
+    (config) => config,
+    (e) => {
+      if (axios.isAxiosError(e)) {
+        const message = e.response?.data?.message ?? "";
+        if (e.response?.status === 401) {
+          throw new UnauthorizedError(message);
+        } else if (e.response?.status === 400) {
+          throw new BadRequestError(message);
+        } else if (e.response?.status === 404) {
+          throw new NotFoundError(message);
+        } else {
+          console.error(e);
+          throw new UnknownAPIError(e.response?.status ?? -1);
+        }
       }
-
-      return target;
+      throw e;
     },
-  });
-
-  return {
-    request: proxyRequest,
-  };
-}
-
-const requestCalls = ["get", "post", "put", "delete", "patch", "head", "option"];
-
-function isPromise(obj: unknown): obj is Promise<unknown> {
-  if (typeof obj !== "object" || obj === null) {
-    return false;
-  }
-
-  if ("then" in obj) {
-    return true;
-  }
-
-  return false;
+  );
+  return axiosCli;
 }

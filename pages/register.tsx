@@ -2,13 +2,13 @@ import { useState } from "react";
 import { BadRequestError } from "../api/util/error";
 import { RegisterForm } from "../components/organism/register/RegisterForm";
 import { RegisterTemplate } from "../components/template/Register";
-import { useAPI } from "../utils/hook/api";
+import { useAPILegacy } from "../utils/hook/api";
 import { useRouter } from "next/router";
 import { useField } from "../utils/hook/field";
 
 export default function Register() {
   const field = useField();
-  const register = useAPI((api) => api.auth.register);
+  const register = useAPILegacy((api) => api.auth.register);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -47,9 +47,3 @@ export default function Register() {
     />
   );
 }
-
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
